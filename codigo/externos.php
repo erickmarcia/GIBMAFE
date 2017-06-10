@@ -102,6 +102,10 @@
 						</div>
 		  
 		
+				
+				</div>
+		</div>
+</div>
 				<form class="form-horizontal" role="form" id="datos_cotizacion">
 						<div class="form-group row">
 							<div class="col-md-5">
@@ -113,9 +117,6 @@
 								<span id="loader"></span>
 							</div>	
 						</div>
-				</div>
-		</div>
-</div>
 				</form>
 
 				<div class="col-xs-12 contenedor-section" ">
