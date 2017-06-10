@@ -98,7 +98,7 @@
 				<div class="col-xs-12 contenedor-section" ">
 				<?php 
 				include "funciones.php";
-				mostrartabla('tb_clientes','eliminarvendedor.php'); 
+				//mostrartabla('tb_clientes','eliminarvendedor.php'); 
 				?>	
 				</div>
 						<!-- Modal -->
