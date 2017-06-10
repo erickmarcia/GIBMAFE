@@ -59,7 +59,7 @@
 				<div class="col-xs-12 contenedor-section" ">
 				<?php 
 				include "funciones.php"; 
-				mostrartabla('tb_usuarios','eliminarvendedor.php');
+				//mostrartabla('tb_usuarios','eliminarvendedor.php');
 				?>	
 				</div>
 
