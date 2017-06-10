@@ -118,7 +118,7 @@
 			</form>
 				<div class="col-xs-12 contenedor-section" ">
 				<?php 
-									 			
+					/*				 			
 					$sql="SELECT * FROM  tb_productos ";
 					include("config.php");
 					$resultado = $conexion->query( $sql );
@@ -146,7 +146,7 @@
 							</tr>"	;
 
 					}
-					echo "	</table>";	
+					echo "	</table>";	*/
 
 				?>	
 				</div>
