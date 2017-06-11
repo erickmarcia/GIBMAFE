@@ -1,10 +1,10 @@
 <?php
 	/*manejando sesiones siempre va de primero el session para no mostrar el sitio si no hay un usuario conectado*/ 
-	//session_start();
-	//include "config.php";
+	session_start();
+	include "config.php";
 	// si el usuario esta conectado muestra el sitio de chat si no lo redirige al index para que se logee o se registre
-	//if (isset($_SESSION['usuario']))
-	 	//{
+	if (isset($_SESSION['usuario']))
+	{
 			
 ?>
 <!DOCTYPE html>
@@ -14,86 +14,74 @@
 	<title>Stock Disponible</title>	
 </head>
 <body> 
-	<?php 
-	include "inc/header.php";	
-	?>
+	<?php include "inc/header.php";	?>
 <section>
-	<div class="row">
-		<div class="contenedor-menu col-xs-12 col-sm-2 col-sd-2 ">
-				<?php include("inc/menu.php"); ?> 	
-		</div>
-		<div class=" col-xs-12 col-sm-10 col-sd-10 well">
-				<div class="container">
-				    <h4 id="">Stock Disponible</h4>
-				</div>
-		<div class="panel panel-success">
-			<div class="panel-heading">
-			    <div class="btn-group pull-right">
-			    	<button type="button" class="btn btn-success" ><span class="glyphicon glyphicon-print"></span> Imprimir </button>		
-				</div>
+	<div class="container">
+		<div class="row">
+			<div class="contenedor-menu col-xs-12 col-sm-2 col-sd-2 ">
+					<?php include("inc/menu.php"); ?> 	
 			</div>
-		</div>
-		<br>
-				<form class="form-horizontal" role="form" id="datos_cotizacion">
-						<div class="form-group row">
-							<div class="col-md-5">
-								<input type="text" class="form-control col-xs-12" id="q" placeholder="Codigo de Producto" onkeyup="load(1);">
+			<div class=" col-xs-12 col-sm-10 col-sd-10 well">
+					
+					    <h4 id="">Stock Disponible</h4>
+					    <div class="panel panel-success">
+						<div class="panel-heading">
+						    <div class="btn-group pull-right">
+						    	<button type="button" class="btn btn-success" ><span class="glyphicon glyphicon-print"></span> Imprimir </button>		
 							</div>
-							<div class="col-md-3">
-								<button type="button" class="btn btn-default col-xs-12" onclick="load(1);">
-									<span class="glyphicon glyphicon-search"></span> Buscar</button>
-								<span id="loader"></span>
-							</div>	
 						</div>
-				</form>
+						</div>
+						<br>
+							<form class="form-horizontal" role="form" id="datos_cotizacion">
+									<div class="form-group row">
+										<div class="col-md-5">
+											<input type="text" class="form-control col-xs-12" id="q" placeholder="Codigo de Producto" onkeyup="load(1);">
+										</div>
+										<div class="col-md-3">
+											<button type="button" class="btn btn-default col-xs-12" onclick="load(1);">
+												<span class="glyphicon glyphicon-search"></span> Buscar</button>
+											<span id="loader"></span>
+										</div>	
+									</div>
+							</form>
 
-				<div class="col-xs-12 contenedor-section" ">
-						<?php 				 			
-							$sql="SELECT * FROM  tb_productos ";
-							include("config.php");
-							$resultado = $conexion->query( $sql );
-							echo "	<table class='table table-condensed ' border=3px> 
-									<tr>
-											<td>Codigo Producto</td>
-											<td>Descripcion</td>
-											<td>Cantidad</td>
-											<td>Precio de compra</td>	
-											<td>Fecha registro</td>	
-											
-									</tr>";
+					   	<div class="col-xs-12 contenedor-section" ">
+							<?php 				 			
+								$sql="SELECT * FROM  tb_productos ";
+								include("config.php");
+								$resultado = $conexion->query( $sql );
+								echo "	<table class='table table-condensed ' border=3px> 
+										<tr>
+												<td>Codigo Producto</td>
+												<td>Descripcion</td>
+												<td>Cantidad</td>
+												<td>Precio de compra</td>	
+												<td>Fecha registro</td>								
+										</tr>";
 
-							while ($row=mysqli_fetch_row($resultado)) 
-							{
-								echo "<tr>
-											<td>".$row[0]."</td>
-											<td>".$row[1]."</td>	
-											<td>".$row[2]."</td>
-											<td>".$row[3]."</td>
-											<td>".$row[4]."</td>
-									</tr>"	;
-
-							}
-							echo "	</table>";	
-						?>	
-				</div>
+								while ($row=mysqli_fetch_row($resultado)) 
+								{
+									echo "<tr>
+												<td>".$row[0]."</td>
+												<td>".$row[1]."</td>	
+												<td>".$row[2]."</td>
+												<td>".$row[3]."</td>
+												<td>".$row[4]."</td>
+										</tr>"	;
+								}
+								echo "	</table>";	
+							?>	
+					</div>
 			</div>		
+		</div>		
 	</div>					
 </section>
-		
-			
 		<?php
-		 //}else{
-			
-		//	header("location: .php");
-			
-		// }
+		}else{
+			header("location: index.php");
+		}
 			include "inc/footer.php";
  		?>
- 		
-
-   
 </body>
 </html>
 
-
-			
