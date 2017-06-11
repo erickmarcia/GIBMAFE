@@ -30,159 +30,61 @@
 	else
 	{
 		echo "<script> alert ('Verifique los datos ingresados') </script>";
-   		
-
 	}
 	}		
 ?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
-	<?php include ("inc/headcommon.php");
-
-	
-	?>
+	<?php include ("inc/headcommon.php");	?>
 	<title>GIBMAFE | movimientos</title>
 </head>
 <body> 
 <?php
 	/*manejando sesiones siempre va de primero el session para no mostrar el sitio si no hay un usuario conectado*/ 
-	// session_start();
-	// include "config.php";
+	session_start();
+	 include "config.php";
 	// si el usuario esta conectado muestra el sitio de chat si no lo redirige al index para que se logee o se registre
-	// 	if (isset($_SESSION['usuario']))
-	// 	{
+	 	if (isset($_SESSION['usuario']))
+	 	{
 	include "inc/header.php";			
-			?>
-	<section>
-				<div class="row">
+?>
+<section>
+	<div class="container">
+		<div class="row">
 				<div class="contenedor-menu col-xs-12 col-sm-2 col-sd-2 ">
-				<?php include("inc/menu.php"); ?> 	
+					<?php include("inc/menu.php"); ?> 	
 				</div>
 				<div class=" col-xs-12 col-sm-10 col-sd-10 well">
-				    <div class="container">
-				    <h4 id="">Movimientos</h4>
-	<div class="panel panel-success">
-		
-		<div class="panel-heading">
-		    <div class="btn-group pull-right">
-		   		<button type="button" class="btn btn-success" data-toggle="modal" data-target="#nuevovendedor"><span class="glyphicon glyphicon-plus"></span> Nuevo </button>
-		    	<button type="button" class="btn btn-success" ><span class="glyphicon glyphicon-print"></span> Imprimir </button>		
-			</div>
-			
-		</div>
-		<br>
-		<div class="panel-body">
-		
-			
-			
-					<!-- Modal -->
-	<div class="modal fade" id="nuevovendedor" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-	  <div class="modal-dialog" role="document">
-		<div class="modal-content">
-		  <div class="modal-header">
-			<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-			<h4 class="modal-title" id="myModalLabel"><i class="glyphicon glyphicon-edit"></i> Agregar nuevo Movimiento</h4>
-		  </div>
-		  <div class="modal-body">
-			<form class="form-horizontal" method="post" id="guardar_vendedor" name="guardar_vendedor">
-			<div id="resultados_ajax"></div>
-				<div class="form-group">
-				<label for="codigo_producto"  class="col-sm-3 control-label">Codigo del producto</label>
-				<div class="col-sm-8">
-				  <input type="text" pattern="[0-9]{1,5}" maxlength="5" class="form-control" id="codigo_producto" name="codigo_producto" required="">
-				</div>
-			  	</div>
-			  
-				<div class="form-group">
-				<label for="Descripcion" class="col-sm-3 control-label">Descripcion</label>
-				<div class="col-sm-8">
-				  <input type="text" pattern="[a-zA-Z0-9]{1,30}" maxlength="30" class="form-control" id="Descripcion" name="Descripcion" required="">
-				</div>
-			  	</div>
-			  
-			  <div class="form-group">
-				<label for="cantidad" class="col-sm-3 control-label">Cantidad</label>
-				<div class="col-sm-8">
-					<input type="text" pattern="[0-9]{1,10}" maxlength="10" class="form-control" id="cantidad" name="cantidad" required="">
-				  
-				</div>
-			  </div>	 
-
-			  <div class="form-group">
-				<label for="tipo_movimiento" class="col-sm-3 control-label">Tipo de Movimiento</label>
-				<div class="col-sm-8">
-					<select  name="tipo_movimiento">	
-					<option value="1">Venta</option>
-					<option value="2">Abastecimiento</option>
-					<option value="3">Garantia</option>
-					<option value="4">Averia</option>
-					<option value="5">Devolucion</option>
-					</select> 
-				  
-				</div>
-			  </div>
-
-			  <div class="form-group">
-				<label for="valor_movimiento" class="col-sm-3 control-label">Valor Movimiento</label>
-				<div class="col-sm-8">
-					<input type="text" pattern="[0-9]{1,10}" maxlength="10" class="form-control" id="valor_movimiento" name="valor_movimiento" required="">
-				  
-				</div>
-			  </div>	
-
-			  <div class="form-group">
-				<label for="Factura" class="col-sm-3 control-label">Factura</label>
-				<div class="col-sm-8">
-					<input type="text" pattern="[0-9]{1,15}" maxlength="15" class="form-control" id="Factura" name="Factura" required="">
-				  
-				</div>
-			  </div>	
-
-			  <div class="form-group">
-				<label for="codigo_proveedor" class="col-sm-3 control-label">identificacion Externo</label>
-				<div class="col-sm-8">
-					<input type="text" pattern="[0-9]{1,5}" maxlength="5" class="form-control" id="codigo_proveedor" name="codigo_proveedor" required="">
-				  
-				</div>
-			  </div>	
-			
-				<div class="form-group">
-				<label for="usuario" class="col-sm-3 control-label">Usuario</label>
-				<div class="col-sm-8">
-					<input type="text" pattern="[0-9]{1,15}" maxlength="15" class="form-control" id="usuario" name="usuario" required="">
-				  
-				</div>
-			  </div>	
-		  </div>
-		  <div class="modal-footer">
-			<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-			<button type="submit" class="btn btn-primary" name="enviar">Guardar datos</button>
-			</form>
-		  </div>
-		  
-		</div>
-	  </div>
-	</div>
-
-				<form class="form-horizontal" role="form" id="datos_cotizacion">
-				
-						<div class="form-group row">
-							
-							<div class="col-md-5">
-								<input type="text" class="form-control col-xs-12" id="q" placeholder="Codigo del Producto" onkeyup="load(1);">
-							</div>
-							<div class="col-md-3">
-								<button type="button" class="btn btn-default col-xs-12" onclick="load(1);">
-									<span class="glyphicon glyphicon-search"></span> Buscar</button>
-								<span id="loader"></span>
-							</div>
-							
+				    
+				    	<h4 id="">Movimientos</h4>
+				<div class="panel panel-success">
+					
+					<div class="panel-heading">
+					    <div class="btn-group pull-right">
+					   		<button type="button" class="btn btn-success" data-toggle="modal" data-target="#nuevovendedor"><span class="glyphicon glyphicon-plus"></span> Nuevo </button>
+					    	<button type="button" class="btn btn-success" ><span class="glyphicon glyphicon-print"></span> Imprimir </button>		
 						</div>
-				
-				
-				
-			</form>
+						
+					</div>
+					<br>
+					<div class="panel-body">
+
+							<form class="form-horizontal" role="form" id="datos_cotizacion">
+							
+									<div class="form-group row">
+										
+										<div class="col-md-5">
+											<input type="text" class="form-control col-xs-12" id="q" placeholder="Codigo del Producto" onkeyup="load(1);">
+										</div>
+										<div class="col-md-3">
+											<button type="button" class="btn btn-default col-xs-12" onclick="load(1);">
+												<span class="glyphicon glyphicon-search"></span> Buscar</button>
+											<span id="loader"></span>
+										</div>
+										
+									</div>
+							</form>
 				<div class="col-xs-12 contenedor-section" ">
 					<?php 
 					$enlaceeli='eliminardato.php';	
@@ -229,119 +131,179 @@
 
 					}
 					echo "	</table>";	
-
-			
 				?>		
 				</div>
+																		<!-- Modal -->
+							<div class="modal fade"id="nuevovendedor" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+							  <div class="modal-dialog" role="document">
+								<div class="modal-content">
+								  <div class="modal-header">
+									<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+									<h4 class="modal-title" id="myModalLabel"><i class="glyphicon glyphicon-edit"></i> Agregar nuevo Movimiento</h4>
+								  </div>
+								  <div class="modal-body">
+									<form class="form-horizontal" method="post" id="guardar_vendedor" name="guardar_vendedor">
+									<div id="resultados_ajax"></div>
+										<div class="form-group">
+										<label for="codigo_producto"  class="col-sm-3 control-label">Codigo del producto</label>
+										<div class="col-sm-8">
+										  <input type="text" pattern="[0-9]{1,5}" maxlength="5" class="form-control" id="codigo_producto" name="codigo_producto" required="">
+										</div>
+									  	</div>
+									  
+										<div class="form-group">
+										<label for="Descripcion" class="col-sm-3 control-label">Descripcion</label>
+										<div class="col-sm-8">
+										  <input type="text" pattern="[a-zA-Z0-9]{1,30}" maxlength="30" class="form-control" id="Descripcion" name="Descripcion" required="">
+										</div>
+									  	</div>
+									  
+									  <div class="form-group">
+										<label for="cantidad" class="col-sm-3 control-label">Cantidad</label>
+										<div class="col-sm-8">
+											<input type="text" pattern="[0-9]{1,10}" maxlength="10" class="form-control" id="cantidad" name="cantidad" required="">
+										  
+										</div>
+									  </div>	 
 
-						<!-- Modal -->
-	<div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-	  <div class="modal-dialog" role="document">
-		<div class="modal-content">
-		  <div class="modal-header">
-			<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-			<h4 class="modal-title" id="myModalLabel"><i class="glyphicon glyphicon-edit"></i> Editar vendedor</h4>
-		  </div>
-		  <div class="modal-body">
-			<form class="form-horizontal" method="post" id="editar_vendedor" name="editar_vendedor">
-			<div id="resultados_ajax2"></div>
-			 	<div class="form-group">
-				<label for="codigo_producto"  class="col-sm-3 control-label">Codigo del producto</label>
-				<div class="col-sm-8">
-				  <input type="text" pattern="[0-9]{1,5}" maxlength="5" class="form-control" id="codigo_producto" name="codigo_producto" required="">
-				</div>
-			  	</div>
-			  
-				<div class="form-group">
-				<label for="Descripcion" class="col-sm-3 control-label">Descripcion</label>
-				<div class="col-sm-8">
-				  <input type="text" pattern="[a-zA-Z0-9]{1,30}" maxlength="30" class="form-control" id="Descripcion" name="Descripcion" required="">
-				</div>
-			  	</div>
-			  
-			  <div class="form-group">
-				<label for="cantidad" class="col-sm-3 control-label">Cantidad</label>
-				<div class="col-sm-8">
-					<input type="text" pattern="[0-9]{1,10}" maxlength="10" class="form-control" id="cantidad" name="cantidad" required="">
-				  
-				</div>
-			  </div>	 
+									  <div class="form-group">
+										<label for="tipo_movimiento" class="col-sm-3 control-label">Tipo de Movimiento</label>
+										<div class="col-sm-8">
+											<select  name="tipo_movimiento">	
+											<option value="1">Venta</option>
+											<option value="2">Abastecimiento</option>
+											<option value="3">Garantia</option>
+											<option value="4">Averia</option>
+											<option value="5">Devolucion</option>
+											</select> 
+										  
+										</div>
+									  </div>
 
-			  <div class="form-group">
-				<label for="precio_compra" class="col-sm-3 control-label">Precio de Compra</label>
-				<div class="col-sm-8">
-					<input type="text" pattern="[0-9]{1,10}" maxlength="10" class="form-control" id="precio_compra" name="precio_compra" required="">
-				  
-				</div>
-			  </div>	
+									  <div class="form-group">
+										<label for="valor_movimiento" class="col-sm-3 control-label">Valor Movimiento</label>
+										<div class="col-sm-8">
+											<input type="text" pattern="[0-9]{1,10}" maxlength="10" class="form-control" id="valor_movimiento" name="valor_movimiento" required="">
+										  
+										</div>
+									  </div>	
 
-			  <div class="form-group">
-				<label for="Factura" class="col-sm-3 control-label">Factura</label>
-				<div class="col-sm-8">
-					<input type="text" pattern="[0-9]{1,15}" maxlength="15" class="form-control" id="Factura" name="Factura" required="">
-				  
-				</div>
-			  </div>	
+									  <div class="form-group">
+										<label for="Factura" class="col-sm-3 control-label">Factura</label>
+										<div class="col-sm-8">
+											<input type="text" pattern="[0-9]{1,15}" maxlength="15" class="form-control" id="Factura" name="Factura" required="">
+										  
+										</div>
+									  </div>	
 
-			  <div class="form-group">
-				<label for="codigo_proveedor" class="col-sm-3 control-label">Codigo Proveedor</label>
-				<div class="col-sm-8">
-					<input type="text" pattern="[0-9]{1,5}" maxlength="5" class="form-control" id="codigo_proveedor" name="codigo_proveedor" required="">
-				  
-				</div>
-			  </div>	
-			
-				<div class="form-group">
-				<label for="documento_almacenista" class="col-sm-3 control-label">Documento Almacenista</label>
-				<div class="col-sm-8">
-					<input type="text" pattern="[0-9]{1,15}" maxlength="15" class="form-control" id="documento_almacenista" name="documento_almacenista" required="">
-				  
-				</div>
-			 
-			 
-			
-		  </form></div>
-		  <div class="modal-footer">
-			<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-			<button type="submit" class="btn btn-primary" id="actualizar_datos">Actualizar datos</button>
-		  </div>
-		  
+									  <div class="form-group">
+										<label for="codigo_proveedor" class="col-sm-3 control-label">identificacion Externo</label>
+										<div class="col-sm-8">
+											<input type="text" pattern="[0-9]{1,5}" maxlength="5" class="form-control" id="codigo_proveedor" name="codigo_proveedor" required="">
+										  
+										</div>
+									  </div>	
+									
+										<div class="form-group">
+										<label for="usuario" class="col-sm-3 control-label">Usuario</label>
+										<div class="col-sm-8">
+											<input type="text" pattern="[0-9]{1,15}" maxlength="15" class="form-control" id="usuario" name="usuario" required="">
+										  
+										</div>
+									  </div>	
+								  </div>
+								  <div class="modal-footer">
+									<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+									<button type="submit" class="btn btn-primary" name="enviar">Guardar datos</button>
+									</form>
+								  </div>
+								  
+								</div>
+							  </div>
+							</div>
+														<!-- Modal -->
+							<div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+							  <div class="modal-dialog" role="document">
+								<div class="modal-content">
+								  <div class="modal-header">
+									<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+									<h4 class="modal-title" id="myModalLabel"><i class="glyphicon glyphicon-edit"></i> Editar vendedor</h4>
+								  </div>
+								  <div class="modal-body">
+									<form class="form-horizontal" method="post" id="editar_vendedor" name="editar_vendedor">
+									<div id="resultados_ajax2"></div>
+									 	<div class="form-group">
+										<label for="codigo_producto"  class="col-sm-3 control-label">Codigo del producto</label>
+										<div class="col-sm-8">
+										  <input type="text" pattern="[0-9]{1,5}" maxlength="5" class="form-control" id="codigo_producto" name="codigo_producto" required="">
+										</div>
+									  	</div>
+									  
+										<div class="form-group">
+										<label for="Descripcion" class="col-sm-3 control-label">Descripcion</label>
+										<div class="col-sm-8">
+										  <input type="text" pattern="[a-zA-Z0-9]{1,30}" maxlength="30" class="form-control" id="Descripcion" name="Descripcion" required="">
+										</div>
+									  	</div>
+									  
+									  <div class="form-group">
+										<label for="cantidad" class="col-sm-3 control-label">Cantidad</label>
+										<div class="col-sm-8">
+											<input type="text" pattern="[0-9]{1,10}" maxlength="10" class="form-control" id="cantidad" name="cantidad" required="">
+										  
+										</div>
+									  </div>	 
+
+									  <div class="form-group">
+										<label for="precio_compra" class="col-sm-3 control-label">Precio de Compra</label>
+										<div class="col-sm-8">
+											<input type="text" pattern="[0-9]{1,10}" maxlength="10" class="form-control" id="precio_compra" name="precio_compra" required="">
+										  
+										</div>
+									  </div>	
+
+									  <div class="form-group">
+										<label for="Factura" class="col-sm-3 control-label">Factura</label>
+										<div class="col-sm-8">
+											<input type="text" pattern="[0-9]{1,15}" maxlength="15" class="form-control" id="Factura" name="Factura" required="">
+										  
+										</div>
+									  </div>	
+
+									  <div class="form-group">
+										<label for="codigo_proveedor" class="col-sm-3 control-label">Codigo Proveedor</label>
+										<div class="col-sm-8">
+											<input type="text" pattern="[0-9]{1,5}" maxlength="5" class="form-control" id="codigo_proveedor" name="codigo_proveedor" required="">
+										  
+										</div>
+									  </div>	
+									
+										<div class="form-group">
+										<label for="documento_almacenista" class="col-sm-3 control-label">Documento Almacenista</label>
+										<div class="col-sm-8">
+											<input type="text" pattern="[0-9]{1,15}" maxlength="15" class="form-control" id="documento_almacenista" name="documento_almacenista" required="">
+										</div>
+								  </form></div>
+								  <div class="modal-footer">
+									<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+									<button type="submit" class="btn btn-primary" id="actualizar_datos">Actualizar datos</button>
+								  </div>
+								  
+								</div>
+							  </div>
+							</div>	
+				</div> 
+			</div>
 		</div>
-	  </div>
-	</div>	
-		
-	
-			
-			
-			
-  </div>
-</div>
-		 
 	</div>
-	<hr>
-	<div class="navbar navbar-default navbar-fixed-bottom">
-    <div class="container">
-      
-   </div>
-</div>
-
-				</div>
-			
-				</div>
-						
-	</section>
-		
-	
+</section>
 		<?php
-		// }else{
-			
-		// 	header("location: index.php");
-			
-		// }
+		}else{	
+			header("location: index.php");	
+		 }
 			include "inc/footer.php";
  		?>
- 		
-<script src="https://code.jquery.com/jquery-3.2.1.js"></script>
-<script src="js/bootstrap.min.js"></script>
+	<script src="https://code.jquery.com/jquery-3.2.1.js"></script>
+	<script src="js/bootstrap.min.js"></script>
 </body>
 </html>
