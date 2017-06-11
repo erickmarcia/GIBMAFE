@@ -15,14 +15,8 @@
 	$contraseña= $conexion->real_escape_string($_POST['contraseña']);
 	$repitecontraseña= $conexion->real_escape_string($_POST['repitecontrasena']);
 	date_default_timezone_set("america/bogota");
-	$fecha_registro=date('y:m:d:h:i:s');
-	echo $fecha_registro;
-	$activo=0;
+	$fecha_registro=date('Y-m-d H:i:s');
 	
-	
-
-	
-
 	if (isnull($usuario, $nombre, $celular, $email, $contraseña, $repitecontraseña, $fecha_registro)) {
 		$errors[]= "Debe llenar todos los campos";
 	}
@@ -46,14 +40,14 @@
 	if (count($errors)==0) {
 		
 
-			$registro= registrousuario($usuario, $contraseña, $nombre, $celular, $email, $fecha_registro);
+			$registro= registroUsuario($usuario, $contraseña, $nombre, $celular, $email, $fecha_registro);	
 
 			if ($registro > 0) {
-				echo "<br/><a href='index.php'>Iniciar Sesión</a>";
+				header("location: stockdispo.php");
 					exit;
 				
 			}else{
-					$errors[]='Error al regitrar';
+					$errors[]='Error al registrar';
 			}
 		
 	}
