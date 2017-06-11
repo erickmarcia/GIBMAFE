@@ -299,19 +299,24 @@ PASSWORD_DEFAULT - Usar el algoritmo bcrypt (predeterminado a partir de PHP 5.5.
 	$hash=password_hash($contraseña, PASSWORD_DEFAULT);
 	return $hash;
 }
-////////////////////////////////////////////////////////////////////////////////7
-function registrousuario($usuario, $contraseña, $nombre, $celular, $email, $fecha_registro){
+////////////////////////////////////////////////////////////////////////////////
+function registroUsuario($usuario, $contraseña, $nombre, $celular, $email, $fecha_registro){
 
 		global $conexion;
-
-		$stmt= $conexion->prepare("INSERT INTO tb_usuarios (usuario, contraseña, nombre, celular, correo, fecha_registro) VALUES (?,?,?,?,?,?)");
+		//$sql="INSERT INTO tb_usuarios (usuario, pass, nombre, celular, correo, fecha_registro) VALUES ($usuario, $contraseña, $nombre, $celular, $email, $fecha_registro)";
+		//echo $sql;
+		$stmt=$conexion->prepare("INSERT INTO tb_usuarios (usuario, pass, nombre, celular, correo, fecha_registro) VALUES (?,?,?,?,?,?)");
 		$stmt->bind_param('ssssss', $usuario, $contraseña, $nombre, $celular, $email, $fecha_registro);
-
- 		if ($stmt->execute()) {
- 			return $conexion->insert_id;
- 		}else{
- 			return 0;
- 		}
+	 	$stmt->execute();
+		//verificamos el numero de resultados
+		$num= $stmt->affected_rows;
+		//validamos el numero de resultados
+		if ($num > 0) 
+		{
+			return true;
+		}else{
+			return false;
+		}
 }
 ////////////////////////////////////////////////////////////////////////////////7
 function registros($tabla, $camposbd, $valoresusu){
@@ -366,5 +371,18 @@ function resultblock($errors){
 		echo "</ul>";
 		echo "</div>";	
 	}
+}
+////////////////////////////////////////////////////////////////////////////////
+function isnulllogin($usuario, $contraseña){
+	if (strlen(trim($usuario)) < 1 || strlen(trim($contraseña)) < 1 ) 
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+		
+	
 }
 ?>
