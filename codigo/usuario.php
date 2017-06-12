@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
 	<?php include ("inc/headcommon.php");?>
-	<title>Usuario</title>	
+	<title>GIBMAFE | Usuario</title>	
 </head>
 <body> 
 <?php
@@ -18,11 +18,13 @@
 	<div class="container">
 		<div class="row">
 			<div class="contenedor-menu col-xs-12 col-sm-2 col-sd-2 ">
-			<?php include("inc/menu.php"); ?> 	
+			<div class="smenu ">
+					<?php include("inc/menu.php"); ?> 	
 			</div>
-			<div class=" col-xs-12 col-sm-10 col-sd-10 well">
+			</div>
+			<div class="contenedor-section0	 col-xs-12 col-sm-10 col-sd-10 ">
 				    
-				    <h4 id="">Usuarios</h4>
+				    <h4 id="">Administrador</h4>
 				<div class="panel panel-success">	
 					<div class="panel-heading">
 					    <div class="btn-group pull-right">
@@ -92,6 +94,9 @@
 <script src="js/bootstrap.min.js"></script>
 </body>
 </html>
+
+
+		
 
 
 		
