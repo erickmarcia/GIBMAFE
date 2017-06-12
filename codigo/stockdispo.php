@@ -11,7 +11,7 @@
 <html lang="es">
 <head>
 	<?php include ("inc/headcommon.php");?>
-	<title>Stock Disponible</title>	
+	<title>GIBMAFE | Disponible</title>	
 </head>
 <body> 
 	<?php include "inc/header.php";	?>
@@ -19,9 +19,11 @@
 	<div class="container">
 		<div class="row">
 			<div class="contenedor-menu col-xs-12 col-sm-2 col-sd-2 ">
+				<div class="smenu ">
 					<?php include("inc/menu.php"); ?> 	
-			</div>
-			<div class=" col-xs-12 col-sm-10 col-sd-10 well">
+				</div>
+				</div>
+				<div class="contenedor-section0	 col-xs-12 col-sm-10 col-sd-10 ">
 					
 					    <h4 id="">Stock Disponible</h4>
 					    <div class="panel panel-success">
@@ -30,8 +32,7 @@
 						    	<button type="button" class="btn btn-success" ><span class="glyphicon glyphicon-print"></span> Imprimir </button>		
 							</div>
 						</div>
-						</div>
-						<br>
+						<div class="panel-body">
 							<form class="form-horizontal" role="form" id="datos_cotizacion">
 									<div class="form-group row">
 										<div class="col-md-5">
@@ -45,34 +46,37 @@
 									</div>
 							</form>
 
-					   	<div class="col-xs-12 contenedor-section" ">
-							<?php 				 			
-								$sql="SELECT * FROM  tb_productos ";
-								include("config.php");
-								$resultado = $conexion->query( $sql );
-								echo "	<table class='table table-condensed ' border=3px> 
-										<tr>
-												<td>Codigo Producto</td>
-												<td>Descripcion</td>
-												<td>Cantidad</td>
-												<td>Precio de compra</td>	
-												<td>Fecha registro</td>								
-										</tr>";
+									   	<div class="col-xs-12 contenedor-section" ">
+											<?php 				 			
+												$sql="SELECT * FROM  tb_disponibles ";
+												include("config.php");
+												$resultado = $conexion->query( $sql );
+												echo "	<table class='table table-condensed ' border=3px> 
+														<tr>
+																<td>Codigo Producto</td>
+																<td>Descripcion</td>
+																<td>Cantidad</td>
+																<td>Estado</td>
+																<td>Precio de compra</td>	
+																<td>Fecha registro</td>								
+														</tr>";
 
-								while ($row=mysqli_fetch_row($resultado)) 
-								{
-									echo "<tr>
-												<td>".$row[0]."</td>
-												<td>".$row[1]."</td>	
-												<td>".$row[2]."</td>
-												<td>".$row[3]."</td>
-												<td>".$row[4]."</td>
-										</tr>"	;
-								}
-								echo "	</table>";	
-							?>	
-					</div>
-			</div>		
+												while ($row=mysqli_fetch_row($resultado)) 
+												{
+													echo "<tr>
+																<td>".$row[0]."</td>
+																<td>".$row[1]."</td>
+																<td>".$row[2]."</td>	
+																<td>".$row[3]."</td>
+																<td>".$row[4]."</td>
+																<td>".$row[5]."</td>
+														</tr>"	;
+												}
+												echo "	</table>";	
+											?>	
+										</div>
+						</div>
+						</div>		
 		</div>		
 	</div>					
 </section>
@@ -84,4 +88,3 @@
  		?>
 </body>
 </html>
-
