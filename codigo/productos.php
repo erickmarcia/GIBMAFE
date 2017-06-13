@@ -28,7 +28,7 @@
 <html lang="es">
 <head>
 	<?php include ("inc/headcommon.php");?>
-	<title>Productos</title>	
+	<title>GIBMAFE | Productos</title>	
 </head>
 <body> 
 	<?php
@@ -44,22 +44,23 @@
 	<div class="container">
 		<div class="row">
 			<div class="contenedor-menu col-xs-12 col-sm-2 col-sd-2 ">
+				<div class="smenu ">
 					<?php include("inc/menu.php"); ?> 	
+				</div>
 			</div>
-			<div class=" col-xs-12 col-sm-10 col-sd-10 well">
+			<div class="contenedor-section0	 col-xs-12 col-sm-10 col-sd-10 ">
 			
 				    <h4 id="">Productos</h4>
 					<div class="panel panel-success">
-							
+								
 							<div class="panel-heading">
 							    <div class="btn-group pull-right">
 							   		<button type="button" class="btn btn-success" data-toggle="modal" data-target="#nuevovendedor"><span class="glyphicon glyphicon-plus"></span> Nuevo </button>
 							    	<button type="button" class="btn btn-success" ><span class="glyphicon glyphicon-print"></span> Imprimir </button>		
 								</div>
-								
 							</div>
-							<br>
-						<form class="form-horizontal" role="form" id="datos_cotizacion">
+							<div class="panel-body">
+								<form class="form-horizontal" role="form" id="datos_cotizacion">
 								<div class="form-group row">
 									
 									<div class="col-md-5">
@@ -71,8 +72,10 @@
 										<span id="loader"></span>
 									</div>
 								</div>
-						</form>
+								</form>
 						<div class="col-xs-12 contenedor-section" ">
+						<br>
+
 						<?php 
 											 			
 							$sql="SELECT * FROM  tb_productos ";
@@ -82,7 +85,6 @@
 									<tr>
 											<td>Codigo Producto</td>
 											<td>Descripcion</td>
-											<td>Cantidad</td>
 											<td>Precio de compra</td>	
 											<td>Fecha registro</td>	
 											<td>editar</td>
@@ -96,16 +98,18 @@
 											<td>".$row[1]."</td>	
 											<td>".$row[2]."</td>
 											<td>".$row[3]."</td>
-											<td>".$row[4]."</td>
 											<td><button class='glyphicon glyphicon-pencil' data-toggle='modal' data-target='#myModal2'></button></a></td>
-											<td><a id='eliminarnegro' href='$enlaceeli?codigo=$row[0]&tabla=$tabla&enlacefinal=$enlacefinal&primarykey=$primarykey' ><button class='glyphicon glyphicon-trash'></button></a></td>
+											<td><a id='eliminarnegro' href='eliminardato.php?codigo=$row[0]&tabla=tb_productos&enlacefinal=productos.php&primarykey=cod_producto' ><button class='glyphicon glyphicon-trash'></button></a></td>
 									</tr>"	;
 
 							}
 							echo "	</table>";	
 						?>	
 						</div>
-							
+					</div>		
+						
+						
+						
 										<!-- Modal -->
 						<div class="modal fade" id="nuevovendedor" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 						  <div class="modal-dialog" role="document">
@@ -183,8 +187,10 @@
 	</div>				
 </section>
 	<?php
-			 }else{	
+			 }else{
+				
 			 	header("location: index.php");
+				
 			 }
 				include "inc/footer.php";
 	?>
@@ -192,6 +198,3 @@
 	<script src="js/bootstrap.min.js"></script>
 </body>
 </html>
-
-
-		
