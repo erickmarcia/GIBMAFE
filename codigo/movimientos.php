@@ -37,7 +37,7 @@
 <html lang="es">
 <head>
 	<?php include ("inc/headcommon.php");	?>
-	<title>GIBMAFE | movimientos</title>
+	<title>GIBMAFE | Movimientos</title>
 </head>
 <body> 
 <?php
@@ -52,10 +52,13 @@
 <section>
 	<div class="container">
 		<div class="row">
+					
 				<div class="contenedor-menu col-xs-12 col-sm-2 col-sd-2 ">
+				<div class="smenu ">
 					<?php include("inc/menu.php"); ?> 	
 				</div>
-				<div class=" col-xs-12 col-sm-10 col-sd-10 well">
+				</div>
+				<div class="contenedor-section0	 col-xs-12 col-sm-10 col-sd-10 ">
 				    
 				    	<h4 id="">Movimientos</h4>
 				<div class="panel panel-success">
@@ -67,7 +70,6 @@
 						</div>
 						
 					</div>
-					<br>
 					<div class="panel-body">
 
 							<form class="form-horizontal" role="form" id="datos_cotizacion">
@@ -134,7 +136,7 @@
 				?>		
 				</div>
 																		<!-- Modal -->
-							<div class="modal fade"id="nuevovendedor" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+							<div class="modal fade" id="nuevovendedor" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 							  <div class="modal-dialog" role="document">
 								<div class="modal-content">
 								  <div class="modal-header">
@@ -293,7 +295,7 @@
 							  </div>
 							</div>	
 				</div> 
-			</div>
+				</div>
 		</div>
 	</div>
 </section>
@@ -303,7 +305,7 @@
 		 }
 			include "inc/footer.php";
  		?>
-	<script src="https://code.jquery.com/jquery-3.2.1.js"></script>
-	<script src="js/bootstrap.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.js"></script>
+<script src="js/bootstrap.min.js"></script>
 </body>
 </html>
