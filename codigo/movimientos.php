@@ -6,21 +6,22 @@
 	{
 	$codigo_producto= $conexion->real_escape_string($_POST['codigo_producto']);
 	/*$codigo_producto="'".$codigo_producto."'";*/
-	$descripcion= $conexion->real_escape_string($_POST['Descripcion']);
+	$descripcion= $conexion->real_escape_string($_POST['descripcion']);
 	$cantidad= $conexion->real_escape_string($_POST['cantidad']);
-	$precio_compra= $conexion->real_escape_string($_POST['precio_compra']);
-	$factura= $conexion->real_escape_string($_POST['Factura']);
-	$codigo_proveedor= $conexion->real_escape_string($_POST['codigo_producto']);
-	$documento_almacenista= $conexion->real_escape_string($_POST['documento_almacenista']);
+	$tipo_movimiento= $conexion->real_escape_string($_POST['tipo_movimiento']);
+	$valor_movimiento= $conexion->real_escape_string($_POST['valor_movimiento']);
+	$factura= $conexion->real_escape_string($_POST['factura']);
+	$codigo_externo= $conexion->real_escape_string($_POST['codigo_externo']);
+	$usuario= $conexion->real_escape_string($_POST['usuario']);
 	date_default_timezone_set("america/bogota");
 	$fecha_registro=date('y:m:d:h:i:s');
-	/*$sql="INSERT INTO tb_abastecimientos (descripcion, cantidad, fecha_registro, precio_compra, factura, codigo_producto, codigo_proveedor, documento_almacenista) VALUES ('$descripcion', '$cantidad', '$hora', '$precio_compra', '$factura', '$codigo_producto', '$codigo_proveedor', '$documento_almacenista')";
-	echo $sql;*/
+	// $sql="INSERT INTO tb_movimientos (descripcion, cantidad, tipo_movimiento, valor_movimiento, fecha_movimiento, factura, identificacion_externo, usuario, cod_producto) VALUES ($descripcion, $cantidad, $tipo_movimiento, $valor_movimiento, $fecha_registro, $factura, $codigo_externo, $usuario, $codigo_producto)";
+	// echo $sql;
 
-	if($statement=$conexion->prepare("INSERT INTO `tb_abastecimientos` (`descripcion`, `cantidad`, `fecha_registro`, `precio_compra`, `factura`, `codigo_producto`, `codigo_proveedor`, `documento_almacenista`	) VALUES (?,?,?,?,?,?,?,?)"))
+	if($statement=$conexion->prepare("INSERT INTO tb_movimientos (descripcion, cantidad, tipo_movimiento, valor_movimiento, fecha_movimiento, factura, identificacion_externo, usuario, cod_producto) VALUES (?,?,?,?,?,?,?,?,?)"))
 	{
 	
-    $statement->bind_param('ssssssss', $descripcion, $cantidad, $fecha_registro, $precio_compra, $factura, $codigo_producto, $codigo_proveedor, $documento_almacenista);
+    $statement->bind_param('sisissssi', $descripcion, $cantidad, $tipo_movimiento, $valor_movimiento, $fecha_registro, $factura, $codigo_externo, $usuario, $codigo_producto);
     
     $statement->execute();
     
@@ -90,47 +91,44 @@
 				<div class="col-xs-12 contenedor-section" ">
 					<?php 
 					$enlaceeli='eliminardato.php';	
-					$tabla='tb_abastecimientos';
-					$primarykey='codigo_abastecimiento';
-					$enlacefinal='abastecimientos.php';
-					$sql="SELECT * FROM  tb_abastecimientos ";
+					$tabla='tb_movimientos';
+					$primarykey='cod_movimiento';
+					$enlacefinal='movimientos.php';
+					$sql="SELECT * FROM  tb_movimientos ";
 					include("config.php");
 					$resultado = $conexion->query( $sql );
 					echo "	<table class='table table-condensed ' border=3px> 
-							<tr>
-									<td>Codigo Abastecimiento</td>
-									<td>Codigo de producto</td>	
+							<tr>	
+									<td>Codigo de Movimiento</td>	
+									<td>Codigo de Producto</td>	
 									<td>Descripcion</td>
 									<td>Cantidad</td>
-									
-									<td>Precio de compra</td>
-									<td>Factura de compra</td>
-									
-									<td>Codigo Proveedor</td>
-									<td>Documento de Almacenista</td>
+									<td>Tipo de Movimiento</td>
+									<td>Valor Movimiento</td>
+									<td>Factura</td>
+									<td>Identificacion Externo</td>
+									<td>Administrador</td>
 									<td>Fecha registro</td>	
-									<td>editar</td>
-									<td>eliminar</td>
+									<td>Editar</td>
+									<td>Eliminar</td>
 							</tr>";
 
 					while ($row=mysqli_fetch_row($resultado)) 
 					{
 						echo "<tr>
 									<td>".$row[0]."</td>
-									<td>".$row[6]."</td>
+									<td>".$row[9]."</td>
 									<td>".$row[1]."</td>	
 									<td>".$row[2]."</td>
-									
+									<td>".$row[3]."</td>
 									<td>".$row[4]."</td>
-									<td>".$row[5]."</td>
-									
+									<td>".$row[6]."</td>
 									<td>".$row[7]."</td>
 									<td>".$row[8]."</td>
-									<td>".$row[3]."</td>
+									<td>".$row[5]."</td>
 									<td><button class='glyphicon glyphicon-pencil' data-toggle='modal' data-target='#myModal2'></button></a></td>
 									<td><a id='eliminarnegro' href='$enlaceeli?codigo=$row[0]&tabla=$tabla&enlacefinal=$enlacefinal&primarykey=$primarykey' ><button class='glyphicon glyphicon-trash'></button></a></td>
 							</tr>"	;
-
 					}
 					echo "	</table>";	
 				?>		
@@ -146,24 +144,25 @@
 								  <div class="modal-body">
 									<form class="form-horizontal" method="post" id="guardar_vendedor" name="guardar_vendedor">
 									<div id="resultados_ajax"></div>
+										
 										<div class="form-group">
 										<label for="codigo_producto"  class="col-sm-3 control-label">Codigo del producto</label>
 										<div class="col-sm-8">
-										  <input type="text" pattern="[0-9]{1,5}" maxlength="5" class="form-control" id="codigo_producto" name="codigo_producto" required="">
+										  <input type="text" pattern="[0-9]{1,11}" maxlength="11" class="form-control" id="codigo_producto" name="codigo_producto" required="">
 										</div>
 									  	</div>
 									  
 										<div class="form-group">
 										<label for="Descripcion" class="col-sm-3 control-label">Descripcion</label>
 										<div class="col-sm-8">
-										  <input type="text" pattern="[a-zA-Z0-9]{1,30}" maxlength="30" class="form-control" id="Descripcion" name="Descripcion" required="">
+										  <input type="text"  class="form-control" id="descripcion" name="descripcion" required="">
 										</div>
 									  	</div>
 									  
 									  <div class="form-group">
 										<label for="cantidad" class="col-sm-3 control-label">Cantidad</label>
 										<div class="col-sm-8">
-											<input type="text" pattern="[0-9]{1,10}" maxlength="10" class="form-control" id="cantidad" name="cantidad" required="">
+											<input type="text" pattern="[0-9]{1,5}" maxlength="5" class="form-control" id="cantidad" name="cantidad" required="">
 										  
 										</div>
 									  </div>	 
@@ -172,11 +171,15 @@
 										<label for="tipo_movimiento" class="col-sm-3 control-label">Tipo de Movimiento</label>
 										<div class="col-sm-8">
 											<select  name="tipo_movimiento">	
-											<option value="1">Venta</option>
-											<option value="2">Abastecimiento</option>
-											<option value="3">Garantia</option>
-											<option value="4">Averia</option>
-											<option value="5">Devolucion</option>
+											<option value="venta">Venta</option>
+											<option value="abastecimiento">Abastecimiento</option>
+											<option value="averia">Averia</option>
+											<option value="">Devolucion</option>
+											<option value="solicitudgarantia">Solicitud de Garantía</option>
+											<option value="solicitudgarantia">Salida de Garantía</option>
+											<option value="solicitudgarantia">Llegada de Garantía</option>
+											<option value="solicitudgarantia">Entrega de Garantía</option>
+											
 											</select> 
 										  
 										</div>
@@ -186,22 +189,21 @@
 										<label for="valor_movimiento" class="col-sm-3 control-label">Valor Movimiento</label>
 										<div class="col-sm-8">
 											<input type="text" pattern="[0-9]{1,10}" maxlength="10" class="form-control" id="valor_movimiento" name="valor_movimiento" required="">
-										  
 										</div>
 									  </div>	
 
 									  <div class="form-group">
 										<label for="Factura" class="col-sm-3 control-label">Factura</label>
 										<div class="col-sm-8">
-											<input type="text" pattern="[0-9]{1,15}" maxlength="15" class="form-control" id="Factura" name="Factura" required="">
+											<input type="text" pattern="[a-zA-Z0-9]{1,15}" maxlength="15" class="form-control" id="Factura" name="factura" required="">
 										  
 										</div>
 									  </div>	
 
 									  <div class="form-group">
-										<label for="codigo_proveedor" class="col-sm-3 control-label">identificacion Externo</label>
+										<label for="codigo_externo" class="col-sm-3 control-label">identificacion Externo</label>
 										<div class="col-sm-8">
-											<input type="text" pattern="[0-9]{1,5}" maxlength="5" class="form-control" id="codigo_proveedor" name="codigo_proveedor" required="">
+											<input type="text" pattern="[0-9]{1,15}" maxlength="15" class="form-control" id="codigo_externo" name="codigo_externo" required="">
 										  
 										</div>
 									  </div>	
@@ -209,7 +211,7 @@
 										<div class="form-group">
 										<label for="usuario" class="col-sm-3 control-label">Usuario</label>
 										<div class="col-sm-8">
-											<input type="text" pattern="[0-9]{1,15}" maxlength="15" class="form-control" id="usuario" name="usuario" required="">
+											<input type="text" pattern="[a-zA-Z0-9]{1,30}" maxlength="30" class="form-control" id="usuario" name="usuario" required="">
 										  
 										</div>
 									  </div>	
