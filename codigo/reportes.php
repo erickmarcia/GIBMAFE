@@ -47,19 +47,6 @@
 			 	 	</div>
 	 	 		
 				</div>
-
-
-					<!-- 	<div class="panel panel-success">
-							<div class="panel-heading">
-							    <div class="btn-group pull-right">
-							   		
-							    		
-								</div>
-							</div>
-						</div> -->
-
-					
-					
 			</div>				
 		</div>	
 	</div>				
