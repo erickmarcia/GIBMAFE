@@ -1,5 +1,4 @@
-<?php 	
-/*en caso de que el usuario se devuelva del chat al registro tendra que dirijirse  al inicio para ingresar al chat si no desea crear otro usuario*/	
+<?php 		
 	require 'config.php';
 	require 'funciones.php';
 	if (!empty($_POST)) 
@@ -15,8 +14,7 @@
 	$usuario= $conexion->real_escape_string($_POST['usuario']);
 	date_default_timezone_set("america/bogota");
 	$fecha_registro=date('y:m:d:h:i:s');
-	// $sql="INSERT INTO tb_movimientos (descripcion, cantidad, tipo_movimiento, valor_movimiento, fecha_movimiento, factura, identificacion_externo, usuario, cod_producto) VALUES ($descripcion, $cantidad, $tipo_movimiento, $valor_movimiento, $fecha_registro, $factura, $codigo_externo, $usuario, $codigo_producto)";
-	// echo $sql;
+
 			$sql= "SELECT * FROM tb_productos WHERE cod_producto='$codigo_producto'";
 					 include("config.php");
 				
@@ -41,10 +39,12 @@
 					include("config.php");
 					$resultado = $conexion->query( $sql );
 				}
+
 			}else{/*si el codigo_producto no se encuentra en tb_productos registrarlo en la misma*/
-				if ($tipo_movimiento=="abastecimiento" or $tipo_movimiento=="averia" ) {
-					$tipo_movimiento="Disponible";
-				$sql= "INSERT INTO tb_productos (cod_producto, descripcion, cantidad, estado, precio_compra, fecha_registro) VALUES ('".$codigo_producto."','".$descripcion."','".$cantidad."','".$tipo_movimiento."','".$valor_movimiento."','".$fecha_registro."')";
+				if ($tipo_movimiento=="abastecimiento" or $tipo_movimiento=="devolucion" ) {
+					
+					$tipo_movimientopro="Disponible";
+				$sql= "INSERT INTO tb_productos (cod_producto, descripcion, cantidad, estado, precio_compra, fecha_registro) VALUES ('".$codigo_producto."','".$descripcion."','".$cantidad."','".$tipo_movimientopro."','".$valor_movimiento."','".$fecha_registro."')";
 				//echo $sql;
 				include "config.php";
 				$conexion->query( $sql );
@@ -52,7 +52,6 @@
 				}
 			if($statement=$conexion->prepare("INSERT INTO tb_movimientos (descripcion, cantidad, tipo_movimiento, valor_movimiento, fecha_movimiento, factura, identificacion_externo, usuario, cod_producto) VALUES (?,?,?,?,?,?,?,?,?)"))
 				{
-				$tipo_movimiento="Abastecimiento";
 			    $statement->bind_param('sisissssi', $descripcion, $cantidad, $tipo_movimiento, $valor_movimiento, $fecha_registro, $factura, $codigo_externo, $usuario, $codigo_producto);
 			    
 			    $statement->execute();
@@ -64,7 +63,7 @@
 						echo "<script> alert ('Verifique los datos ingresados') </script>";
 						}
 				}
-}	
+}
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -126,23 +125,25 @@
 					$tabla='tb_movimientos';
 					$primarykey='cod_movimiento';
 					$enlacefinal='movimientos.php';
-					$sql="SELECT * FROM  tb_movimientos ";
+					$sql="SELECT * FROM  tb_movimientos ORDER BY  cod_movimiento DESC ";
 					include("config.php");
 					$resultado = $conexion->query( $sql );
 					echo "	<table class='table table-condensed ' border=3px> 
-							<tr>	
-									<td>Codigo de Movimiento</td>	
-									<td>Codigo de Producto</td>	
+							<tr align='center'>	
+									
+									<td>Codigo Movimiento</td>	
+									<td>Codigo Producto</td>	
 									<td>Descripcion</td>
 									<td>Cantidad</td>
-									<td>Tipo de Movimiento</td>
+									<td>Tipo Movimiento</td>
 									<td>Valor Movimiento</td>
 									<td>Factura</td>
-									<td>Identificacion Externo</td>
-									<td>Administrador</td>
+									<td>Externo</td>
+									<center><td>Admin</td>
 									<td>Fecha registro</td>	
 									<td>Editar</td>
 									<td>Eliminar</td>
+
 							</tr>";
 
 					while ($row=mysqli_fetch_row($resultado)) 
@@ -206,11 +207,11 @@
 											<option value="venta">Venta</option>
 											<option value="abastecimiento">Abastecimiento</option>
 											<option value="averia">Averia</option>
-											<option value="">Devolucion</option>
+											<option value="devolucion">Devolucion</option>
 											<option value="solicitudgarantia">Solicitud de Garantía</option>
-											<option value="solicitudgarantia">Salida de Garantía</option>
-											<option value="solicitudgarantia">Llegada de Garantía</option>
-											<option value="solicitudgarantia">Entrega de Garantía</option>
+											<option value="salidagarantia">Salida de Garantía</option>
+											<option value="llegadagarantia">Llegada de Garantía</option>
+											<option value="entregagarantia">Entrega de Garantía</option>
 											
 											</select> 
 										  
