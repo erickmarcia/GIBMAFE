@@ -385,4 +385,23 @@ function isnulllogin($usuario, $contraseña){
 		
 	
 }
+////////////////////////////////////////////////////////////////////////////////
+function registromovimiento($descripcion, $cantidad, $tipo_movimiento, $valor_movimiento, $fecha_registro, $factura, $codigo_externo, $usuario, $codigo_producto){
+
+		global $conexion;
+
+		if($statement=$conexion->prepare("INSERT INTO tb_movimientos (descripcion, cantidad, tipo_movimiento, valor_movimiento, fecha_movimiento, factura, identificacion_externo, usuario, cod_producto) VALUES (?,?,?,?,?,?,?,?,?)"))
+				{
+			    $statement->bind_param('sisissssi', $descripcion, $cantidad, $tipo_movimiento, $valor_movimiento, $fecha_registro, $factura, $codigo_externo, $usuario, $codigo_producto);
+			    
+			    $statement->execute();
+				    if ($conexion-> affected_rows > 0 )  {
+						echo "<script> alert ('guardado') </script>" ;
+						}
+						else
+						{
+						echo "<script> alert ('Verifique los datos ingresados') </script>";
+						}
+				}
+}
 ?>
