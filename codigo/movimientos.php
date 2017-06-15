@@ -1,10 +1,10 @@
-<?php 		
+<?php 	
+/*en caso de que el usuario se devuelva del chat al registro tendra que dirijirse  al inicio para ingresar al chat si no desea crear otro usuario*/	
 	require 'config.php';
 	require 'funciones.php';
 	if (!empty($_POST)) 
 	{
 	$codigo_producto= $conexion->real_escape_string($_POST['codigo_producto']);
-	/*$codigo_producto="'".$codigo_producto."'";*/
 	$descripcion= $conexion->real_escape_string($_POST['descripcion']);
 	$cantidad= $conexion->real_escape_string($_POST['cantidad']);
 	$tipo_movimiento= $conexion->real_escape_string($_POST['tipo_movimiento']);
@@ -23,34 +23,18 @@
 
 			if (!empty($row)) {
 
-				if ($row[3]=='Disponible' AND $tipo_movimiento=='abastecimiento' or $row[3]=='Disponible' AND $tipo_movimiento=='devolucion') {
-					$actualizar=$row[2]+$cantidad;
-
-					 $sql="update tb_productos set cantidad='$actualizar' where cod_producto='$codigo_producto' ";
-			
-					include("config.php");
-					$resultado = $conexion->query( $sql );
-				}
 				if ($row[3]=='Disponible' AND $tipo_movimiento=='venta' AND $row[2]>0 or $row[3]=='Disponible' AND $tipo_movimiento=='averia' AND $row[2]>0) {
-					$actualizar=$row[2]-$cantidad;
+					if ($row[2]>=$cantidad) {
+
+						$actualizar=$row[2]-$cantidad;
+						
 
 					 $sql="update tb_productos set cantidad='$actualizar' where cod_producto='$codigo_producto' ";
 			
 					include("config.php");
 					$resultado = $conexion->query( $sql );
-				}
 
-			}else{/*si el codigo_producto no se encuentra en tb_productos registrarlo en la misma*/
-				if ($tipo_movimiento=="abastecimiento" or $tipo_movimiento=="devolucion" ) {
-					
-					$tipo_movimientopro="Disponible";
-				$sql= "INSERT INTO tb_productos (cod_producto, descripcion, cantidad, estado, precio_compra, fecha_registro) VALUES ('".$codigo_producto."','".$descripcion."','".$cantidad."','".$tipo_movimientopro."','".$valor_movimiento."','".$fecha_registro."')";
-				//echo $sql;
-				include "config.php";
-				$conexion->query( $sql );
-				}
-				}
-			if($statement=$conexion->prepare("INSERT INTO tb_movimientos (descripcion, cantidad, tipo_movimiento, valor_movimiento, fecha_movimiento, factura, identificacion_externo, usuario, cod_producto) VALUES (?,?,?,?,?,?,?,?,?)"))
+					if($statement=$conexion->prepare("INSERT INTO tb_movimientos (descripcion, cantidad, tipo_movimiento, valor_movimiento, fecha_movimiento, factura, identificacion_externo, usuario, cod_producto) VALUES (?,?,?,?,?,?,?,?,?)"))
 				{
 			    $statement->bind_param('sisissssi', $descripcion, $cantidad, $tipo_movimiento, $valor_movimiento, $fecha_registro, $factura, $codigo_externo, $usuario, $codigo_producto);
 			    
@@ -62,6 +46,63 @@
 						{
 						echo "<script> alert ('Verifique los datos ingresados') </script>";
 						}
+				}
+
+						
+					}else{
+						echo "<script> alert ('No hay la cantidad solicitada; el disponible del producto codigo $row[0] es: $row[2]') </script>";
+
+					}
+				}
+
+				if ($row[3]=='Disponible' AND $tipo_movimiento=='abastecimiento' or $row[3]=='Disponible' AND $tipo_movimiento=='devolucion') {
+					$actualizar=$row[2]+$cantidad;
+
+					 $sql="update tb_productos set cantidad='$actualizar' where cod_producto='$codigo_producto' ";
+			
+					include("config.php");
+					$resultado = $conexion->query( $sql );
+
+					if($statement=$conexion->prepare("INSERT INTO tb_movimientos (descripcion, cantidad, tipo_movimiento, valor_movimiento, fecha_movimiento, factura, identificacion_externo, usuario, cod_producto) VALUES (?,?,?,?,?,?,?,?,?)"))
+				{
+			    $statement->bind_param('sisissssi', $descripcion, $cantidad, $tipo_movimiento, $valor_movimiento, $fecha_registro, $factura, $codigo_externo, $usuario, $codigo_producto);
+			    
+			    $statement->execute();
+				    if ($conexion-> affected_rows > 0 )  {
+						echo "<script> alert ('guardado') </script>" ;
+						}
+						else
+						{
+						echo "<script> alert ('Verifique los datos ingresados') </script>";
+						}
+				}
+
+				}
+				
+
+			}else{/*si el codigo_producto no se encuentra en tb_productos registrarlo en la misma*/
+				if ($tipo_movimiento=="abastecimiento" or $tipo_movimiento=="devolucion" ) {
+					
+					$tipo_movimientopro="Disponible";
+				$sql= "INSERT INTO tb_productos (cod_producto, descripcion, cantidad, estado, precio_compra, fecha_registro) VALUES ('".$codigo_producto."','".$descripcion."','".$cantidad."','".$tipo_movimientopro."','".$valor_movimiento."','".$fecha_registro."')";
+				//echo $sql;
+				include "config.php";
+				$conexion->query( $sql );
+				}
+				
+				if($statement=$conexion->prepare("INSERT INTO tb_movimientos (descripcion, cantidad, tipo_movimiento, valor_movimiento, fecha_movimiento, factura, identificacion_externo, usuario, cod_producto) VALUES (?,?,?,?,?,?,?,?,?)"))
+				{
+			    $statement->bind_param('sisissssi', $descripcion, $cantidad, $tipo_movimiento, $valor_movimiento, $fecha_registro, $factura, $codigo_externo, $usuario, $codigo_producto);
+			    
+			    $statement->execute();
+				    if ($conexion-> affected_rows > 0 )  {
+						echo "<script> alert ('guardado') </script>" ;
+						}
+						else
+						{
+						echo "<script> alert ('Verifique los datos ingresados') </script>";
+						}
+				}
 				}
 }
 ?>
