@@ -96,8 +96,8 @@
 								echo "<tr>
 											<td>".$row[0]."</td>
 											<td>".$row[1]."</td>	
-											<td>".$row[2]."</td>
-											<td>".$row[3]."</td>
+											<td>".$row[4]."</td>
+											<td>".$row[5]."</td>
 											<td><button class='glyphicon glyphicon-pencil' data-toggle='modal' data-target='#myModal2'></button></a></td>
 											<td><a id='eliminarnegro' href='eliminardato.php?codigo=$row[0]&tabla=tb_productos&enlacefinal=productos.php&primarykey=cod_producto' ><button class='glyphicon glyphicon-trash'></button></a></td>
 									</tr>"	;
