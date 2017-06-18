@@ -174,7 +174,7 @@
 									<td>Valor Movimiento</td>
 									<td>Factura</td>
 									<td>Externo</td>
-									<center><td>Admin</td>
+									<td>Admin</td>
 									<td>Fecha registro</td>	
 									<td>Editar</td>
 									<td>Eliminar</td>
