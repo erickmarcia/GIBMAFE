@@ -16,10 +16,10 @@
 	date_default_timezone_set("america/bogota");
 	$fecha_registro=date('y:m:d:h:i:s');
 
-			$sql= "SELECT * FROM tb_productos WHERE cod_producto='$codigo_producto'";
-					
+			
+
+					$sql= "SELECT * FROM tb_productos WHERE cod_producto='$codigo_producto'";
 					include("config.php");
-				
 					$resultado=mysqli_query($conexion,$sql);
 					$row=mysqli_fetch_row($resultado);
 
@@ -36,7 +36,7 @@
 						registromovimiento($descripcion, $cantidad, $tipo_movimiento, $valor_movimiento, $fecha_registro, $factura, $codigo_externo, $usuario, $codigo_producto);
 					}else
 					{
-						echo "<script> alert ('No se puede registrar $tipo_movimiento, No hay esa cantidad del producto codigo $row[0] solo hay disponible: $row[2]') </script>";
+						echo "<script> alert ('No se puede registrar $tipo_movimiento, No hay esa cantidad del producto codigo $row[0] solo hay disponible: $row[3]') </script>";
 					}
 				}
 
@@ -51,7 +51,6 @@
 					registromovimiento($descripcion, $cantidad, $tipo_movimiento, $valor_movimiento, $fecha_registro, $factura, $codigo_externo, $usuario, $codigo_producto);
 
 				}
-				
 
 			}else
 			{/*si el codigo_producto no se encuentra en tb_productos registrarlo en la misma*/
@@ -62,9 +61,43 @@
 
 					include "config.php";
 					$conexion->query( $sql );
+					registromovimiento($descripcion, $cantidad, $tipo_movimiento, $valor_movimiento, $fecha_registro, $factura, $codigo_externo, $usuario, $codigo_producto);	
 				}
-					registromovimiento($descripcion, $cantidad, $tipo_movimiento, $valor_movimiento, $fecha_registro, $factura, $codigo_externo, $usuario, $codigo_producto);
-				}
+				
+			}
+
+			
+				
+				$sql= "SELECT * FROM tb_productos WHERE cod_producto='$codigo_producto' AND estado='$tipo_movimiento'";
+					include("config.php");
+				
+					$resultado=mysqli_query($conexion,$sql);
+					$row=mysqli_fetch_row($resultado);
+
+					if (!empty($row)) 
+					{ 	
+						if($tipo_movimiento=="solicitudgarantia" or $tipo_movimiento=="llegadagarantia")
+						{
+						$actualizar=$row[2]+$cantidad;
+						$sql="update tb_productos set cantidad='$actualizar' where cod_producto='$codigo_producto' ";
+						//echo $sql;
+						include("config.php");
+						$resultado = $conexion->query( $sql );
+
+						registromovimiento($descripcion, $cantidad, $tipo_movimiento, $valor_movimiento, $fecha_registro, $factura, $codigo_externo, $usuario, $codigo_producto);
+						}
+					}else{
+						
+						if($tipo_movimiento=="solicitudgarantia" or $tipo_movimiento=="llegadagarantia")
+						{
+							
+						$sql= "INSERT INTO tb_productos (cod_producto, descripcion, cantidad, estado, precio_compra, fecha_registro) VALUES ('".$codigo_producto."','".$descripcion."','".$cantidad."','".$tipo_movimiento."','".$valor_movimiento."','".$fecha_registro."')";
+
+						include "config.php";
+						$conexion->query( $sql );
+						registromovimiento($descripcion, $cantidad, $tipo_movimiento, $valor_movimiento, $fecha_registro, $factura, $codigo_externo, $usuario, $codigo_producto);
+						}
+					}			
 }
 ?>
 <!DOCTYPE html>
