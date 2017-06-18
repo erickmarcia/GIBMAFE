@@ -48,11 +48,12 @@
 
 									   	<div class="col-xs-12 contenedor-section" ">
 											<?php 				 			
-												$sql="SELECT * FROM  tb_disponibles ";
+												$sql="SELECT * FROM  tb_productos ORDER BY cod_producto ASC ";
 												include("config.php");
 												$resultado = $conexion->query( $sql );
 												echo "	<table class='table table-condensed ' border=3px> 
-														<tr>
+														<tr>	
+																<td>#</td>
 																<td>Codigo Producto</td>
 																<td>Descripcion</td>
 																<td>Cantidad</td>
@@ -60,17 +61,22 @@
 																<td>Precio de compra</td>	
 																<td>Fecha registro</td>								
 														</tr>";
-
+												$i=1;
 												while ($row=mysqli_fetch_row($resultado)) 
+													
 												{
-													echo "<tr>
+														
+													echo "<tr>	
+																<td>".$i++."</td>
 																<td>".$row[0]."</td>
 																<td>".$row[1]."</td>
 																<td>".$row[2]."</td>	
 																<td>".$row[3]."</td>
 																<td>".$row[4]."</td>
 																<td>".$row[5]."</td>
+																
 														</tr>"	;
+														
 												}
 												echo "	</table>";	
 											?>	
