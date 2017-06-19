@@ -3,7 +3,7 @@
 	require 'config.php';
 	require 'funciones.php';
 	if (!empty($_POST)) 
-	{
+	{ 
 
 	$identificacion= $conexion->real_escape_string($_POST['identificacion']);
 	$nombre= $conexion->real_escape_string($_POST['nombre']);
@@ -40,13 +40,8 @@
 	 include "config.php";
 	// si el usuario esta conectado muestra el sitio de chat si no lo redirige al index para que se logee o se registre
 		if (isset($_SESSION['usuario']))
-	 	{
-				
+	 	{		
 		header("location: stockdispo.php");	
-
-
-
-		
 		}else{	
 		include "inc/header.php";
 ?>
@@ -54,7 +49,6 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-xs-12 col-sm-4">
-				
 			</div>
 			<div class="col-xs-12 col-sm-4">
 				<div class="panel panel-success">
@@ -107,6 +101,3 @@
 				<script src="js/bootstrap.min.js"></script>
 </body>
 </html>
-
-
-		
