@@ -26,15 +26,15 @@
 	}
 
 	if (!validacontraseñas($contraseña, $repitecontraseña)) {
-		$errors[]= "las contraseñas no coinciden";
+		$errors[]= "Las contraseñas no coinciden";
 	}
 
 	if (usuarioexiste($usuario)) {
-		$errors[]= "el nombre de usuario $usuario ya existe";
+		$errors[]= "El nombre de usuario $usuario ya existe";
 	}
 
 	if (emailexiste($email)) {
-		$errors[]= "el correo Electronico $email ya existe";
+		$errors[]= "El correo Electronico $email ya existe";
 	}
 
 	if (count($errors)==0) {
