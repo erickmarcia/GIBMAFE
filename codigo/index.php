@@ -23,7 +23,7 @@ if (isset($_SESSION['usuario'])) {
 				<div class="col-xs-12 col-sm-3 col-sd-3 col-lg-3 loginfondo well">
 					<div class="panel-heading">
 						<div class="panel-title">Ingreso Administrador</div><br>
-						<div style="float:right; font-size: 80%; position: relative; top:-10px"><a href="recupera.php">¿Se te olvid&oacute; tu contraseña?</a></div>
+						<div style="float:right; font-size: 80%; position: relative; top:-10px"><a href="recuperarpass.php">¿Se te olvid&oacute; tu contraseña?</a></div>
 					</div> <br>
 						<form id="loginform" class="form-horizontal" role="form" action="<?php $_SERVER['PHP_SELF'] ?>" method="POST" autocomplete="off">
 						
