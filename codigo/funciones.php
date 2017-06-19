@@ -363,12 +363,15 @@ function enviaremail($email, $nombre, $asunto, $cuerpo){
 ////////////////////////////////////////////////////////////////////////////////
 function resultblock($errors){
 	if (count($errors)> 0) {
-		echo "<div id='error' class='alert alert-danger' role='alert'><a href='#' onclick=\"showHide('error');\">[X]</a><ul>";
+		
+		echo "<div id='error' class='alert alert-danger' role='alert'>
+			  <span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'>";	
 		foreach ($errors as $error) 
-		{
-				echo "<li>".$error."</li>";
+		{		
+				echo $error;
 		}
-		echo "</ul>";
+		echo "</span>";
+		echo "<span class='sr-only'>Error:</span>";
 		echo "</div>";	
 	}
 }
