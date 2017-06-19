@@ -1,4 +1,4 @@
-<?php   
+<?php     
 //****************************//
 		function buscar($campos,$tabla,$condicion)
 	{
@@ -92,8 +92,10 @@ include("config.php");
 $resultado = $conexion->query( $sql );
 echo "	<table class='table table-condensed ' border=3px> 
 		<tr>
-				<td>documento</td>
-				<td>nombre</td>	
+				<td>Identificacion</td>
+				<td>nombre</td>
+				<td>Tipo de Externo</td>
+				<td>Direccion</td>	
 				<td>celular</td>	
 				<td>fecha registro</td>	
 				<td>editar</td>
@@ -107,6 +109,8 @@ while ($row=mysqli_fetch_row($resultado))
 				<td>".$row[1]."</td>	
 				<td>".$row[2]."</td>
 				<td>".$row[3]."</td>
+				<td>".$row[4]."</td>
+				<td>".$row[5]."</td>
 				<td><button class='glyphicon glyphicon-pencil' data-toggle='modal' data-target='#myModal2'></button></a></td>
 				<td><a id='eliminarnegro' href='$enlaceeli?codigo=$row[0]&tabla=$tabla&enlacefinal=$enlacefinal&primarykey=$primarykey' ><button class='glyphicon glyphicon-trash'></button></a></td>
 		</tr>"	;
@@ -229,8 +233,8 @@ function minmax($min, $max, $valor){
 function usuarioexiste($usuario){
 
 	global $conexion;
-
-	$stmt=$conexion->prepare("SELECT id FROM tb_usuarios WHERE usuario = ? LIMIT 1");
+	
+	$stmt=$conexion->prepare("SELECT usuario FROM tb_usuarios WHERE usuario = ? LIMIT 1");
 
 /*La seguridad en las consultas enviadas a la base de datos la daremos con el método bind_param.
 Éste método agrega variables a una sentencia preparada como parámetros.
@@ -247,7 +251,6 @@ i variable de tipo entero
 d variable de tipo doble
 s variable de tipo texto
 b variable de tipo blob y se envía en paquetes*/
-
 	$stmt->bind_param("s", $usuario);
 	// ejecutamos el query
 	$stmt->execute();
@@ -271,7 +274,7 @@ function emailexiste($email){
 
 	global $conexion;
 
-	$stmt=$conexion->prepare("SELECT id FROM tb_usuarios WHERE correo = ? LIMIT 1");
+	$stmt=$conexion->prepare("SELECT usuario FROM tb_usuarios WHERE correo = ? LIMIT 1");
 	$stmt->bind_param("s", $email);
 	$stmt->execute();
 	$stmt->store_result();
@@ -299,7 +302,7 @@ PASSWORD_DEFAULT - Usar el algoritmo bcrypt (predeterminado a partir de PHP 5.5.
 	$hash=password_hash($contraseña, PASSWORD_DEFAULT);
 	return $hash;
 }
-////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////7
 function registroUsuario($usuario, $contraseña, $nombre, $celular, $email, $fecha_registro){
 
 		global $conexion;
@@ -388,15 +391,41 @@ function isnulllogin($usuario, $contraseña){
 		
 	
 }
-////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////
+function login($usuario, $contraseña){
+
+	global $conexion;
+
+	$stmt=$conexion->prepare("SELECT usuario,pass FROM tb_usuarios WHERE usuario = ?  LIMIT 1");
+	$stmt->bind_param("s", $usuario);
+	$stmt->execute();
+	$stmt->store_result();
+	$num= $stmt->num_rows;
+	//echo $num;
+	if ($num > 0) 
+	{
+		$stmt->bind_result($id,$passw);
+		$stmt->fetch();
+
+		//$validacontraseñas= password_verify($contraseña,$passw);
+		print_r($stmt);
+		if($validacontraseñas){
+			$_SESSION['usuario']=$id;
+			header("location: stockdispo.php");
+		}
+		else{
+		$errors = "La contraseña es incorrecta";
+		}
+	}
+}
+//////////////////////////////////////////////////////////////////////////
 function registromovimiento($descripcion, $cantidad, $tipo_movimiento, $valor_movimiento, $fecha_registro, $factura, $codigo_externo, $usuario, $codigo_producto){
 
 		global $conexion;
 
 		if($statement=$conexion->prepare("INSERT INTO tb_movimientos (descripcion, cantidad, tipo_movimiento, valor_movimiento, fecha_movimiento, factura, identificacion_externo, usuario, cod_producto) VALUES (?,?,?,?,?,?,?,?,?)"))
 				{
-			    $statement->bind_param('sisissssi', $descripcion, $cantidad, $tipo_movimiento, $valor_movimiento, $fecha_registro, $factura, $codigo_externo, $usuario, $codigo_producto);
-			    
+			    $statement->bind_param('sisissssi', $descripcion, $cantidad, $tipo_movimiento, $valor_movimiento, $fecha_registro, $factura, $codigo_externo, $usuario, $codigo_producto);	
 			    $statement->execute();
 				    if ($conexion-> affected_rows > 0 )  {
 						echo "<script> alert ('guardado') </script>" ;
