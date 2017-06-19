@@ -1,9 +1,9 @@
- <?php 	
+  <?php 	
 /*en caso de que el usuario se devuelva del chat al registro tendra que dirijirse  al inicio para ingresar al chat si no desea crear otro usuario*/	
 	require 'config.php';
 	require 'funciones.php';
 	if (!empty($_POST)) 
-	{
+	{ 
 
 	$identificacion= $conexion->real_escape_string($_POST['identificacion']);
 	$nombre= $conexion->real_escape_string($_POST['nombre']);
@@ -53,7 +53,7 @@
 				</div>
 				<div class="contenedor-section0	 col-xs-12 col-sm-10 col-sd-10 ">
 			
-				    <h4 id="">Externos</h4>
+				   
 					<div class="panel panel-success">
 						<div class="panel-heading">
 						    <div class="btn-group pull-right">
