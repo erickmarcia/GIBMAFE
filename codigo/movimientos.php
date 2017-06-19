@@ -3,7 +3,7 @@
 	require 'config.php';
 	require 'funciones.php';
 	if (!empty($_POST)) 
-	{
+	{ 
 	$codigo_producto= $conexion->real_escape_string($_POST['codigo_producto']);
 	/*$codigo_producto="'".$codigo_producto."'";*/
 	$descripcion= $conexion->real_escape_string($_POST['descripcion']);
@@ -90,14 +90,38 @@
 						
 						if($tipo_movimiento=="solicitudgarantia" or $tipo_movimiento=="llegadagarantia")
 						{
-							
+
 						$sql= "INSERT INTO tb_productos (cod_producto, descripcion, cantidad, estado, precio_compra, fecha_registro) VALUES ('".$codigo_producto."','".$descripcion."','".$cantidad."','".$tipo_movimiento."','".$valor_movimiento."','".$fecha_registro."')";
 
 						include "config.php";
 						$conexion->query( $sql );
 						registromovimiento($descripcion, $cantidad, $tipo_movimiento, $valor_movimiento, $fecha_registro, $factura, $codigo_externo, $usuario, $codigo_producto);
 						}
-					}			
+						
+					}
+
+					$sql= "SELECT * FROM tb_productos WHERE cod_producto='$codigo_producto' AND estado='solicitudgarantia'";
+					include("config.php");
+				
+					$resultado=mysqli_query($conexion,$sql);
+					$row=mysqli_fetch_row($resultado);
+
+					if($tipo_movimiento=="salidagarantia")
+						{
+						$actualizar=$row[2]-$cantidad;
+						$sql="update tb_productos set cantidad='$actualizar' where cod_producto='$codigo_producto' AND estado='solicitudgarantia'";
+						//echo $sql;
+						include("config.php");
+						$resultado = $conexion->query( $sql );
+						registromovimiento($descripcion, $cantidad, $tipo_movimiento, $valor_movimiento, $fecha_registro, $factura, $codigo_externo, $usuario, $codigo_producto);
+						if ($actualizar==0) 
+						{
+							$sql="DELETE FROM tb_productos WHERE cod_producto='$codigo_producto' AND estado='solicitudgarantia'";
+							include("config.php");
+							$conexion->query( $sql );
+						}
+						}
+			
 }
 ?>
 <!DOCTYPE html>
@@ -127,7 +151,7 @@
 				</div>
 				<div class="contenedor-section0	 col-xs-12 col-sm-10 col-sd-10 ">
 				    
-				    	<h4 id="">Movimientos</h4>
+				    
 				<div class="panel panel-success">
 					
 					<div class="panel-heading">
