@@ -1,4 +1,4 @@
-*{
+*{ 
 	margin: 0;
 	padding: 0;
 	-webkit-box-sizing: border-box;
@@ -19,6 +19,7 @@ body{
 .loginfondo{
 	background-color: #CCC;
     margin: 0;
+    height: 500px;
 }
 .panel-info>.panel-heading {
     color: #000;
@@ -190,7 +191,9 @@ a:focus, a:hover {
 		height:500px;
 		padding: 0;
 	}
-
+	.loginfondo{
+    height: 350px;
+	}
 	.btn-menu{
 		display: block;
 	}
