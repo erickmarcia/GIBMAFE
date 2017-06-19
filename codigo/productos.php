@@ -3,7 +3,7 @@
 	require 'config.php';
 	require 'funciones.php';
 	if (!empty($_POST)) 
-	{
+	{ 
 
 	$descripcion= $conexion->real_escape_string($_POST['descripcion']);
 	$precio_compra= $conexion->real_escape_string($_POST['precio_compra']);
@@ -50,7 +50,7 @@
 			</div>
 			<div class="contenedor-section0	 col-xs-12 col-sm-10 col-sd-10 ">
 			
-				    <h4 id="">Productos</h4>
+				    
 					<div class="panel panel-success">
 								
 							<div class="panel-heading">
