@@ -7,7 +7,7 @@
 
 	if (!empty($_POST)) 
 	{
-
+ 
 	$usuario= $conexion->real_escape_string($_POST['usuario']);
 	$nombre= $conexion->real_escape_string($_POST['nombre']);
 	$celular= $conexion->real_escape_string($_POST['celular']);
@@ -18,23 +18,23 @@
 	$fecha_registro=date('Y-m-d H:i:s');
 	
 	if (isnull($usuario, $nombre, $celular, $email, $contraseña, $repitecontraseña, $fecha_registro)) {
-		$errors[]= "Debe llenar todos los campos";
+		$errors[]= "   Debe llenar todos los campos.";
 	}
 
 	if (!isemail($email)) {
-		$errors[]= "Direccion de correo no valida";
+		$errors[]= "   Direccion de correo no valida.";
 	}
 
 	if (!validacontraseñas($contraseña, $repitecontraseña)) {
-		$errors[]= "Las contraseñas no coinciden";
+		$errors[]= "    Las contraseñas no coinciden.";
 	}
 
 	if (usuarioexiste($usuario)) {
-		$errors[]= "El nombre de usuario $usuario ya existe";
+		$errors[]= "    El nombre de usuario $usuario ya existe.";
 	}
 
 	if (emailexiste($email)) {
-		$errors[]= "El correo Electronico $email ya existe";
+		$errors[]= "   El correo Electronico $email ya existe.";
 	}
 
 	if (count($errors)==0) {
@@ -47,7 +47,7 @@
 					exit;
 				
 			}else{
-					$errors[]='Error al registrar';
+					$errors[]='    Error al registrar.';
 			}
 		
 	}
