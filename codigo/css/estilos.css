@@ -1,3 +1,17 @@
+*{
+	margin: 0;
+	padding: 0;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+body{
+	background: #ffF;
+	font-family: 'Roboto', sans-serif;
+	line-height: 18px;
+	width: 	100%;
+}
 .tituloginfondo{
 	background-color: #999999;
 }
@@ -70,21 +84,6 @@ h4{
 	
 	margin-top: 0px;
 	background-color:#c361b3; 
-}
-
-*{
-	margin: 0;
-	padding: 0;
-	-webkit-box-sizing: border-box;
-	-moz-box-sizing: border-box;
-	box-sizing: border-box;
-}
-
-body{
-	background: #ffF;
-	font-family: 'Roboto', sans-serif;
-	line-height: 18px;
-	width: 	100%;
 }	
 .btn-menu {
 	display: none;	
@@ -113,7 +112,8 @@ body{
 }
 .contenedor-section{
 	height:350px;
-	padding-right:0;
+	padding: 0;
+	
 	overflow: scroll;
 	display: inline-block;
 	font-family: 'Roboto', sans-serif;
@@ -188,7 +188,7 @@ a:focus, a:hover {
 		/*position: fixed;*/
 		width: 97%;
 		height:500px;
-
+		padding: 0;
 	}
 
 	.btn-menu{
@@ -205,6 +205,10 @@ a:focus, a:hover {
 	.logosena{
 		display: none;
 	}
+	.contenedor-section0{
+	
+	padding: 0;
+}
 }
 @media (min-width: 768px){
 
@@ -219,5 +223,7 @@ a:focus, a:hover {
 }
 		.contenedor-section0{
 	height:580px;
+	padding: 0;
 }
+
 }
