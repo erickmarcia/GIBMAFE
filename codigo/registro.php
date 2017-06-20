@@ -43,6 +43,8 @@
 			$registro= registroUsuario($usuario, $contraseña, $nombre, $celular, $email, $fecha_registro);	
 
 			if ($registro > 0) {
+				session_start();
+				$_SESSION['usuario']=$usuario;
 				header("location: stockdispo.php");
 					exit;
 				
