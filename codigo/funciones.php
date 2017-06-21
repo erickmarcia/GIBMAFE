@@ -90,16 +90,16 @@ function mostrartabla($tabla,$enlaceeli,$primarykey,$enlacefinal)
 $sql="SELECT * FROM  $tabla ";
 include("config.php");
 $resultado = $conexion->query( $sql );
-echo "	<table class='table table-condensed ' border=3px> 
+echo "	<table class='table table-condensed ' > 
 		<tr>
-				<td>Identificacion</td>
-				<td>nombre</td>
-				<td>Tipo de Externo</td>
-				<td>Direccion</td>	
-				<td>celular</td>	
-				<td>fecha registro</td>	
-				<td>editar</td>
-				<td>eliminar</td>
+				<th>Identificacion</th>
+				<th>nombre</th>
+				<th>Tipo de Externo</th>
+				<th>Direccion</th>	
+				<th>celular</th>	
+				<th>fecha registro</th>	
+				<th>editar</th>
+				<th>eliminar</th>
 		</tr>";
 
 while ($row=mysqli_fetch_row($resultado)) 
