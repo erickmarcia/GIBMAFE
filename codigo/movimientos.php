@@ -187,21 +187,21 @@
 					$sql="SELECT * FROM  tb_movimientos ORDER BY  cod_movimiento DESC ";
 					include("config.php");
 					$resultado = $conexion->query( $sql );
-					echo "	<table class='table table-condensed ' border=3px> 
+					echo "	<table class='table table-condensed ' > 
 							<tr align='center'>	
 									
-									<td>Codigo Movimiento</td>	
-									<td>Codigo Producto</td>	
-									<td>Descripcion</td>
-									<td>Cantidad</td>
-									<td>Tipo Movimiento</td>
-									<td>Valor Movimiento</td>
-									<td>Factura</td>
-									<td>Externo</td>
-									<td>Admin</td>
-									<td>Fecha registro</td>	
-									<td>Editar</td>
-									<td>Eliminar</td>
+									<th>Codigo Movimiento</th>	
+									<th>Codigo Producto</th>	
+									<th>Descripcion</th>
+									<th>Cantidad</th>
+									<th>Tipo Movimiento</th>
+									<th>Valor Movimiento</th>
+									<th>Factura</th>
+									<th>Externo</th>
+									<th>Admin</th>
+									<th>Fecha registro</th>	
+									<th>Editar</th>
+									<th>Eliminar</th>
 
 							</tr>";
 
