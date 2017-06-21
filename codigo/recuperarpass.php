@@ -3,7 +3,7 @@
 	require 'config.php';
 	require 'funciones.php';
 	if (!empty($_POST)) 
-	{ 
+	{
 
 	$identificacion= $conexion->real_escape_string($_POST['identificacion']);
 	$nombre= $conexion->real_escape_string($_POST['nombre']);
@@ -43,15 +43,20 @@
 	 	{		
 		header("location: stockdispo.php");	
 		}else{	
-		include "inc/header.php";
 ?>
 <section>
 	<div class="container">
 		<div class="row">
 			<div class="col-xs-12 col-sm-4">
 			</div>
+
 			<div class="col-xs-12 col-sm-4">
-				<div class="panel panel-success">
+
+					<center><img src="images/logo1.png" class="img img-responsive"></center>
+					<br><br>
+				
+				<br>	
+				<div style="margin-top:50px" class="panel panel-default">
 				<div class="panel-heading">
 					<div class="panel-title">Recuperar Password</div>
 					<div style="float:right; font-size: 80%; position: relative; top:-10px"><a href="index.php">Iniciar Sesión</a></div>
@@ -93,9 +98,19 @@
 	</div>
 	
 </section>
+<footer id="footer2">
+	<div class="container">
+		<div class="row">
+				<div class="col-xs-12" >
+				<center>	
+				<p style="color: gray">Stmendozza &copy; <br>© 2017 - Boutique Maria Fernanda.</p>
+				</center>
+				</div>
+		</div>
+	</div>	
+</footer>
 		<?php  	
 		}
-			include "inc/footer.php";
  		?>
 				<script src="https://code.jquery.com/jquery-3.2.1.js"></script>
 				<script src="js/bootstrap.min.js"></script>
