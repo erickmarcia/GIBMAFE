@@ -35,7 +35,7 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-	<title>Ingreso</title> 
+	<title>GIBMAFE| Ingreso</title> 
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -52,13 +52,20 @@
 	
 </head>
 <body> 
-<?php include "inc/header.php";	?>
 <section>
 	<div class="container">
 		<div class="row">
-				<div class="col-xs-12 col-sm-3 col-sd-3 col-lg-3 loginfondo well">
+				<div class="col-xs-12 col-sm-4 col-sd-4 col-lg-4  "></div>
+				
+				<div class="col-xs-12 col-sm-4 col-sd-4 col-lg-4  ">
+				<div class="col-xs-12 col-sm-12">
+					<center><img src="images/logo1.png" class="img img-responsive"></center>
+					<br><br>
+				</div>
+
+				<h1>Iniciar Sesión</h1>
 					<div class="panel-heading">
-						<div class="panel-title">Ingreso Administrador</div><br>
+						<div class="panel-title"></div><br>
 						<div style="float:right; font-size: 80%; position: relative; top:-10px"><a href="recuperarpass.php">¿Se te olvid&oacute; tu contraseña?</a></div>
 					</div> <br>
 						<form id="loginform" class="form-horizontal" role="form" action="<?php $_SERVER['PHP_SELF']; ?>" method="POST" autocomplete="off">
@@ -89,79 +96,10 @@
 						</form>
 						<?php echo resultblock($errors); ?>			
 				</div>	
-				<div class="col-xs-12 col-sm-9 col-sd-9 col-lg-9">
-				<br/>
-				<center>
-											
-				</center>
-				<div class="container">
-  <br>
-  <div id="myCarousel" class="carousel slide" data-ride="carousel">
-    <!-- Indicators -->
-    <ol class="carousel-indicators">
-      <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-      <li data-target="#myCarousel" data-slide-to="1"></li>
-      <li data-target="#myCarousel" data-slide-to="2"></li>
-      <li data-target="#myCarousel" data-slide-to="3"></li>
-    </ol>
-
-    <!-- Wrapper for slides -->
-    <div class="carousel-inner" role="listbox">
-
-      <div class="item active">
-        <!-- <img src="img_chania.jpg" alt="Chania" width="460" height="345"> -->
-        <img src="images/yanbal1.jpg" class="img img-responsive">
-        <div class="carousel-caption">
-        <!--   <h3>Chania</h3>
-          <p>The atmosphere in Chania has a touch of Florence and Venice.</p> -->
-        </div>
-      </div>
-
-      <div class="item">
-<!--         <img src="img_chania2.jpg" alt="Chania" width="460" height="345">
- -->        <img src="images/yanbal1.jpg" class="img img-responsive">
-        <div class="carousel-caption">
-        <!--   <h3>Chania</h3>
-          <p>The atmosphere in Chania has a touch of Florence and Venice.</p> -->
-        </div>
-      </div>
-    
-      <div class="item">
-<!--         <img src="img_flower.jpg" alt="Flower" width="460" height="345">
- -->        <img src="images/yanbal1.jpg" alt="Flower" width="460" height="345"">
-        <div class="carousel-caption">
-        <!--   <h3>Flowers</h3>
-          <p>Beautiful flowers in Kolymbari, Crete.</p> -->
-        </div>
-      </div>
-
-      <div class="item">
-<!--         <img src="img_flower2.jpg" alt="Flower" width="460" height="345">
- -->        <img src="images/yanbal1.jpg" class="img img-responsive">
-        <div class="carousel-caption">
-        <!--   <h3>Flowers</h3>
-          <p>Beautiful flowers in Kolymbari, Crete.</p> -->
-        </div>
-      </div>
-  
-    </div>
-
-    <!-- Left and right controls -->
-    <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
-      <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-      <span class="sr-only">Previous</span>
-    </a>
-    <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
-      <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-      <span class="sr-only">Next</span>
-    </a>
-  </div>
-</div>
-				<br/>
-				</div>		
+				<div class="col-xs-12 col-sm-4 col-sd-4 col-lg-4  "></div>
 		</div>
 	</div>	
 </section>
-<?php include "inc/footer.php";?>
 </body>
 </html>
+ 
