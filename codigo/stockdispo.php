@@ -51,15 +51,15 @@
 												$sql="SELECT * FROM  tb_productos ORDER BY cod_producto ASC ";
 												include("config.php");
 												$resultado = $conexion->query( $sql );
-												echo "	<table class='table table-condensed ' border=3px> 
+												echo "	<table class='table table-condensed '> 
 														<tr>	
-																<td>#</td>
-																<td>Codigo Producto</td>
-																<td>Descripcion</td>
-																<td>Cantidad</td>
-																<td>Estado</td>
-																<td>Precio de compra</td>	
-																<td>Fecha registro</td>								
+																<th>#</th>
+																<th>Codigo Producto</th>
+																<th>Descripcion</th>
+																<th>Cantidad</th>
+																<th>Estado</th>
+																<th>Precio de compra</th>	
+																<th>Fecha registro</th>								
 														</tr>";
 												$i=1;
 												while ($row=mysqli_fetch_row($resultado)) 
