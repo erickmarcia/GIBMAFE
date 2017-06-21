@@ -62,21 +62,19 @@
 <head>
 	<link rel="shortcut icon" type="image/x-icon" href="images/sen2.png">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>| Registro Administradores</title>
+	<title>| Registro</title>
 	<link rel="stylesheet" href="css/bootstrap.min.css">
 	<link rel="stylesheet"  href="css/estilos.css">
 </head>
-<body> 
-
-<?php 
-/*en caso de que el usuario se devuelva del chat al registro tendra que dirijirse  al inicio para ingresar al chat si no desea crear otro usuario*/	
-	include "inc/header.php";	
-?>
+<body>
 <section>
-<div class="container">
+	<div class="container">
+		<div class="row">	
 			<div class="col-sm-4"></div>
-			<div  style="margin-top:50px" class="col-xs-12 col-sm-4">
-				<div class="panel panel-default">
+			<div  class="col-xs-12 col-sm-4">
+				<center><img src="images/logo1.png" class="img img-responsive"></center>
+					<br><br>
+				<div style="margin-top:50px" class="panel panel-default">
 					<div class="panel-heading ">
 						<div class="panel-title">Regístrate</div>
 						<div style="float:right; font-size: 85%; position: relative; top:-10px"><a id="signinlink" href="index.php">Iniciar Sesión</a></div>
@@ -143,13 +141,23 @@
 					</div>
 				</div>
 			</div>
+			
 			<div class="col-sm-4"></div>
 		</div>
+	</div>
 	<br><br>
 </section>
-<?php 
-include "inc/footer.php";
-?>
+<footer id="footer2">
+	<div class="container">
+		<div class="row">
+				<div class="col-xs-12" >
+				<center>	
+				<p style="color: gray">Stmendozza &copy; <br>© 2017 - Boutique Maria Fernanda.</p>
+				</center>
+				</div>
+		</div>
+	</div>	
+</footer>
     <script src="js/bootstrap.min.js"></script>
 </body>
 </html>
