@@ -6,13 +6,17 @@
 </head>
 <body> 
 <?php
-	/*manejando sesiones siempre va de primero el session para no mostrar el sitio si no hay un usuario conectado*/ 
 	session_start();
+/*manejando sesiones siempre va de primero el session para no mostrar el sitio si no hay un usuario conectado*/ 
 	include "config.php";
 	//si el usuario esta conectado muestra el sitio de chat si no lo redirige al index para que se logee o se registre
 	if (isset($_SESSION['usuario']))
 		{
-	include "inc/header.php";			
+	$id=$_SESSION['usuario'];
+	$sql = "select * from tb_usuarios where usuario = '$id'";
+	$resultado = $conexion->query( $sql );
+	$row = mysqli_fetch_row($resultado);
+	include "inc/header.php";	
 			?>
 <section>
 	<div class="container">
@@ -37,7 +41,7 @@
 						<div class="container">
 							<div class="row">
 								<div class="col-xs-12 col-sm-4 ">
-										<form class="form-horizontal" role="form" action="<?php $_SERVER['PHP_SELF']; ?>" method="POST" autocomplete="off">
+							<form class="form-horizontal" role="form" action="actualizar.php" method="POST" autocomplete="off">
 							
 							<div id="signupalert" style="display:none" class="alert alert-danger">
 								<p>Error:</p>
@@ -48,28 +52,28 @@
 								<label class="col-md-3">Usuario</label>
 								<br>
 								<div class="col-md-12">
-									<input type="text" class="form-control" name="usuario" placeholder="Usuario" value="" required="">
+									<input type="text" class="form-control" name="usuario" placeholder="Usuario" value="<?php  echo $row[0];?>" required="">
 								</div>
 							</div>
 
 							<div class="form-group">
 								<label class="col-md-3">Nombre</label>
 								<div class="col-md-12">
-									<input type="text" class="form-control" name="nombre" placeholder="Nombre" value="" required="">
+									<input type="text" class="form-control" name="nombre" placeholder="Nombre" value="<?php  echo $row[2];?>" required="">
 								</div>
 							</div>
 							
 							<div class="form-group">
 								<label class="col-md-3">Celular</label>
 								<div class="col-md-12">
-									<input type="text" class="form-control" name="celular" placeholder="Celular" value="" required="">
+									<input type="text" class="form-control" name="celular" placeholder="Celular" value="<?php  echo $row[3];?>" required="">
 								</div>
 							</div>
 						
 							<div class="form-group">
 								<label class="col-md-3 ">Email</label>
 								<div class="col-md-12">
-									<input type="email" class="form-control" name="email" placeholder="Email" value="" required="">
+									<input type="email" class="form-control" name="correo" placeholder="Email" value="<?php  echo $row[4];?>" required="">
 								</div>
 							</div>
 
