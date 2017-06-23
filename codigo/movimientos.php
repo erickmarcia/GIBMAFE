@@ -180,28 +180,23 @@
 							</form>
 				<div class="col-xs-12 contenedor-section" ">
 					<?php 
-					$enlaceeli='eliminardato.php';	
-					$tabla='tb_movimientos';
-					$primarykey='cod_movimiento';
-					$enlacefinal='movimientos.php';
 					$sql="SELECT * FROM  tb_movimientos ORDER BY  cod_movimiento DESC ";
 					include("config.php");
 					$resultado = $conexion->query( $sql );
-					echo "	<table class='table table-condensed ' border=3px> 
+					echo "	<table class='table table-condensed ' > 
 							<tr align='center'>	
 									
-									<td>Codigo Movimiento</td>	
-									<td>Codigo Producto</td>	
-									<td>Descripcion</td>
-									<td>Cantidad</td>
-									<td>Tipo Movimiento</td>
-									<td>Valor Movimiento</td>
-									<td>Factura</td>
-									<td>Externo</td>
-									<td>Admin</td>
-									<td>Fecha registro</td>	
-									<td>Editar</td>
-									<td>Eliminar</td>
+									<th>Codigo Movimiento</th>	
+									<th>Codigo Producto</th>	
+									<th>Descripcion</th>
+									<th>Cantidad</th>
+									<th>Tipo Movimiento</th>
+									<th>Valor Movimiento</th>
+									<th>Factura</th>
+									<th>Externo</th>
+									<th>Admin</th>
+									<th>Fecha registro</th>	
+									
 
 							</tr>";
 
@@ -218,8 +213,8 @@
 									<td>".$row[7]."</td>
 									<td>".$row[8]."</td>
 									<td>".$row[5]."</td>
-									<td><button class='glyphicon glyphicon-pencil' data-toggle='modal' data-target='#myModal2'></button></a></td>
-									<td><a id='eliminarnegro' href='$enlaceeli?codigo=$row[0]&tabla=$tabla&enlacefinal=$enlacefinal&primarykey=$primarykey' ><button class='glyphicon glyphicon-trash'></button></a></td>
+									
+								
 							</tr>"	;
 					}
 					echo "	</table>";	
