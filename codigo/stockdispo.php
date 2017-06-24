@@ -34,18 +34,18 @@
 						</div>
 						<div class="panel-body">
 							<form class="form-horizontal" role="form" id="datos_cotizacion">
-									<div class="form-group row">
-										<div class="col-md-5">
-											<input type="text" class="form-control col-xs-12" id="q" placeholder="Codigo de Producto" onkeyup="load(1);">
-										</div>
-										<div class="col-md-3">
-											<button type="button" class="btn btn-default col-xs-12" onclick="load(1);">
-												<span class="glyphicon glyphicon-search"></span> Buscar</button>
-											<span id="loader"></span>
-										</div>	
-									</div>
-							</form>
-
+							
+									<div class="row">
+									  <div class="col-xs-12 col-sm-5 col-lg-5">
+									    <div class="input-group">
+									      <input type="text" class="form-control" placeholder="Introduzca Codigo">
+									      <span class="input-group-btn">
+									        <button class="btn btn-default" type="button">Buscar!</button>
+									      </span>
+									    </div><!-- /input-group -->
+									  </div><!-- /.col-lg-6 -->
+									</div><!-- /.row -->
+							</form><br>
 									   	<div class="col-xs-12 contenedor-section" ">
 											<?php 				 			
 												$sql="SELECT * FROM  tb_productos ORDER BY cod_producto ASC ";
@@ -63,7 +63,7 @@
 														</tr>";
 												$i=1;
 												while ($row=mysqli_fetch_row($resultado)) 
-													
+													 
 												{
 														
 													echo "<tr>	
