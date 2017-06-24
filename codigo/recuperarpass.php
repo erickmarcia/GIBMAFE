@@ -5,26 +5,16 @@
 	if (!empty($_POST)) 
 	{
 
-	$identificacion= $conexion->real_escape_string($_POST['identificacion']);
-	$nombre= $conexion->real_escape_string($_POST['nombre']);
-	$tipo= $conexion->real_escape_string($_POST['tipo']);
-	$direccion= $conexion->real_escape_string($_POST['direccion']);
-	$celular= $conexion->real_escape_string($_POST['celular']);
-	date_default_timezone_set("america/bogota");
-	$fecha_registro=date('y:m:d:h:i:s');
-	if($statement=$conexion->prepare("INSERT INTO `tb_externos` (`identificacion_externo`, `nombre`, `tipo`, `direccion`, `celular`, `fecha_registro`) VALUES (?, ?, ?, ?, ?, ?)"))
-	{
-    $statement->bind_param('ssssss', $identificacion, $nombre, $tipo, $direccion, $celular, $fecha_registro);
-    $statement->execute();
-	}if ($conexion-> affected_rows > 0 )  {
-		echo "<script> alert ('guardado') </script>" ;
-	}
-	else
-	{
-		echo "<script> alert ('Verifique los datos ingresados') </script>";
-   		
-
-	}
+	$correo= $conexion->real_escape_string($_POST['correo']);
+		if (!isemail($correo)) 
+		{
+			$errors[]= "Debe ingresar un correo electronico valido";
+			if (emailexiste($correo)) 
+			{
+				
+			}
+		}
+	
 	}		
 ?>
 <!DOCTYPE html>
@@ -116,3 +106,6 @@
 				<script src="js/bootstrap.min.js"></script>
 </body>
 </html>
+
+
+		
