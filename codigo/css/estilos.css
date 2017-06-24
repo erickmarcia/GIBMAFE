@@ -112,7 +112,7 @@ h4{
 	line-height: 18px;
 }
 .contenedor-section{
-	height:350px;
+	height:430px;
 	padding: 0;
 	
 	overflow: scroll;
@@ -187,7 +187,7 @@ a:focus, a:hover {
 	.contenedor-section{
 		/*position: fixed;*/
 		width: 97%;
-		height:500px;
+		height:550px;
 		padding: 0;
 	}
 	.loginfondo{
