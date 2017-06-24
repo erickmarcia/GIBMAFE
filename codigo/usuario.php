@@ -1,10 +1,3 @@
-<!DOCTYPE html> 
-<html lang="es">
-<head>
-	<?php include ("inc/headcommon.php");?>
-	<title>GIBMAFE | Usuario</title>	
-</head>
-<body> 
 <?php
 	session_start();
 /*manejando sesiones siempre va de primero el session para no mostrar el sitio si no hay un usuario conectado*/ 
@@ -12,12 +5,20 @@
 	//si el usuario esta conectado muestra el sitio de chat si no lo redirige al index para que se logee o se registre
 	if (isset($_SESSION['usuario']))
 		{
+
 	$id=$_SESSION['usuario'];
 	$sql = "select * from tb_usuarios where usuario = '$id'";
 	$resultado = $conexion->query( $sql );
 	$row = mysqli_fetch_row($resultado);
-	include "inc/header.php";	
-			?>
+?>
+<!DOCTYPE html>  
+<html lang="es">
+<head>
+	<?php include ("inc/headcommon.php");?>
+	<title>GIBMAFE | Usuario</title>	
+</head>
+<body> 
+<?php include "inc/header.php"; ?>
 <section>
 	<div class="container">
 		<div class="row">
@@ -108,31 +109,30 @@
 						<h4 class="modal-title" id="myModalLabel"><i class="glyphicon glyphicon-edit"></i> Actualizar Contraseña</h4>
 					  </div>
 					  <div class="modal-body">
-						<form class="form-horizontal" method="post" id="editar_vendedor" name="editar_vendedor">
+						<form class="form-horizontal" method="post" action="actualizarpass.php" >
 						 	<div class="form-group">
 							<div class="col-sm-12">
-							  <input type="text" class="form-control" id="documento" placeholder="Contraseña Actual" name="documento">
+							  <input type="text" class="form-control" id="documento" placeholder="Contraseña Actual" name="actualpass">
 							</div>
 						  	</div>
 						  
 							<div class="form-group">
 							<div class="col-sm-12">
-							  <input type="text" class="form-control" id="nombre" placeholder="Nueva Contraseña " name="nombre" required="">
+							  <input type="text" class="form-control" id="nombre" placeholder="Nueva Contraseña " name="nuevapass" required="">
 							</div>
 						 	</div>
 						  
 						  	<div class="form-group">
 							<div class="col-sm-12">
-							<input type="text" class="form-control" id="celular" placeholder="Confirma Nueva Contraseña" name="celular">
+							<input type="text" class="form-control" id="celular" placeholder="Confirma Nueva Contraseña" name="confirmapass">
 							</div>
 							</div>	
-					  </form></div>
+					  </div>
 					  <div class="modal-footer">
 						<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
 						<button type="submit" class="btn btn-primary" id="actualizar_datos">Actualizar Contraseña</button>
 					  </div>
-				
-
+					 	 </form>
 			</div>
 		</div>		
 	</div>
