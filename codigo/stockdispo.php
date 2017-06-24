@@ -4,8 +4,7 @@
 	include "config.php";
 	// si el usuario esta conectado muestra el sitio de chat si no lo redirige al index para que se logee o se registre
 	if (isset($_SESSION['usuario']))
-	{ 
-			
+	{ 		
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -24,8 +23,6 @@
 				</div>
 				</div>
 				<div class="contenedor-section0	 col-xs-12 col-sm-10 col-sd-10 ">
-					
-					   
 					    <div class="panel panel-success">
 						<div class="panel-heading">
 						    <div class="btn-group pull-right">
