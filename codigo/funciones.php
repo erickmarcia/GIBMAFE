@@ -1,4 +1,4 @@
-<?php     
+<?php    
 //****************************//
 		function buscar($campos,$tabla,$condicion)
 	{
@@ -111,7 +111,7 @@ while ($row=mysqli_fetch_row($resultado))
 				<td>".$row[3]."</td>
 				<td>".$row[4]."</td>
 				<td>".$row[5]."</td>
-				<td><button class='glyphicon glyphicon-pencil' data-toggle='modal' data-target='#myModal2'></button></a></td>
+				<td><a id='eliminarnegro' href='actualizaexterno.php?identificacion_externo=$row[0]' ><button class='glyphicon glyphicon-pencil'></button></a></td>
 				<td><a id='eliminarnegro' href='$enlaceeli?codigo=$row[0]&tabla=$tabla&enlacefinal=$enlacefinal&primarykey=$primarykey' ><button class='glyphicon glyphicon-trash'></button></a></td>
 		</tr>"	;
 
@@ -435,5 +435,46 @@ function registromovimiento($descripcion, $cantidad, $tipo_movimiento, $valor_mo
 						echo "<script> alert ('Verifique los datos ingresados') </script>";
 						}
 				}
+}
+
+//***********************************************
+function actualizar($tabla, $campos, $valores, $condicion)//variables a usar en los parámetros
+{/* funcion que me permite hacer modificaciones en la informacion realizado por DG el 25/11/2016 */
+
+	$sql = "UPDATE $tabla set $campos = $valores WHERE $condicion";//se traen los datos
+	echo $sql;
+	include("config.php");//se trae los parámetros de la bd
+	$resultado = $conexion->query( $sql );
+	if( $conexion->affected_rows > 0 )
+		{
+			echo "Los datos se han actualizado correctamente.";
+
+		}else{
+				echo "Error: no se han actualizado los datos de la tabla en la base de datos.";
+			}
+		
+		return $resultado;
+
+}
+//***********************************************
+function getvalor($campo, $campowhere, $valor){
+
+	global $conexion;
+
+	$stmt= $conexion->prepare("SELECT $campo FROM tb_usuarios WHERE $campowhere = ? LIMIT 1 ");
+	$stmt->bind_param('s', $campo);
+	$stmt->execute();
+	$stmt->store_result();
+	$num = $stmt->num_rows;
+
+	if ($num>0) 
+	{
+		$stmt->bind_result($_campo);
+		$stmt->fetch();
+		return $_campo;
+	}else{
+		echo "error";
+	}
+
 }
 ?>
