@@ -2,6 +2,8 @@
 /*en caso de que el usuario se devuelva del chat al registro tendra que dirijirse  al inicio para ingresar al chat si no desea crear otro usuario*/	
 	require 'config.php';
 	require 'funciones.php';
+	
+
 	if (!empty($_POST)) 
 	{ 
 	$codigo_producto= $conexion->real_escape_string($_POST['codigo_producto']);
@@ -165,19 +167,18 @@
 
 							<form class="form-horizontal" role="form" id="datos_cotizacion">
 							
-									<div class="form-group row">
-										
-										<div class="col-md-5">
-											<input type="text" class="form-control col-xs-12" id="q" placeholder="Codigo del Producto" onkeyup="load(1);">
-										</div>
-										<div class="col-md-3">
-											<button type="button" class="btn btn-default col-xs-12" onclick="load(1);">
-												<span class="glyphicon glyphicon-search"></span> Buscar</button>
-											<span id="loader"></span>
-										</div>
-										
-									</div>
+									<div class="row">
+									  <div class="col-xs-12 col-sm-5 col-lg-5">
+									    <div class="input-group">
+									      <input type="text" class="form-control" placeholder="Introduzca Codigo">
+									      <span class="input-group-btn">
+									        <button class="btn btn-default" type="button">Buscar!</button>
+									      </span>
+									    </div><!-- /input-group -->
+									  </div><!-- /.col-lg-6 -->
+									</div><!-- /.row -->
 							</form>
+							<br>
 				<div class="col-xs-12 contenedor-section" ">
 					<?php 
 					$enlaceeli='eliminardato.php';	
@@ -218,12 +219,17 @@
 									<td>".$row[7]."</td>
 									<td>".$row[8]."</td>
 									<td>".$row[5]."</td>
-									<td><button class='glyphicon glyphicon-pencil' data-toggle='modal' data-target='#myModal2'></button></a></td>
-									<td><a id='eliminarnegro' href='$enlaceeli?codigo=$row[0]&tabla=$tabla&enlacefinal=$enlacefinal&primarykey=$primarykey' ><button class='glyphicon glyphicon-trash'></button></a></td>
+									<td><a id='eliminarnegro' href='actualizarmovimiento.php?cod_movimiento=$row[0]' ><button class='glyphicon glyphicon-pencil'></button></a></td>
+									<td><a id='eliminarnegro' href='$enlaceeli?codigo=$row[0]&tabla=$tabla&enlacefinal=$enlacefinal&primarykey=$primarykey' ><button class='glyphicon glyphicon-trash'></button></a></td> 
+								
 							</tr>"	;
 					}
 					echo "	</table>";	
-				?>		
+					
+				?>			<!--// <th>Editar</th>
+									// <th>Eliminar</th>
+				 // <td><a id='eliminarnegro' href='actualizarmovimiento.php?cod_movimiento=$row[0]' ><button class='glyphicon glyphicon-pencil'></button></a></td>
+									// <td><a id='eliminarnegro' href='$enlaceeli?codigo=$row[0]&tabla=$tabla&enlacefinal=$enlacefinal&primarykey=$primarykey' ><button class='glyphicon glyphicon-trash'></button></a></td> -->
 				</div>
 																		<!-- Modal -->
 							<div class="modal fade" id="nuevovendedor" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -262,7 +268,7 @@
 									  <div class="form-group">
 										<label for="tipo_movimiento" class="col-sm-3 control-label">Tipo de Movimiento</label>
 										<div class="col-sm-8">
-											<select  name="tipo_movimiento">	
+											<select class="form-control" name="tipo_movimiento" >	
 											<option value="venta">Venta</option>
 											<option value="abastecimiento">Abastecimiento</option>
 											<option value="averia">Averia</option>
@@ -317,77 +323,7 @@
 								</div>
 							  </div>
 							</div>
-														<!-- Modal -->
-							<div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-							  <div class="modal-dialog" role="document">
-								<div class="modal-content">
-								  <div class="modal-header">
-									<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-									<h4 class="modal-title" id="myModalLabel"><i class="glyphicon glyphicon-edit"></i> Editar vendedor</h4>
-								  </div>
-								  <div class="modal-body">
-									<form class="form-horizontal" method="post" id="editar_vendedor" name="editar_vendedor">
-									<div id="resultados_ajax2"></div>
-									 	<div class="form-group">
-										<label for="codigo_producto"  class="col-sm-3 control-label">Codigo del producto</label>
-										<div class="col-sm-8">
-										  <input type="text" pattern="[0-9]{1,5}" maxlength="5" class="form-control" id="codigo_producto" name="codigo_producto" required="">
-										</div>
-									  	</div>
-									  
-										<div class="form-group">
-										<label for="Descripcion" class="col-sm-3 control-label">Descripcion</label>
-										<div class="col-sm-8">
-										  <input type="text" pattern="[a-zA-Z0-9]{1,30}" maxlength="30" class="form-control" id="Descripcion" name="Descripcion" required="">
-										</div>
-									  	</div>
-									  
-									  <div class="form-group">
-										<label for="cantidad" class="col-sm-3 control-label">Cantidad</label>
-										<div class="col-sm-8">
-											<input type="text" pattern="[0-9]{1,10}" maxlength="10" class="form-control" id="cantidad" name="cantidad" required="">
-										  
-										</div>
-									  </div>	 
-
-									  <div class="form-group">
-										<label for="precio_compra" class="col-sm-3 control-label">Precio de Compra</label>
-										<div class="col-sm-8">
-											<input type="text" pattern="[0-9]{1,10}" maxlength="10" class="form-control" id="precio_compra" name="precio_compra" required="">
-										  
-										</div>
-									  </div>	
-
-									  <div class="form-group">
-										<label for="Factura" class="col-sm-3 control-label">Factura</label>
-										<div class="col-sm-8">
-											<input type="text" pattern="[0-9]{1,15}" maxlength="15" class="form-control" id="Factura" name="Factura" required="">
-										  
-										</div>
-									  </div>	
-
-									  <div class="form-group">
-										<label for="codigo_proveedor" class="col-sm-3 control-label">Codigo Proveedor</label>
-										<div class="col-sm-8">
-											<input type="text" pattern="[0-9]{1,5}" maxlength="5" class="form-control" id="codigo_proveedor" name="codigo_proveedor" required="">
-										  
-										</div>
-									  </div>	
-									
-										<div class="form-group">
-										<label for="documento_almacenista" class="col-sm-3 control-label">Documento Almacenista</label>
-										<div class="col-sm-8">
-											<input type="text" pattern="[0-9]{1,15}" maxlength="15" class="form-control" id="documento_almacenista" name="documento_almacenista" required="">
-										</div>
-								  </form></div>
-								  <div class="modal-footer">
-									<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-									<button type="submit" class="btn btn-primary" id="actualizar_datos">Actualizar datos</button>
-								  </div>
-								  
-								</div>
-							  </div>
-							</div>	
+													
 				</div> 
 				</div>
 		</div>
