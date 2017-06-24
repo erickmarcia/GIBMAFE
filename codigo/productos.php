@@ -4,7 +4,6 @@
 	require 'funciones.php';
 	if (!empty($_POST)) 
 	{ 
-
 	$descripcion= $conexion->real_escape_string($_POST['descripcion']);
 	$precio_compra= $conexion->real_escape_string($_POST['precio_compra']);
 	date_default_timezone_set("america/bogota");
@@ -19,8 +18,6 @@
 	else
 	{
 		echo "<script> alert ('Verifique los datos ingresados') </script>";
-   		
-
 	}
 	}		
 ?>
@@ -61,34 +58,32 @@
 							</div>
 							<div class="panel-body">
 								<form class="form-horizontal" role="form" id="datos_cotizacion">
-								<div class="form-group row">
-									
-									<div class="col-md-5">
-										<input type="text" class="form-control col-xs-12" id="q" placeholder="Codigo del Producto" onkeyup="load(1);">
-									</div>
-									<div class="col-md-3">
-										<button type="button" class="btn btn-default col-xs-12" onclick="load(1);">
-											<span class="glyphicon glyphicon-search"></span> Buscar</button>
-										<span id="loader"></span>
-									</div>
-								</div>
-								</form>
+							
+									<div class="row">
+									  <div class="col-xs-12 col-sm-5 col-lg-5">
+									    <div class="input-group">
+									      <input type="text" class="form-control" placeholder="Introduzca Codigo">
+									      <span class="input-group-btn">
+									        <button class="btn btn-default" type="button">Buscar!</button>
+									      </span>
+									    </div><!-- /input-group -->
+									  </div><!-- /.col-lg-6 -->
+									</div><!-- /.row -->
+							</form><br>
 						<div class="col-xs-12 contenedor-section" ">
-						<br>
-
 						<?php 
 											 			
 							$sql="SELECT * FROM  tb_productos ";
 							include("config.php");
 							$resultado = $conexion->query( $sql );
-							echo "	<table class='table table-condensed ' border=3px> 
+							echo "	<table class='table table-condensed '> 
 									<tr>
-											<td>Codigo Producto</td>
-											<td>Descripcion</td>
-											<td>Precio de compra</td>	
-											<td>Fecha registro</td>	
-											<td>editar</td>
-											<td>eliminar</td>
+											<th>Codigo Producto</th>
+											<th>Descripcion</th>
+											<th>Precio de compra</th>	
+											<th>Fecha registro</th>	
+											<th>editar</th>
+											<th>eliminar</th>
 									</tr>";
 
 							while ($row=mysqli_fetch_row($resultado)) 
@@ -98,7 +93,8 @@
 											<td>".$row[1]."</td>	
 											<td>".$row[4]."</td>
 											<td>".$row[5]."</td>
-											<td><button class='glyphicon glyphicon-pencil' data-toggle='modal' data-target='#myModal2'></button></a></td>
+											<td><a id='eliminarnegro' href='actualizaproducto.php?cod_producto=$row[0]' ><button class='glyphicon glyphicon-pencil'></button></a></td>
+
 											<td><a id='eliminarnegro' href='eliminardato.php?codigo=$row[0]&tabla=tb_productos&enlacefinal=productos.php&primarykey=cod_producto' ><button class='glyphicon glyphicon-trash'></button></a></td>
 									</tr>"	;
 
@@ -144,44 +140,6 @@
 							</div>
 						  </div>
 						</div>
-											<!-- Modal -->
-						<div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-						  	<div class="modal-dialog" role="document">
-								<div class="modal-content">
-									  <div class="modal-header">
-										<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-										<h4 class="modal-title" id="myModalLabel"><i class="glyphicon glyphicon-edit"></i> Editar Producto</h4>
-									  </div>
-									  <div class="modal-body">
-										<form class="form-horizontal" method="post" id="editar_vendedor" name="editar_vendedor">
-										<div id="resultados_ajax2"></div>
-										 	<div class="form-group">
-											<label for="documento" class="col-sm-3 control-label">Descripcion</label>
-											<div class="col-sm-8">
-											  <input type="text" class="form-control" id="documento" name="documento">
-											</div>
-										  	</div>
-										  
-											<div class="form-group">
-											<label for="nombre" class="col-sm-3 control-label">Precio de compra</label>
-											<div class="col-sm-8">
-											  <input type="text" class="form-control" id="nombre" name="nombre" required="">
-											</div>
-										 	</div>	 
-										 
-										 
-										
-									  </form>
-									  </div>
-									  <div class="modal-footer">
-										<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-										<button type="submit" class="btn btn-primary" id="actualizar_datos">Actualizar datos</button>
-									  </div> 
-								</div>
-						  	</div>
-						</div>
-							
-
 			</div>				
   		</div>
 	</div>				
@@ -198,3 +156,6 @@
 	<script src="js/bootstrap.min.js"></script>
 </body>
 </html>
+
+
+		
