@@ -32,9 +32,9 @@ body{
 	color: black;
 }  
 
-#header1{http://localhost/GIBMAFEv1/images/sena.png
+#header1{
 	height: 20%;
-	background-color: #c361b3;
+	background-color: #564954;
 }
 
 #usu{ 
@@ -84,7 +84,7 @@ h4{
 	width: 100%;
 	
 	margin-top: 0px;
-	background-color:#c361b3; 
+	background-color:#564954; 
 }	
 .btn-menu {
 	display: none;	
@@ -112,7 +112,7 @@ h4{
 	line-height: 18px;
 }
 .contenedor-section{
-	height:430px;
+	height:490px;
 	padding: 0;
 	
 	overflow: scroll;
