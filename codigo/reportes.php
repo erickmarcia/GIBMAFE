@@ -4,7 +4,8 @@
 	include "config.php";
 	// si el usuario esta conectado muestra el sitio de chat si no lo redirige al index para que se logee o se registre
 	if (isset($_SESSION['usuario']))
-	{		 
+	{	
+	
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -94,3 +95,6 @@
  		?>
 </body>
 </html>
+
+
+		

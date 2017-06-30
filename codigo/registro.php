@@ -62,7 +62,7 @@
 <head>
 	<link rel="shortcut icon" type="image/x-icon" href="images/sen2.png">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>| Registro</title>
+	<title>| Registro Administradores</title>
 	<link rel="stylesheet" href="css/bootstrap.min.css">
 	<link rel="stylesheet"  href="css/estilos.css">
 </head>

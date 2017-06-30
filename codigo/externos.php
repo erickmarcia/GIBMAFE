@@ -1,4 +1,4 @@
-  <?php 	
+ <?php 	
 /*en caso de que el usuario se devuelva del chat al registro tendra que dirijirse  al inicio para ingresar al chat si no desea crear otro usuario*/	
 	require 'config.php';
 	require 'funciones.php';
@@ -32,6 +32,30 @@
 <head>
 	<?php include ("inc/headcommon.php");?>
 	<title>GIBMAFE | Externos</title>	
+	<script src="https://code.jquery.com/jquery-3.2.1.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/jquery.dataTables.min.js"></script>
+ 		<script>
+		$(document).ready(function(){
+		$('#mitabla').DataTable({
+		"order": [[1, "asc"]],
+		"language":{
+		"lengthMenu": "Mostrar _MENU_ registros por pagina",
+		"info": "Mostrando pagina _PAGE_ de _PAGES_",
+		"infoEmpty": "No hay registros disponibles",
+		"infoFiltered": "(filtrada de _MAX_ registros)",
+		"loadingRecords": "Cargando...",
+		"processing":     "Procesando...",
+		"search": "Buscar:",
+		"zeroRecords":    "No se encontraron registros coincidentes",
+		"paginate": {
+		"next":       "Siguiente",
+		"previous":   "Anterior"
+		},					
+		}
+		});	
+		});	
+	</script>
 </head>
 <body> 
 <?php
@@ -58,22 +82,23 @@
 						<div class="panel-heading">
 						    <div class="btn-group pull-right">
 						   		<button type="button" class="btn btn-success" data-toggle="modal" data-target="#nuevocliente"><span class="glyphicon glyphicon-plus"></span> Nuevo </button>
-						    	<button type="button" class="btn btn-success" ><span class="glyphicon glyphicon-print"></span> Imprimir </button>		
+						    	<a href="pdf/reporteexternos.php" target="_blank"><button type="button" class="btn btn-success" ><span class="glyphicon glyphicon-print"></span> Imprimir </button></a>		
 							</div>
 						</div>
 					<div class="panel-body">
-							<form class="form-horizontal" role="form" id="datos_cotizacion">
-									<div class="form-group row">
-										<div class="col-md-5">
-											<input type="text" class="form-control col-xs-12" id="q" placeholder="Nombre del Externo" onkeyup="load(1);">
-										</div>
-										<div class="col-md-3">
-											<button type="button" class="btn btn-default col-xs-12" onclick="load(1);">
-												<span class="glyphicon glyphicon-search"></span> Buscar</button>
-											<span id="loader"></span>
-										</div>	
-									</div>
-							</form>		
+							<!-- 	<form class="form-horizontal" role="form" id="datos_cotizacion">
+							
+									<div class="row">
+									  <div class="col-xs-12 col-sm-5 col-lg-5">
+									    <div class="input-group">
+									      <input type="text" class="form-control" placeholder="Introduzca Codigo">
+									      <span class="input-group-btn">
+									        <button class="btn btn-default" type="button">Buscar!</button>
+									      </span>
+									    </div><! /input-group -->
+									  <!-- </div>/.col-lg-6 -->
+									<!-- </div>/.row -->
+							<!-- </form><br> --> 
 					<div class="col-xs-12 contenedor-section" ">
 					<?php mostrartabla('tb_externos','eliminardato.php','identificacion_externo','externos.php');?>	
 					</div>	
@@ -136,47 +161,7 @@
 							</div>
 						</div>
 					</div>
-										<!-- Modal 2-->
-					<div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-					  <div class="modal-dialog" role="document">
-						<div class="modal-content">
-						  <div class="modal-header">
-							<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-							<h4 class="modal-title" id="myModalLabel"><i class="glyphicon glyphicon-edit"></i> Editar vendedor</h4>
-						  </div>
-						  <div class="modal-body">
-							<form class="form-horizontal" method="POST"  action="<?php $_SERVER['PHP_SELF'] ?>" name="miform" >
-							<div id="resultados_ajax2"></div>
-							 	<div class="form-group">
-								<label for="documento" class="col-sm-3 control-label">Documento</label>
-								<div class="col-sm-8">
-								  <input type="text" class="form-control" id="documento" name="documento">
-								</div>
-							    </div>
-							  
-								<div class="form-group">
-								<label for="nombre" class="col-sm-3 control-label">Nombre</label>
-								<div class="col-sm-8">
-								  <input type="text" class="form-control" id="nombre" name="nombre" required="">
-								</div>
-							 	</div>
-							  
-								<div class="form-group">
-								<label for="celular" class="col-sm-3 control-label">Celular</label>
-								<div class="col-sm-8">
-								<input type="text" class="form-control" id="celular" name="celular">
-								</div>
-								</div>
-								</form>
-						  </div>
-						  <div class="modal-footer">
-							<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-							<button type="submit" class="btn btn-primary" id="actualizar_datos">Actualizar datos</button>
-							
-						  </div> 
-						</div>
-					  </div>
-					</div>
+									
 			</div>										
 		</div>	
 	</div>					
@@ -187,7 +172,9 @@
 		}
 			include "inc/footer.php";
  		?>
-				<script src="https://code.jquery.com/jquery-3.2.1.js"></script>
-				<script src="js/bootstrap.min.js"></script>
+				
 </body>
 </html>
+
+
+		

@@ -131,6 +131,30 @@
 <head>
 	<?php include ("inc/headcommon.php");	?>
 	<title>GIBMAFE | Movimientos</title>
+	<script src="https://code.jquery.com/jquery-3.2.1.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/jquery.dataTables.min.js"></script>
+ 		<script>
+		$(document).ready(function(){
+		$('#mitabla').DataTable({
+		"order": [[1, "asc"]],
+		"language":{
+		"lengthMenu": "Mostrar _MENU_ registros por pagina",
+		"info": "Mostrando pagina _PAGE_ de _PAGES_",
+		"infoEmpty": "No hay registros disponibles",
+		"infoFiltered": "(filtrada de _MAX_ registros)",
+		"loadingRecords": "Cargando...",
+		"processing":     "Procesando...",
+		"search": "Buscar:",
+		"zeroRecords":    "No se encontraron registros coincidentes",
+		"paginate": {
+		"next":       "Siguiente",
+		"previous":   "Anterior"
+		},					
+		}
+		});	
+		});	
+	</script>
 </head>
 <body> 
 <?php
@@ -159,13 +183,12 @@
 					<div class="panel-heading">
 					    <div class="btn-group pull-right">
 					   		<button type="button" class="btn btn-success" data-toggle="modal" data-target="#nuevovendedor"><span class="glyphicon glyphicon-plus"></span> Nuevo </button>
-					    	<button type="button" class="btn btn-success" ><span class="glyphicon glyphicon-print"></span> Imprimir </button>		
+					    	<a href="pdf/reportemovimietos.php" target="_blank"><button type="button" class="btn btn-success" ><span class="glyphicon glyphicon-print"></span> Imprimir </button></a>		
 						</div>
 						
 					</div>
 					<div class="panel-body">
-
-							<form class="form-horizontal" role="form" id="datos_cotizacion">
+<!-- 	<form class="form-horizontal" role="form" id="datos_cotizacion">
 							
 									<div class="row">
 									  <div class="col-xs-12 col-sm-5 col-lg-5">
@@ -174,11 +197,10 @@
 									      <span class="input-group-btn">
 									        <button class="btn btn-default" type="button">Buscar!</button>
 									      </span>
-									    </div><!-- /input-group -->
-									  </div><!-- /.col-lg-6 -->
-									</div><!-- /.row -->
-							</form>
-							<br>
+									    </div><! /input-group -->
+									  <!-- </div>/.col-lg-6 -->
+									<!-- </div>/.row -->
+							<!-- </form><br> --> 
 				<div class="col-xs-12 contenedor-section" ">
 					<?php 
 					$enlaceeli='eliminardato.php';	
@@ -188,23 +210,25 @@
 					$sql="SELECT * FROM  tb_movimientos ORDER BY  cod_movimiento DESC ";
 					include("config.php");
 					$resultado = $conexion->query( $sql );
-					echo "	<table class='table table-condensed ' > 
-							<tr align='center'>	
+					echo "	<table class='table table-condensed display' id='mitabla' > 
+							<thead>
+							<tr>	
 									
-									<th>Codigo Movimiento</th>	
-									<th>Codigo Producto</th>	
-									<th>Descripcion</th>
-									<th>Cantidad</th>
-									<th>Tipo Movimiento</th>
-									<th>Valor Movimiento</th>
-									<th>Factura</th>
-									<th>Externo</th>
-									<th>Admin</th>
-									<th>Fecha registro</th>	
-									<th>Editar</th>
-									<th>Eliminar</th>
+									<th>#</th>	
+									<th style='padding:0;'>Codigo Producto</th>	
+									<th style='padding:0;'>Descripcion</th>
+									<th style='padding:0;'>Cantidad</th>
+									<th style='padding:0;'>Movimiento</th>
+									<th style='padding:0;'>Valor</th>
+									<th style='padding:0;'>Factura</th>
+									<th style='padding:0;'>Externo</th>
+									<th style='padding:0;'>Admin</th>
+									<th style='padding:0;'>Fecha registro</th>	
+									<th style='padding:0;'>Editar</th>
+									<th style='padding:0;'>Eliminar</th>
 
-							</tr>";
+							</tr>
+							</thead>";
 
 					while ($row=mysqli_fetch_row($resultado)) 
 					{
@@ -335,7 +359,6 @@
 		 }
 			include "inc/footer.php";
  		?>
-<script src="https://code.jquery.com/jquery-3.2.1.js"></script>
-<script src="js/bootstrap.min.js"></script>
+ 		
 </body>
 </html>

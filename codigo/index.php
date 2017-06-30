@@ -35,7 +35,7 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-	<title>GIBMAFE| Ingreso</title> 
+	<title>Ingreso</title> 
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -82,7 +82,7 @@
 								
 								<div style="margin-top:10px" class="form-group">
 									<div class="col-sm-12 controls">
-										<button id="btn-login" type="submit" class="btn btn-success">Iniciar Sesi&oacute;n</a>
+										<button id="btn-login" type="submit" class="col-xs-12 btn btn-success">Iniciar Sesi&oacute;n</a>
 									</div>
 								</div>
 								

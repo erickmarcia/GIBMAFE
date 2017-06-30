@@ -90,7 +90,8 @@ function mostrartabla($tabla,$enlaceeli,$primarykey,$enlacefinal)
 $sql="SELECT * FROM  $tabla ";
 include("config.php");
 $resultado = $conexion->query( $sql );
-echo "	<table class='table table-condensed ' > 
+echo "	<table class='table table-condensed display' id='mitabla' > 
+		<thead>
 		<tr>
 				<th>Identificacion</th>
 				<th>nombre</th>
@@ -100,7 +101,8 @@ echo "	<table class='table table-condensed ' >
 				<th>fecha registro</th>	
 				<th>editar</th>
 				<th>eliminar</th>
-		</tr>";
+		</tr>
+		</thead>";
 
 while ($row=mysqli_fetch_row($resultado)) 
 {

@@ -9,7 +9,7 @@
 		$usuario= $_POST['usuario'] ;
 		$contraseña=  $_POST['contraseña'];
 		/*creamos la estructura sql de consulta a la base de datos, para saber si la contraseña y el usuario son iguales a los que hay en base de datos y lo guarda en una variable */
-		$sql="SELECT usuario FROM tb_usuarios WHERE usuario='".$usuario."' AND contraseña='".$contraseña."'" ;
+		$sql="SELECT usuario FROM tb_usuarios WHERE usuario='".$usuario."' AND pass='".$contraseña."'" ;
 		
 		/*despues de consultar recupera los datos que trajo la variable sql  */
 		$resultado = $conexion->query( $sql );
@@ -18,11 +18,11 @@
 		{
 				echo "<script text='text/javascript'>;
 						alert('el usuario o la contraseña no coinsiden');
-						window.location= 'index.php';
+						window.location= 'dsd.php';
 					  </script>";
 		}else{
 					$_SESSION['usuario']=$usuario;
-					header("location: abastecimiento.php");
+					header("location: stockdispo.php");
 		}
 
 	}
