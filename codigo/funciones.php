@@ -479,4 +479,31 @@ function getvalor($campo, $campowhere, $valor){
 	}
 
 }
+///////////////////////////////////////////////
+function traer_lista_informacion( $nombre_lista, $tabla, $campo_llave_primaria, $campo_a_mostrar )
+	{
+		 //Aquí se traen los parámetros de la base de datos.
+		//Hay que recordar que solo debería existir un archivo que permita dicha configuración.
+
+		$salida = "";
+
+		//------------SQL Se traen datos----------------------------------------------------
+		$sql = "SELECT * FROM  $tabla ";
+		include( "config.php" );
+		// if( $sn_pruebas == "s" ) echo "<div class='contenedor-sql-pruebas'>".$sql."</div>";
+		$resultado = $conexion->query( $sql );	
+
+		$salida .= "<SELECT class='form-control' NAME='$nombre_lista'>";
+		$salida .= "<OPTION VALUE='-1'>Seleccionar</OPTION>";
+
+		while( $fila = mysqli_fetch_assoc( $resultado ) )
+		{
+			$salida .= "<OPTION VALUE='".$fila[ $campo_llave_primaria ]."'>".$fila[ $campo_a_mostrar ]."</OPTION>";
+		}
+
+		$salida .= "</SELECT>";
+
+		return $salida;	
+	}
+
 ?>
