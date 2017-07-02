@@ -5,7 +5,7 @@
 	
 
 	if (!empty($_POST)) 
-	{ 
+{ 
 	$codigo_producto= $conexion->real_escape_string($_POST['codigo_producto']);
 	/*$codigo_producto="'".$codigo_producto."'";*/
 	$descripcion= $conexion->real_escape_string($_POST['descripcion']);
@@ -18,8 +18,8 @@
 	date_default_timezone_set("america/bogota");
 	$fecha_registro=date('y:m:d:h:i:s');
 
-			
-
+		if ($tipo_movimiento=='abastecimiento' or $tipo_movimiento=='devolucion' or $tipo_movimiento=='venta' or $tipo_movimiento=='averia' ) {
+				
 					$sql= "SELECT * FROM tb_productos WHERE cod_producto='$codigo_producto'";
 					include("config.php");
 					$resultado=mysqli_query($conexion,$sql);
@@ -67,10 +67,9 @@
 				}
 				
 			}
-
-			
-				
-				$sql= "SELECT * FROM tb_productos WHERE cod_producto='$codigo_producto' AND estado='$tipo_movimiento'";
+			}else{
+				if ($tipo_movimiento=="solicitudgarantia" or $tipo_movimiento=="llegadagarantia") {
+					$sql= "SELECT * FROM tb_productos WHERE cod_producto='$codigo_producto' AND estado='$tipo_movimiento'";
 					include("config.php");
 				
 					$resultado=mysqli_query($conexion,$sql);
@@ -101,29 +100,36 @@
 						}
 						
 					}
-
-					$sql= "SELECT * FROM tb_productos WHERE cod_producto='$codigo_producto' AND estado='solicitudgarantia'";
-					include("config.php");
-				
-					$resultado=mysqli_query($conexion,$sql);
-					$row=mysqli_fetch_row($resultado);
-
-					if($tipo_movimiento=="salidagarantia")
+				}else{
+					
+					if($tipo_movimiento=="salidagarantia" )
 						{
-						$actualizar=$row[2]-$cantidad;
+						$sql= "SELECT * FROM tb_productos WHERE cod_producto='$codigo_producto' AND estado='solicitudgarantia'";
+						include("config.php");
+				
+						$resultado=mysqli_query($conexion,$sql);
+						$row=mysqli_fetch_row($resultado);
+						if ($row[2]>0) {
+							$actualizar=$row[2]-$cantidad;
 						$sql="update tb_productos set cantidad='$actualizar' where cod_producto='$codigo_producto' AND estado='solicitudgarantia'";
 						//echo $sql;
 						include("config.php");
 						$resultado = $conexion->query( $sql );
 						registromovimiento($descripcion, $cantidad, $tipo_movimiento, $valor_movimiento, $fecha_registro, $factura, $codigo_externo, $usuario, $codigo_producto);
-						if ($actualizar==0) 
-						{
-							$sql="DELETE FROM tb_productos WHERE cod_producto='$codigo_producto' AND estado='solicitudgarantia'";
-							include("config.php");
-							$conexion->query( $sql );
+							if ($actualizar==0) 
+							{
+								$sql="DELETE FROM tb_productos WHERE cod_producto='$codigo_producto' AND estado='solicitudgarantia'";
+								include("config.php");
+								$conexion->query( $sql );
+							}
+						}else{
+
+							echo "<script> alert ('No hay Solicitudes de Garantia del producto codigo $codigo_producto ') </script>";
 						}
+						
 						}
-			
+				}	
+			}		
 }
 ?>
 <!DOCTYPE html>
@@ -215,38 +221,41 @@
 							<tr>	
 									
 									<th>#</th>	
-									<th style='padding:0;'>Codigo Producto</th>	
-									<th style='padding:0;'>Descripcion</th>
-									<th style='padding:0;'>Cantidad</th>
-									<th style='padding:0;'>Movimiento</th>
-									<th style='padding:0;'>Valor</th>
-									<th style='padding:0;'>Factura</th>
-									<th style='padding:0;'>Externo</th>
-									<th style='padding:0;'>Admin</th>
-									<th style='padding:0;'>Fecha registro</th>	
-									<th style='padding:0;'>Editar</th>
-									<th style='padding:0;'>Eliminar</th>
+									<th width='10'>Codigo Producto</th>	
+									<th >Descripcion</th>
+									<th width='10'>Stock</th>
+									<th >Movimiento</th>
+									<th >Valor</th>
+									<th >Factura</th>
+									<th >Externo</th>
+									<th >Admin</th>
+									<th >Fecha registro</th>	
+									<th >Opciones</th>
+									
 
 							</tr>
 							</thead>";
 
 					while ($row=mysqli_fetch_row($resultado)) 
 					{
-						echo "<tr>
-									<td>".$row[0]."</td>
-									<td>".$row[9]."</td>
+						echo "
+						<tbody>
+						<tr>
+									<td align='center'>".$row[0]."</td>
+									<td align='center'>".$row[9]."</td>
 									<td>".$row[1]."</td>	
-									<td>".$row[2]."</td>
+									<td align='center'>".$row[2]."</td>
 									<td>".$row[3]."</td>
-									<td>".$row[4]."</td>
+									<td align='center'>".$row[4]."</td>
 									<td>".$row[6]."</td>
-									<td>".$row[7]."</td>
+									<td align='center'>".$row[7]."</td>
 									<td>".$row[8]."</td>
 									<td>".$row[5]."</td>
-									<td><a id='eliminarnegro' href='actualizarmovimiento.php?cod_movimiento=$row[0]' ><button class='glyphicon glyphicon-pencil'></button></a></td>
-									<td><a id='eliminarnegro' href='$enlaceeli?codigo=$row[0]&tabla=$tabla&enlacefinal=$enlacefinal&primarykey=$primarykey' ><button class='glyphicon glyphicon-trash'></button></a></td> 
+									<td align='center'><a id='eliminarnegro' href='actualizarmovimiento.php?cod_movimiento=$row[0]' ><button class='glyphicon glyphicon-pencil'></button></a>
+										<a id='eliminarnegro' href='$enlaceeli?codigo=$row[0]&tabla=$tabla&enlacefinal=$enlacefinal&primarykey=$primarykey' ><button class='glyphicon glyphicon-trash'></button></a></td> 
 								
-							</tr>"	;
+							</tr>
+							</tbody>";
 					}
 					echo "	</table>";	
 					
@@ -323,18 +332,19 @@
 									  </div>	
 
 									  <div class="form-group">
-										<label for="codigo_externo" class="col-sm-3 control-label">identificacion Externo</label>
+										<label for="codigo_externo" class="col-sm-3 control-label">Externo</label>
 										<div class="col-sm-8">
-											<input type="text" pattern="[0-9]{1,15}" maxlength="15" class="form-control" id="codigo_externo" name="codigo_externo" required="">
-										  
+										  	 <?php echo traer_lista_informacion( "codigo_externo", "tb_externos", "identificacion_externo", "nombre" ); ?>
 										</div>
 									  </div>	
 									
+									
+
+
 										<div class="form-group">
 										<label for="usuario" class="col-sm-3 control-label">Usuario</label>
 										<div class="col-sm-8">
-											<input type="text" pattern="[a-zA-Z0-9]{1,30}" maxlength="30" class="form-control" id="usuario" name="usuario" required="">
-										  
+											<?php echo traer_lista_informacion( "usuario", "tb_usuarios", "usuario", "nombre" ); ?>
 										</div>
 									  </div>	
 								  </div>
