@@ -99,8 +99,7 @@ echo "	<table class='table table-condensed display' id='mitabla' >
 				<th>Direccion</th>	
 				<th>celular</th>	
 				<th>fecha registro</th>	
-				<th>editar</th>
-				<th>eliminar</th>
+				<th>Opciones</th>
 		</tr>
 		</thead>";
 
@@ -113,8 +112,8 @@ while ($row=mysqli_fetch_row($resultado))
 				<td>".$row[3]."</td>
 				<td>".$row[4]."</td>
 				<td>".$row[5]."</td>
-				<td><a id='eliminarnegro' href='actualizaexterno.php?identificacion_externo=$row[0]' ><button class='glyphicon glyphicon-pencil'></button></a></td>
-				<td><a id='eliminarnegro' href='$enlaceeli?codigo=$row[0]&tabla=$tabla&enlacefinal=$enlacefinal&primarykey=$primarykey' ><button class='glyphicon glyphicon-trash'></button></a></td>
+				<td align='center'><a id='eliminarnegro' href='actualizaexterno.php?identificacion_externo=$row[0]' ><button class='glyphicon glyphicon-pencil'></button></a>
+					<a id='eliminarnegro' href='$enlaceeli?codigo=$row[0]&tabla=$tabla&enlacefinal=$enlacefinal&primarykey=$primarykey' ><button class='glyphicon glyphicon-trash'></button></a></td>
 		</tr>"	;
 
 }

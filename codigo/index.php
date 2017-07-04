@@ -1,7 +1,15 @@
 <?php 	 
 /*en caso de que el usuario se devuelva del chat al registro tendra que dirijirse  al inicio para ingresar al chat si no desea crear otro usuario*/	
 	session_start();
-	require 'config.php';
+	 include "config.php";
+	// si el usuario esta conectado muestra el sitio de chat si no lo redirige al index para que se logee o se registre
+	 	if (isset($_SESSION['usuario']))
+	 	{ 
+	 		header("location: stockdispo.php");	
+		}	else
+			{	
+			
+		 	
 	require 'funciones.php';
 
 	$errors = array();
@@ -100,6 +108,7 @@
 		</div>
 	</div>	
 </section>
+		<?php 	} ?>
 </body>
 </html>
  

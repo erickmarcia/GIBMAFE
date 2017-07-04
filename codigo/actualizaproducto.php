@@ -68,7 +68,7 @@ include("config.php");
 											<div class="form-group">
 											<label for="nombre" class="col-sm-3 control-label">Precio de compra</label>
 											<div class="col-sm-8">
-											  <input type="text" class="form-control" id="nombre" value="<?php echo $row[4]; ?>" name="precio_compra" required="">
+											  <input type="text" class="form-control" id="nombre" value="<?php echo $row[2]; ?>" name="precio_compra" required="">
 											</div>
 										 	</div>	 
 										 

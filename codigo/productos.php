@@ -107,23 +107,24 @@
 											<th>Descripcion</th>
 											<th>Precio de compra</th>	
 											<th>Fecha registro</th>	
-											<th>editar</th>
-											<th>eliminar</th>
+											<th>Opciones</th>
+											
 									</tr>
 									</thead>";
 
 							while ($row=mysqli_fetch_row($resultado)) 
 							{
-								echo "<tr>
+								echo "<tbody>
+										<tr>
 											<td>".$row[0]."</td>
 											<td>".$row[1]."</td>	
-											<td>".$row[4]."</td>
-											<td>".$row[5]."</td>
-											<td><a id='eliminarnegro' href='actualizaproducto.php?cod_producto=$row[0]' ><button class='glyphicon glyphicon-pencil'></button></a></td>
+											<td>".$row[2]."</td>
+											<td>".$row[3]."</td>
+											<td align='center'><a id='eliminarnegro' href='actualizaproducto.php?cod_producto=$row[0]' ><button class='glyphicon glyphicon-pencil'></button></a>
 
-											<td><a id='eliminarnegro' href='eliminardato.php?codigo=$row[0]&tabla=tb_productos&enlacefinal=productos.php&primarykey=cod_producto' ><button class='glyphicon glyphicon-trash'></button></a></td>
-									</tr>	
-									";
+											<a id='eliminarnegro' href='eliminardato.php?codigo=$row[0]&tabla=tb_productos&enlacefinal=productos.php&primarykey=cod_producto' ><button class='glyphicon glyphicon-trash'></button></a></td>
+									</tr>
+									</tbody>";
 
 							}
 							echo "	</table>";	

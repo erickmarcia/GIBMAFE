@@ -131,11 +131,14 @@
 							    		</div>
 							  				
 							    		<div class="form-group">
-										<label for="tipo" class="col-sm-3 control-label">Tipo</label>
+										<label for="tipo" class="col-sm-3 control-label">Tipo de Externo</label>
 										<div class="col-sm-8">
-										<input type="text" class="form-control" id="tipo" name="tipo">
-								 		</div>
-							  			</div>	 
+										<select class="form-control " name="tipo" >	
+										<option value="proveedor">Proveedor</option>
+										<option value="cliente">Cliente</option>
+										</select> 
+										</div>
+										</div>	 
 
 							  			<div class="form-group">
 										<label for="direccion" class="col-sm-3 control-label">Direccion</label>

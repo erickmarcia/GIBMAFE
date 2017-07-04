@@ -120,14 +120,14 @@
 							<div class="form-group">
 								<label for="contraseña" class="col-md-3 control-label">Contraseña</label>
 								<div class="col-md-9">
-									<input type="contraseña" class="form-control" name="contraseña" placeholder="Contraseña" required="">
+									<input type="password" class="form-control" name="contraseña" placeholder="Contraseña" required="">
 								</div>
 							</div>
 							
 							<div class="form-group">
 								<label for="con_contraseña" class="col-md-3 control-label">Confirmar Contraseña</label>
 								<div class="col-md-9">
-									<input type="contraseña" class="form-control" name="repitecontrasena" placeholder="Confirmar Contraseña" required="">
+									<input type="password" class="form-control" name="repitecontrasena" placeholder="Confirmar Contraseña" required="">
 								</div>
 							</div>
 							

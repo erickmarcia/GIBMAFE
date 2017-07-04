@@ -44,72 +44,59 @@
 				<div class="smenu ">
 					<?php include("inc/menu.php"); ?> 	
 				</div>
-				</div>
-				<div class="contenedor-section0	 col-xs-12 col-sm-10 col-sd-10 ">
-					
-					   
-					    <div class="panel panel-success">
-						<div class="panel-heading">
-						    <div class="btn-group pull-right">
-						    	<a href="pdf/reportedispo.php" target="_blank"><button type="button" class="btn btn-success" ><span class="glyphicon glyphicon-print"></span> Imprimir </button></a>		
-							</div>
+			</div>
+			<div class="contenedor-section0	 col-xs-12 col-sm-10 col-sd-10 ">
+				
+				   
+				<div class="panel panel-success">
+					<div class="panel-heading">
+					    <div class="btn-group pull-right">
+					    	<a href="pdf/reportedispo.php"><button type="button" class="btn btn-success" ><span class="glyphicon glyphicon-print"></span> Imprimir </button></a>		
 						</div>
-						<div class="panel-body">
-						<!-- 	<form class="form-horizontal" role="form" id="datos_cotizacion">
-							
-									<div class="row">
-									  <div class="col-xs-12 col-sm-5 col-lg-5">
-									    <div class="input-group">
-									      <input type="text" class="form-control" placeholder="Introduzca Codigo">
-									      <span class="input-group-btn">
-									        <button class="btn btn-default" type="button">Buscar!</button>
-									      </span>
-									    </div><!-- /input-group -->
-									  <!-- </div>/.col-lg-6 -->
-									<!-- </div>/.row -->
-							<!-- </form><br> --> 
-									   	<div class="col-xs-12 contenedor-section" ">
-											<?php 				 			
-												$sql="SELECT * FROM  tb_productos ORDER BY cod_producto ASC ";
-												include("config.php");
-												$resultado = $conexion->query( $sql );
-												echo "	<table class='display' id='mitabla'> 
-														<thead>
-
-														<tr>	
-																<th>#</th>
-																<th>Codigo Producto</th>
-																<th>Descripcion</th>
-																<th>Cantidad</th>
-																<th>Estado</th>
-																<th style='padding:0;'>Precio de compra</th>	
-																<th style='padding:0;'>Fecha registro</th>								
-														</tr>
-														</thead>";
-												$i=1;
-												while ($row=mysqli_fetch_row($resultado)) 
-													 
-												{
-														
-													echo "<tr>	
-																<td>".$i++."</td>
-																<td>".$row[0]."</td>
-																<td>".$row[1]."</td>
-																<td>".$row[2]."</td>	
-																<td>".$row[3]."</td>
-																<td>".$row[4]."</td>
-																<td>".$row[5]."</td>
-																
-														</tr>"	;
-														
-												}
-												echo "	</table>";	
-											?>	
-										</div>
+					</div>
+					<div class="panel-body">
+					   	<div class="col-xs-12 contenedor-section" ">
+							<?php 				 			
+								$sql="SELECT * FROM  tb_disponibles WHERE mostrar='1' ORDER BY cod_producto ASC ";
+								//echo $sql;
+								include("config.php");
+								$resultado = $conexion->query( $sql );
+									echo "<table class='display' id='mitabla'> 
+										<thead>
+										<tr>	
+											<th>#</th>
+											<th>Codigo Producto</th>
+											<th>Descripcion</th>
+											<th>Cantidad</th>
+											<th>Estado</th>
+											<th>Precio de compra</th>	
+											<th>Fecha registro</th>								
+										</tr>
+										</thead>";
+								$i=1;
+								while ($row=mysqli_fetch_assoc($resultado)) 
+									 
+								{
+									echo "<tbody>
+										<tr>	
+											<td>".$i++."</td>
+											<td>".$row['cod_producto']."</td>
+											<td>".$row['descripcion']."</td>
+											<td>".$row['cantidad']."</td>	
+											<td>".$row['estado']."</td>
+											<td>".$row['precio_compra']."</td>
+											<td>".$row['fecha_registro']."</td>
+										</tr>
+										</tbody>";
+								}
+									echo "</table>";	
+							?>	
 						</div>
-						</div>		
-		</div>		
-	</div>					
+					</div>
+				</div>		
+			</div>		
+		</div>
+	</div>						
 </section>
 		<?php
 		}else{
