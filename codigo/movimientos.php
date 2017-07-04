@@ -227,9 +227,9 @@
 				<div class="panel panel-success">
 					
 					<div class="panel-heading">
-					    <div class="btn-group pull-right">
-					   		<button type="button" class="btn btn-success" data-toggle="modal" data-target="#nuevovendedor"><span class="glyphicon glyphicon-plus"></span> Nuevo </button>
-					    	<a href="pdf/reportemovimietos.php" target="_blank"><button type="button" class="btn btn-success" ><span class="glyphicon glyphicon-print"></span> Imprimir </button></a>		
+					    <div class="col-xs-12 col-sm-6 btn-group pull-right">
+					   		<button type="button" class="col-xs-6 btn btn-success" data-toggle="modal" data-target="#nuevovendedor"><span class="glyphicon glyphicon-plus"></span> Nuevo </button>
+					    	<a href="pdf/reportemovimietos.php" target="_blank"><button type="button" class="col-xs-6 btn btn-danger" ><span class=" glyphicon glyphicon-print"></span> Imprimir </button></a>		
 						</div>
 						
 					</div>
@@ -267,6 +267,7 @@
 					while ($row=mysqli_fetch_row($resultado)) 
 					{
 						echo "
+						
 						<tr>
 									<td align='center'>".$row[0]."</td>
 									<td align='center'>".$row[9]."</td>
@@ -281,7 +282,8 @@
 									<td align='center'><a id='eliminarnegro' href='actualizarmovimiento.php?cod_movimiento=$row[0]' ><button class='glyphicon glyphicon-pencil'></button></a>
 										<a id='eliminarnegro' href='$enlaceeli?codigo=$row[0]&tabla=$tabla&enlacefinal=$enlacefinal&primarykey=$primarykey' ><button class='glyphicon glyphicon-trash'></button></a></td> 
 								
-							</tr>";
+							</tr>
+							";
 					}
 					echo "	</table>";	
 					

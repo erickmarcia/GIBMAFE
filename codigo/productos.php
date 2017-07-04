@@ -75,9 +75,9 @@
 					<div class="panel panel-success">
 								
 							<div class="panel-heading">
-							    <div class="btn-group pull-right">
-							   		<button type="button" class="btn btn-success" data-toggle="modal" data-target="#nuevovendedor"><span class="glyphicon glyphicon-plus"></span> Nuevo </button>
-							    	<a href="pdf/reporteproductos.php" target="_blank"><button type="button" class="btn btn-success" ><span class="glyphicon glyphicon-print"></span> Imprimir </button></a>	
+							    <div class="col-xs-12 col-sm-6 btn-group pull-right">
+							   		<button type="button" class="col-xs-6 btn btn-success" data-toggle="modal" data-target="#nuevovendedor"><span class="glyphicon glyphicon-plus"></span> Nuevo </button>
+							    	<a href="pdf/reporteproductos.php" target="_blank"><button type="button" class="col-xs-6 btn btn-danger" ><span class="glyphicon glyphicon-print"></span> Imprimir </button></a>	
 								</div>
 							</div>
 							<div class="panel-body">

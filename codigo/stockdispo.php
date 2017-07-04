@@ -12,28 +12,7 @@
 <head>
 	<?php include ("inc/headcommon.php");?>
 	<title>GIBMAFE | Disponible</title>	
-	<script src="js/jquery.dataTables.min.js"></script>
- 		<script>
-		$(document).ready(function(){
-		$('#mitabla').DataTable({
-		"order": [[1, "asc"]],
-		"language":{
-		"lengthMenu": "Mostrar _MENU_ registros por pagina",
-		"info": "Mostrando pagina _PAGE_ de _PAGES_",
-		"infoEmpty": "No hay registros disponibles",
-		"infoFiltered": "(filtrada de _MAX_ registros)",
-		"loadingRecords": "Cargando...",
-		"processing":     "Procesando...",
-		"search": "Buscar:",
-		"zeroRecords":    "No se encontraron registros coincidentes",
-		"paginate": {
-		"next":       "Siguiente",
-		"previous":   "Anterior"
-		},					
-		}
-		});	
-		});	
-	</script>
+	
 </head>
 <body> 
 	<?php include "inc/header.php";	?>
@@ -50,8 +29,8 @@
 				   
 				<div class="panel panel-success">
 					<div class="panel-heading">
-					    <div class="btn-group pull-right">
-					    	<a href="pdf/reportedispo.php"><button type="button" class="btn btn-success" ><span class="glyphicon glyphicon-print"></span> Imprimir </button></a>		
+					    <div class="col-xs-12 col-sm-6 btn-group pull-right">
+					    	<a href="pdf/reportedispo.php " target="_black"> <button type="button" class="col-xs-12 btn btn-danger" ><span class="glyphicon glyphicon-print"></span> Imprimir </button></a>		
 						</div>
 					</div>
 					<div class="panel-body">
@@ -105,7 +84,28 @@
 			include "inc/footer.php";
  		?>
  			
-
+<script src="js/jquery.dataTables.min.js"></script>
+ 		<script>
+		$(document).ready(function(){
+		$('#mitabla').DataTable({
+		"order": [[1, "asc"]],
+		"language":{
+		"lengthMenu": "Mostrar _MENU_ registros por pagina",
+		"info": "Mostrando pagina _PAGE_ de _PAGES_",
+		"infoEmpty": "No hay registros disponibles",
+		"infoFiltered": "(filtrada de _MAX_ registros)",
+		"loadingRecords": "Cargando...",
+		"processing":     "Procesando...",
+		"search": "Buscar:",
+		"zeroRecords":    "No se encontraron registros coincidentes",
+		"paginate": {
+		"next":       "Siguiente",
+		"previous":   "Anterior"
+		},					
+		}
+		});	
+		});	
+	</script>
 		
 </body>
 </html>
