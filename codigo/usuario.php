@@ -79,20 +79,23 @@
 							</div>
 
 							<div class="form-group">                                      
-								<div class="col-md-9">
-									<button id="btn-signup" type="submit" class="btn btn-success"><i class="icon-hand-right"></i>Actualizar Perfil</button> 
+								<div class="col-xs-12">
+									<button id="btn-signup" type="submit" class="col-xs-12 btn btn-success"><span class="glyphicon glyphicon-refresh"></span>  Actualizar Perfil</button> 
 								</div>
 							</div>
 						</form>							
 							
 								</div>
 								<div class="col-xs-12 col-sm-4 ">
+									<form class="form-horizontal" role="form" method="POST" autocomplete="off">
+							
 									<div class="form-group">
-									<label class="col-md-3">Contraseña</label>
-									<div class="col-md-12">
-										<button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal2"><span class="glyphicon glyphicon-lock"></span> Cambiar contraseña </button>
-								</div>
-							</div>
+									<label class="col-xs-12">Cambio de 	 Contraseña</label>
+									<div class="col-xs-12">
+										<button type="button" class="col-xs-12 btn btn-danger" data-toggle="modal" data-target="#myModal2"><span class="glyphicon glyphicon-lock"></span> Cambiar contraseña </button>
+									</div>
+									</div>
+									</form>
 								</div>
 								<div class="col-xs-12 col-sm-4 "></div>
 							</div>
