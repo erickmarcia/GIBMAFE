@@ -267,7 +267,6 @@
 					while ($row=mysqli_fetch_row($resultado)) 
 					{
 						echo "
-						<tbody>
 						<tr>
 									<td align='center'>".$row[0]."</td>
 									<td align='center'>".$row[9]."</td>
@@ -282,8 +281,7 @@
 									<td align='center'><a id='eliminarnegro' href='actualizarmovimiento.php?cod_movimiento=$row[0]' ><button class='glyphicon glyphicon-pencil'></button></a>
 										<a id='eliminarnegro' href='$enlaceeli?codigo=$row[0]&tabla=$tabla&enlacefinal=$enlacefinal&primarykey=$primarykey' ><button class='glyphicon glyphicon-trash'></button></a></td> 
 								
-							</tr>
-							</tbody>";
+							</tr>";
 					}
 					echo "	</table>";	
 					
