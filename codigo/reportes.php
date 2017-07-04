@@ -11,7 +11,13 @@
 <html lang="es">
 <head>
 	<?php include ("inc/headcommon.php");?>
-	<title>GIBMAFE | Reportes</title>	
+	<title>GIBMAFE | Reportes</title>
+<link href="css/estilo.css" rel="stylesheet">
+
+<script src="js/bootstrap.js"></script>	
+
+<script src="js/jqueryb.js"></script>
+<script src="js/myjava.js"></script>
 </head>
 <body> 
 <?php	include "inc/header.php";?>
@@ -35,49 +41,27 @@
 					<div class="panel-body">
 						<div class="container">
 				    	<div class="row">
-				    		<div class="col-xs-12 col-sm-3">
-				    			<form class="form-horizontal" role="form" action="actualizar.php" method="POST" autocomplete="off">
-							
-								<div class="form-group">
-									<label class="col-md-12 ">Reporte de:</label>
-									<div class="col-sm-12 ">
-										<select class="form-control" name="tipo_movimiento">	
-										<option value="venta">Venta</option>
-										<option value="abastecimiento">Abastecimiento</option>
-										<option value="averia">Averia</option>
-										<option value="devolucion">Devolucion</option>
-										<option value="solicitudgarantia">Solicitud de Garantía</option>
-										<option value="salidagarantia">Salida de Garantía</option>
-										<option value="llegadagarantia">Llegada de Garantía</option>
-										<option value="entregagarantia">Entrega de Garantía</option>
-										
-										</select> 
-									  
-									</div>
-								</div>
+				   
+				    		<div class="col-xs-12 col-sm-12">
+				    			
+				    			<section>
+    <table border="0" align="center">
+    	<tr>
+        	<td width="335"><input type="text" placeholder="Busca un producto por: Nombre o Tipo" id="bs-prod"/></td>
+            <td><input type="date" id="bd-desde"/></td>
+            <td>Hasta&nbsp;&nbsp;&nbsp;&nbsp;</td>
+            <td><input type="date" id="bd-hasta"/></td>
+            
+            <td width="200"><a target="_blank" href="javascript:reportePDF();" class="btn btn-danger">Exportar Busqueda a PDF</a></td>
+        </tr>
+    </table>
+    </section>
 
-								<div class="form-group">
-									<label class="col-md-12 ">De</label>
-									<div class=" col-md-12 ">
-										<input class="form-control" type="date" name="">
-									</div>
-								</div>
-							
-								<div class="form-group">
-									<label class="col-md-12 ">Hasta</label>
-									<div class="col-md-12 ">
-										<input class="form-control" type="date" name="">
-									</div>
-								</div>
-							
-								<div class="form-group">                                      
-									<div class="col-md-12">
-										<button id="btn-signup" type="submit" class="col-md-12 btn btn-success"><i class="icon-hand-right"></i>Generar Reporte</button> 
-									</div>
-								</div>
-							</form>	
-				    		</div>
-				    		<div class="col-xs-12 col-sm-9"></div>
+    <div class="registros" id="agrega-registros"></div>
+    <center>
+        <ul class="pagination" id="pagination"></ul>
+    </center>
+
 				    	</div>
 				    	</div>
 				    </div>
