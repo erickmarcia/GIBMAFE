@@ -50,10 +50,9 @@ $pdf->SetFont('Arial', 'B', 9);
 $pdf->SetFillColor(232,232,232);
 $pdf->Cell(10, 8, '#', 1,0,'C');
 $pdf->Cell(15, 8, 'Codigo', 1,0,'C');
-$pdf->Cell(80, 8, 'Item', 1,0,'C');
-$pdf->Cell(25, 8, 'Tipo', 1,0,'C');
+$pdf->Cell(95, 8, 'Item', 1,0,'C');
 $pdf->Cell(35, 8, 'Precio Distribuidor', 1,0,'C');
-$pdf->Cell(25, 8, 'Fech. Registro', 1,0,'C');
+$pdf->Cell(35, 8, 'Fech. Registro', 1,0,'C');
 $pdf->Ln(8);
 $pdf->SetFont('Arial', '', 9);
 //CONSULTA
@@ -66,10 +65,9 @@ while($row = mysqli_fetch_array($resultado)){
 	$totaldis = $totaldis + $row['precio_compra'];
 	$pdf->Cell(10, 8, $item, 0,0,'C');
 	$pdf->Cell(15, 8,$row['cod_producto'], 0,0,'C');
-	$pdf->Cell(80, 8, $row['descripcion'], 0,0,'L');
-	$pdf->Cell(25, 8, $row['estado'], 0,0,'L');
+	$pdf->Cell(95, 8, $row['descripcion'], 0,0,'L');
 	$pdf->Cell(35, 8, '$/. '.$row['precio_compra'], 0,0,'C');
-	$pdf->Cell(25, 8, date('d/m/Y', strtotime($row['fecha_registro'])), 0,0,'C');
+	$pdf->Cell(35, 8, date('d/m/Y', strtotime($row['fecha_registro'])), 0,0,'C');
 	$pdf->Ln(8);
 }
 $pdf->SetFont('Arial', 'B', 9);
