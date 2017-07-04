@@ -114,7 +114,7 @@
 
 							while ($row=mysqli_fetch_row($resultado)) 
 							{
-								echo "<tbody>
+								echo "
 										<tr>
 											<td>".$row[0]."</td>
 											<td>".$row[1]."</td>	
@@ -124,7 +124,7 @@
 
 											<a id='eliminarnegro' href='eliminardato.php?codigo=$row[0]&tabla=tb_productos&enlacefinal=productos.php&primarykey=cod_producto' ><button class='glyphicon glyphicon-trash'></button></a></td>
 									</tr>
-									</tbody>";
+									";
 
 							}
 							echo "	</table>";	
