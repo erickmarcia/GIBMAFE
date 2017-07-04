@@ -77,7 +77,7 @@
 								while ($row=mysqli_fetch_assoc($resultado)) 
 									 
 								{
-									echo "<tbody>
+									echo "
 										<tr>	
 											<td>".$i++."</td>
 											<td>".$row['cod_producto']."</td>
@@ -87,7 +87,7 @@
 											<td>".$row['precio_compra']."</td>
 											<td>".$row['fecha_registro']."</td>
 										</tr>
-										</tbody>";
+										";
 								}
 									echo "</table>";	
 							?>	
