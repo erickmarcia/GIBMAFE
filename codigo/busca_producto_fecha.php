@@ -25,9 +25,9 @@ $resultado=mysqli_query($conexion,$registro);
 
 echo '<table class="table table-striped table-condensed table-hover">
         	<tr>
-            	<th width="300">Nombre</th>
-                <th width="200">Tipo</th>
-                <th width="150">Precio Unitario</th>
+            	<th width="50">Codigo</th>
+                <th width="300">Nombre</th>
+               
                 <th width="150">Precio Distribuidor</th>
                 <th width="150">Fecha Registro</th>
                 <th width="50">Opciones</th>
@@ -36,9 +36,8 @@ echo '<table class="table table-striped table-condensed table-hover">
 if(!empty($resultado)){
 	while($array = mysqli_fetch_array($resultado)){
 		echo '<tr>
+				<td>'.$array['cod_producto'].'</td>
 				<td>'.$array['descripcion'].'</td>
-				<td>'.$array['cantidad'].'</td>
-				<td>S/. '.$array['estado'].'</td>
 				<td>S/. '.$array['precio_compra'].'</td>
 				<td>'.fechaNormal($array['fecha_registro']).'</td>
 				<td><a href="javascript:editarProducto('.$array['cod_producto'].');" class="glyphicon glyphicon-edit"></a> <a href="javascript:eliminarProducto('.$array['cod_producto'].');" class="glyphicon glyphicon-remove-circle"></a></td>
