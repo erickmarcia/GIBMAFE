@@ -62,7 +62,7 @@
 											<td>".$row['cod_producto']."</td>
 											<td>".$row['descripcion']."</td>
 											<td>".$row['cantidad']."</td>	
-											<td>".$row['estado']."</td>
+											<td class='label-success'>".$row['estado']."</td>
 											<td>".$row['precio_compra']."</td>
 											<td>".$row['fecha_registro']."</td>
 										</tr>
