@@ -23,11 +23,16 @@ body{
 }
 .panel-info>.panel-heading {
     color: #000;
-    border-color: ccc;
+    border-color:#fff;
 }
 .panel-success>.panel-heading {
     height: 55px;
+
 }  
+.panel{
+	border-radius: 0px;
+
+}
 #eliminarnegro{
 	color: black;
 }  
@@ -93,7 +98,9 @@ h4{
 	color: white;
 
 }
-
+.btn{
+	border-radius: 0px;
+}
 .pagination>.active>a, .pagination>.active>a:focus, .pagination>.active>a:hover, .pagination>.active>span, .pagination>.active>span:focus, .pagination>.active>span:hover {
     background-color: #8a858a;
     border-color: #8a858a;
