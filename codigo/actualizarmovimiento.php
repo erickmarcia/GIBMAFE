@@ -119,18 +119,19 @@ include("config.php");
 									  </div>	
 
 									  <div class="form-group">
-										<label for="codigo_externo" class="col-sm-3 control-label">identificacion Externo</label>
+										<label for="codigo_externo" class="col-sm-3 control-label">Externo</label>
 										<div class="col-sm-8">
-											<input type="text" pattern="[0-9]{1,15}" maxlength="15" class="form-control" id="codigo_externo" name="codigo_externo" required="" value="<?php  echo $row[7];?>">
-										  
+										  	 <?php echo traer_lista_informacion( "codigo_externo", "tb_externos", "identificacion_externo", "nombre" ); ?>
 										</div>
 									  </div>	
 									
-										<div class="form-group">
+									
+
+
+									<div class="form-group">
 										<label for="usuario" class="col-sm-3 control-label">Usuario</label>
 										<div class="col-sm-8">
-											<input type="text" pattern="[a-zA-Z0-9]{1,30}" maxlength="30" class="form-control" id="usuario" name="usuario" required="" value="<?php  echo $row[8];?>">
-										  
+											<?php echo traer_lista_informacion( "usuario", "tb_usuarios", "usuario", "nombre" ); ?>
 										</div>
 									  </div>
 								  <div class="modal-footer">
