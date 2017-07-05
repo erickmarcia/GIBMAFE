@@ -45,8 +45,8 @@
 				if ($row[4]=='Disponible' AND $tipo_movimiento=='Abastecimiento' or $row[4]=='Disponible' AND $tipo_movimiento=='Devolucion')
 				{
 					$actualizar=$row[3]+$cantidad;
-					$sql="update tb_disponibles set cantidad='$actualizar' where cod_producto='$codigo_producto' ";
-			
+					$sql="update tb_disponibles set  cantidad='$actualizar', mostrar='1' where cod_producto='$codigo_producto' ";
+					echo $sql;
 					include("config.php");
 					$resultado = $conexion->query( $sql );
 
@@ -63,7 +63,7 @@
 					$conexion->query( $sql );
 					$tipo_movimientopro="Disponible";
 					$sql= "INSERT INTO tb_disponibles (cod_producto, descripcion, cantidad, estado, mostrar, precio_compra, fecha_registro) VALUES ('".$codigo_producto."','".$descripcion."','".$cantidad."','".$tipo_movimientopro."','1','".$valor_movimiento."','".$fecha_registro."')";
-
+					echo $sql;
 					include "config.php";
 					$conexion->query( $sql );
 					registromovimiento($descripcion, $cantidad, $tipo_movimiento, $valor_movimiento, $fecha_registro, $factura, $codigo_externo, $usuario, $codigo_producto);	
@@ -83,7 +83,7 @@
 						if($tipo_movimiento=="Solicitud de Garantía" or $tipo_movimiento=="Llegada de Garantía")
 						{
 						$actualizar=$row[3]+$cantidad;
-						$sql="update tb_disponibles set cantidad='$actualizar' where cod_producto='$codigo_producto' ";
+						$sql="update tb_disponibles set cantidad='$actualizar', mostrar='1' where cod_producto='$codigo_producto' AND	estado='Llegada de Garantía'";
 						//echo $sql;
 						include("config.php");
 						$resultado = $conexion->query( $sql );
@@ -96,7 +96,7 @@
 						{
 						$sql= "INSERT INTO tb_productos (cod_producto, descripcion, precio_compra, fecha_registro) VALUES ('".$codigo_producto."','".$descripcion."','".$valor_movimiento."','".$fecha_registro."')";
 						include "config.php";
-						$sql= "INSERT INTO tb_disponibles (cod_producto, descripcion, cantidad, estado, mostrar, precio_compra, fecha_registro) VALUES ('".$codigo_producto."','".$descripcion."','".$cantidad."','".$tipo_movimientopro."','1','".$valor_movimiento."','".$fecha_registro."')";
+						$sql= "INSERT INTO tb_disponibles (cod_producto, descripcion, cantidad, estado, mostrar, precio_compra, fecha_registro) VALUES ('".$codigo_producto."','".$descripcion."','".$cantidad."','".$tipo_movimiento."','1','".$valor_movimiento."','".$fecha_registro."')";
 
 						include "config.php";
 						$conexion->query( $sql );
@@ -105,26 +105,34 @@
 						
 					}
 				}else{
-					$sql= "SELECT * FROM tb_disponibles WHERE cod_producto='$codigo_producto' AND estado='Solicitud de Garantía'";
+					if ($tipo_movimiento=="Salida de Garantía") {
+						$tipoadisminuir="Solicitud de Garantía";
+					}
+					if ($tipo_movimiento=="Entrega de Garantía") {
+						$tipoadisminuir="Llegada de Garantía";
+					}
+					$sql= "SELECT * FROM tb_disponibles WHERE cod_producto='$codigo_producto' AND estado='$tipoadisminuir'";
 						include("config.php");
 				
 						$resultado=mysqli_query($conexion,$sql);
 						$row=mysqli_fetch_row($resultado);
 					
-					if($tipo_movimiento=="Salida de Garantía" AND $row[3]>0)
+					if($tipo_movimiento=="Salida de Garantía" AND $row[3]>0 or $tipo_movimiento=="Entrega de Garantía" AND $row[3]>0 )
 					{
 						
-						if ($row[3]>=$cantidad) 
+
+						
+						if ($row[3]>=$cantidad)
 						{
 							$actualizar=$row[3]-$cantidad;
-							$sql="update tb_disponibles set cantidad='$actualizar' where cod_producto='$codigo_producto' AND estado='Solicitud de Garantía'";
+							$sql="update tb_disponibles set cantidad='$actualizar' where cod_producto='$codigo_producto' AND estado='$tipoadisminuir'";
 						//echo $sql;
 						include("config.php");
 						$resultado = $conexion->query( $sql );
 					
 							if ($actualizar==0) 
 							{	
-								$sql="update tb_disponibles set mostrar='0' where cod_producto='$codigo_producto' ";
+								$sql="update tb_disponibles set mostrar='0' where cod_producto='$codigo_producto' AND estado='$tipoadisminuir' ";
 								//$sql="DELETE FROM tb_disponibles WHERE cod_producto='$codigo_producto' AND estado='Solicitud de Garantía'";
 								include("config.php");
 								$conexion->query( $sql );
@@ -139,37 +147,10 @@
 						{
 							echo "<script> alert ('No hay Solicitudes de Garantia del producto codigo $codigo_producto ') </script>";
 						}
-
-					if($tipo_movimiento=="Entrega de Garantía" )
-					
-{						$sql= "SELECT * FROM tb_disponibles WHERE cod_producto='$codigo_producto' AND estado='Llegada de Garantía'";
-						include("config.php");
-				
-						$resultado=mysqli_query($conexion,$sql);
-						$row=mysqli_fetch_row($resultado);
-						if ($row[3]>0) {
-							$actualizar=$row[3]-$cantidad;
-						$sql="update tb_disponibles set cantidad='$actualizar' where cod_producto='$codigo_producto' AND estado='Llegada de Garantía'";
-						//echo $sql;
-						include("config.php");
-						$resultado = $conexion->query( $sql );
-						
-							if ($actualizar==0) 
-							{	
-								$sql="update tb_disponibles set mostrar='0' where cod_producto='$codigo_producto' ";
-								//$sql="DELETE FROM tb_disponibles WHERE cod_producto='$codigo_producto' AND estado='Llegada de Garantía'";
-								include("config.php");
-								$conexion->query( $sql );
-							}
-						registromovimiento($descripcion, $cantidad, $tipo_movimiento, $valor_movimiento, $fecha_registro, $factura, $codigo_externo, $usuario, $codigo_producto);
-						}else{
-
-							echo "<script> alert ('No hay Llegadas de Garantias del producto codigo $codigo_producto ') </script>";
-						}
 						
 					}
 				}	
-			}		
+					
 }
 ?>
 <!DOCTYPE html>
