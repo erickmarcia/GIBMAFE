@@ -23,15 +23,25 @@ body{
 }
 .panel-info>.panel-heading {
     color: #000;
-    border-color:#fff;
+   
+
 }
+.panel-body{
+	padding-right: 0px;
+	padding-left:0px;
+}
+.pull-right{
+	padding: 0px;
+}	
 .panel-success>.panel-heading {
-    height: 55px;
+    height: 34px;
+    padding: 0px;
 
 }  
 .panel{
 	border-radius: 0px;
-
+	height: 34px;
+	 border:0px;
 }
 #eliminarnegro{
 	color: black;
@@ -119,13 +129,19 @@ h4{
 	line-height: 18px;
 }
 .contenedor-section{
-	height:490px;
+	height:510px;
 	padding: 0;
 	
 	overflow: scroll;
 	display: inline-block;
 	font-family: 'Roboto', sans-serif;
 	line-height: 18px;
+}
+.contenedor-section1{
+	overflow: hidden;
+	width: 83%;
+		height:550px;
+		padding: 0;
 }
 
 .contenedor-menu .menu{
@@ -150,6 +166,8 @@ a:focus, a:hover {
 .contenedor-menu .menu li a:hover{
 	background: #FF7A08;
 	color:white;
+	/*border-left: solid gray;*/
+	
 }
 
 .contenedor-menu .menu .icono{
@@ -180,6 +198,7 @@ a:focus, a:hover {
 	background: #FF7A08;
 	color: white;
 }
+
 section table tr td input{
 	width:90%;
 	height:35px;
@@ -227,9 +246,15 @@ section table tr td input{
 	}
 	.contenedor-section{
 		/*position: fixed;*/
-		width: 97%;
+		width: 100%;
 		height:550px;
 		padding: 0;
+	}
+	.contenedor-section1{
+		width: 100%;
+		height:550px;
+		padding: 0;
+		overflow: scroll;
 	}
 	.loginfondo{
     height: 350px;
@@ -243,6 +268,7 @@ section table tr td input{
 	.logosena{
 		display: none;
 	}
+	
 }
 @media screen and (max-width: 768px){
 	.logosena{
@@ -262,7 +288,7 @@ section table tr td input{
 	height: 100px;
 }
 		.smenu{
-	height:580px;
+	height:600px;
 }
 		.contenedor-section0{
 	height:580px;
