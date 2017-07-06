@@ -38,13 +38,13 @@
 						</div>				
 					</div>
 					<br>
-					<div class="panel-body">
+					<div class="contenedor-section panel-body">
 						<div class="container">
 				    	<div class="row">
 				   
 				    		<div class="col-xs-12 col-sm-12">
 				    			
-				    			<section>
+				    			
     <table border="0" align="center">
     	<tr>
         	<td width="335"><input type="text" placeholder="Busca un producto por: Nombre o Tipo" id="bs-prod"/></td>
@@ -55,7 +55,7 @@
             <td width="200"><a target="_blank" href="javascript:reportePDF();" class="btn btn-danger">Exportar Busqueda a PDF</a></td>
         </tr>
     </table>
-    </section>
+    
 
     <div class="registros" id="agrega-registros"></div>
     <center>
