@@ -1,6 +1,7 @@
 				<a class="btn-menu">Boutique Maria Fernanda<i class="icono glyphicon glyphicon-align-justify"></i></a>
 				<ul class="menu">
 
+					<li ><a href="usuario.php" class="verde"><i class="verde icono izquierda glyphicon glyphicon-thumbs-up" ></i>Bienvenid@!! <?php echo $_SESSION['nombre']; ?></a></li>
 					<li ><a href="stockdispo.php"><i class="icono izquierda glyphicon glyphicon-sort-by-alphabet" ></i>Stock disponible</a></li>
 					
 					<li  ><a href="movimientos.php"><i class="icono izquierda glyphicon glyphicon-log-in" ></i>Movimientos</a></li>
