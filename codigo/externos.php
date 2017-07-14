@@ -1,4 +1,4 @@
- <?php 	
+ <?php 	 
 /*en caso de que el usuario se devuelva del chat al registro tendra que dirijirse  al inicio para ingresar al chat si no desea crear otro usuario*/	
 	require 'config.php';
 	require 'funciones.php';
@@ -18,6 +18,7 @@
     $statement->execute();
 	}if ($conexion-> affected_rows > 0 )  {
 		echo "<script> alert ('guardado') </script>" ;
+		echo "<script>location.href='externos.php' </script>";
 	}
 	else
 	{
@@ -134,8 +135,8 @@
 										<label for="tipo" class="col-sm-3 control-label">Tipo de Externo</label>
 										<div class="col-sm-8">
 										<select class="form-control " name="tipo" >	
-										<option value="proveedor">Proveedor</option>
-										<option value="cliente">Cliente</option>
+										<option value="Proveedor">Proveedor</option>
+										<option value="Cliente">Cliente</option>
 										</select> 
 										</div>
 										</div>	 

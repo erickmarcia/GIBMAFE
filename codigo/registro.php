@@ -1,61 +1,112 @@
-<?php 	 
-/*en caso de que el usuario se devuelva del chat al registro tendra que dirijirse  al inicio para ingresar al chat si no desea crear otro usuario*/	
+ <?php 
+	
 	require 'config.php';
 	require 'funciones.php';
-
-	$errors = array();
-
-	if (!empty($_POST)) 
-	{
- 
-	$usuario= $conexion->real_escape_string($_POST['usuario']);
-	$nombre= $conexion->real_escape_string($_POST['nombre']);
-	$celular= $conexion->real_escape_string($_POST['celular']);
-	$email= $conexion->real_escape_string($_POST['email']);
-	$contraseña= $conexion->real_escape_string($_POST['contraseña']);
-	$repitecontraseña= $conexion->real_escape_string($_POST['repitecontrasena']);
-	date_default_timezone_set("america/bogota");
-	$fecha_registro=date('Y-m-d H:i:s');
 	
-	if (isnull($usuario, $nombre, $celular, $email, $contraseña, $repitecontraseña, $fecha_registro)) {
-		$errors[]= "   Debe llenar todos los campos.";
-	}
-
-	if (!isemail($email)) {
-		$errors[]= "   Direccion de correo no valida.";
-	}
-
-	if (!validacontraseñas($contraseña, $repitecontraseña)) {
-		$errors[]= "    Las contraseñas no coinciden.";
-	}
-
-	if (usuarioexiste($usuario)) {
-		$errors[]= "    El nombre de usuario $usuario ya existe.";
-	}
-
-	if (emailexiste($email)) {
-		$errors[]= "   El correo Electronico $email ya existe.";
-	}
-
-	if (count($errors)==0) {
+	$errors = array();
+	
+	if(!empty($_POST)) 
+	{
+		$nombre = $conexion->real_escape_string($_POST['nombre']);
+		//echo $nombre;	
+		$usuario = $conexion->real_escape_string($_POST['usuario']);	
+		//echo $usuario;	
+		$password = $conexion->real_escape_string($_POST['contrasena']);	
+		//echo $password;	
+		$con_password = $conexion->real_escape_string($_POST['repitecontrasena']);
+		//echo $con_password;		
+		$celular= $conexion->real_escape_string($_POST['celular']);
+		$email = $conexion->real_escape_string($_POST['email']);	
+		//echo $email;	
+		$captcha = $conexion->real_escape_string($_POST['g-recaptcha-response']);
+		//echo $captcha;
+		date_default_timezone_set("america/bogota");
+		$fecha_registro=date('Y-m-d H:i:s');	
+		$activo = 0;
+		//$tipo_usuario = 2;
+		$secret = '6LddGBwUAAAAAEHJFB2Gd8ROyHHFmFGuXlfmYo_E';
 		
-
-			$registro= registroUsuario($usuario, $contraseña, $nombre, $celular, $email, $fecha_registro);	
-
-			if ($registro > 0) {
-				session_start();
-				$_SESSION['usuario']=$usuario;
-				header("location: stockdispo.php");
-					exit;
+		if(!$captcha){
+			$errors[] = "Por favor verifica el captcha";
+		}
+		
+		if(isNull( $usuario, $nombre, $celular, $email, $password, $con_password ))
+		{
+			$errors[] = "Debe llenar todos los campos";
+		}
+		
+		if(!isEmail($email))
+		{
+			$errors[] = "Dirección de correo inválida";
+		}
+		
+		if(!validacontraseñas($password, $con_password))
+		{
+			$errors[] = "Las contraseñas no coinciden";
+		}
+		
+		if(usuarioExiste($usuario))
+		{
+			$errors[] = "El nombre de usuario $usuario ya existe";
+		}
+		
+		if(emailExiste($email))
+		{
+			$errors[] = "El correo electronico $email ya existe";
+		}
+		
+		if(count($errors) == 0)
+		{
+			$response = file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=$secret&response=$captcha");
+			
+			$arr = json_decode($response, TRUE);
+			
+			if($arr['success'])
+			{
 				
-			}else{
-					$errors[]='    Error al registrar.';
-			}
-		
-	}
+				$pass_hash = hashcontraseña($password);
+				
+				$token = generarToken();
+				
+				$registro = registroUsuario($usuario, $pass_hash, $nombre, $celular, $email, $activo, $token, $fecha_registro);
+				//echo $registro;
+				if(!empty($registro))
+				{
+					// session_start();
+					// $_SESSION['usuario']=$usuario;
+					// $_SESSION['nombre']=$nombre;
+					// header("location: stockdispo.php");
+						//exit;
+					
+					$url = 'http://'.$_SERVER["SERVER_NAME"].'/GIBMAFE/codigo/activar.php?id='.$registro.'&val='.$token;
+					
+					$asunto = 'Activar Cuenta - GIBMAFE';
+					$cuerpo = "Estimado $nombre: <br /><br />Para continuar con el proceso de registro, es indispensable de click en la siguiente liga <a href='$url'>Activar Cuenta</a>";
+					
+					if(enviarEmail($email, $nombre, $asunto, $cuerpo)){
+					
+					echo "Para terminar el proceso de registro siga las instrucciones que le hemos enviado la direccion de Correo Electronico: $email";
+					
+					echo "<br><a href='index.php' >Iniciar Sesion</a>";
+					exit; 
+					
 
-	}
+					} else {
+						$erros[] = "Error al enviar Email";
+					}
+					
+					} else {
+					$errors[] = "Error al Registrar";
+				}
+				
+				} else {
+				$errors[] = 'Error al comprobar Captcha';
+			}
+			
+		}
 		
+	}
+	
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -65,6 +116,7 @@
 	<title>| Registro Administradores</title>
 	<link rel="stylesheet" href="css/bootstrap.min.css">
 	<link rel="stylesheet"  href="css/estilos.css">
+	<script src='https://www.google.com/recaptcha/api.js'></script>
 </head>
 <body>
 <section>
@@ -120,7 +172,7 @@
 							<div class="form-group">
 								<label for="contraseña" class="col-md-3 control-label">Contraseña</label>
 								<div class="col-md-9">
-									<input type="password" class="form-control" name="contraseña" placeholder="Contraseña" required="">
+									<input type="password" class="form-control" name="contrasena" placeholder="Contraseña" required="">
 								</div>
 							</div>
 							
@@ -129,6 +181,10 @@
 								<div class="col-md-9">
 									<input type="password" class="form-control" name="repitecontrasena" placeholder="Confirmar Contraseña" required="">
 								</div>
+							</div>
+							<div class="form-group">
+								<label for="captcha" class="col-md-3 control-label"></label>
+								<div class="g-recaptcha col-md-9" data-sitekey="6LddGBwUAAAAAOL2bMn0KPebaQ20Xdg1L08uxfEh"></div>
 							</div>
 							
 							<div class="form-group">                                      
@@ -147,10 +203,10 @@
 	</div>
 	<br><br>
 </section>
-<footer id="footer2">
+<footer style="margin-top: 450px;" id="footer2">
 	<div class="container">
 		<div class="row">
-				<div class="col-xs-12" >
+				<div class="col-xs-12 " >
 				<center>	
 				<p style="color: gray">Stmendozza &copy; <br>© 2017 - Boutique Maria Fernanda.</p>
 				</center>

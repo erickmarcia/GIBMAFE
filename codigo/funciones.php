@@ -1,4 +1,4 @@
-<?php    
+<?php     
 //****************************//
 		function buscar($campos,$tabla,$condicion)
 	{
@@ -7,7 +7,7 @@
 
 		 include("config.php");
 		 return $resultado;
-		
+		 
 	}
 //****************************//
 		function nuevo($tabla,$campos,$valores)
@@ -26,7 +26,7 @@
 
 		 return $resultado;
 		
-	}
+	} 
 //****************************//
 		function eliminar_tabla($tabla,$condicion)
 	{
@@ -64,13 +64,19 @@
 //****************************//
 		function eliminar_dato_tabla($tabla,$primarykey,$documento,$enlacefinal)
 	{
-	/*cristhian mendoza 13/11/2016 funcion buscar algo de base de datos*/
-		$sql="DELETE FROM $tabla WHERE $primarykey='$documento'";
+	/*cristhian mendoza 13/11/2016 funcion buscar algo de base de datos
+	SET FOREIGN_KEY_CHECKS=0; 
+	SET FOREIGN_KEY_CHECKS=1;*/
 		
-		 include("config.php");
+		$sql="DELETE FROM $tabla WHERE $primarykey='$documento';";
+		// echo $sql;
+		include("config.php");
 		$conexion->query( $sql );
+		
+		
 		if($conexion-> affected_rows > 0 ) 
 		{ 
+				
 				echo "<script>location.href='$enlacefinal' </script>";			
 
 		}else{
@@ -212,6 +218,7 @@ function validacontraseñas($contraseña, $repitecontraseña){
 	return true;	
 	}
 }
+
 //////////////////////////////////////////////////////////////////////////
 /*para poner limites a los elementos a ingresar
 strlen — Obtiene la longitud de un string
@@ -289,39 +296,60 @@ function emailexiste($email){
 	}
 }
 //////////////////////////////////////////////////////////////////////////
-function generartoken(){
-	//md5 — Calcula el hash md5 de un string
-	//uniqid — Generar un ID único
-	//mt_rand — Genera un mejor número entero aleatorio
-	$generar=md5(uniqid(mt_rand(),false));
-	return $generar;
-}
+
 //////////////////////////////////////////////////////////////////////////
-function hashcontraseña($contraseña){
+function hashcontraseña($password){
 /*password_hash() crea un nuevo hash de contraseña usando un algoritmo de hash fuerte de único sentido. password_hash() es compatible con crypt(). Por lo tanto, los hash de contraseñas creados con crypt() se pueden usar con password_hash().//////////////////////////////////////////////////////////////////////////////////////
 PASSWORD_DEFAULT - Usar el algoritmo bcrypt (predeterminado a partir de PHP 5.5.0). Observe que esta constante está diseñada para cambiar siempre que se añada un algoritmo nuevo y más fuerte a PHP. Por esta razón, la longitud del resultado de usar este identificador puede cambiar con el tiempo. Por lo tanto, se recomienda almacenar el resultado en una columna de una base de datos que pueda apliarse a más de 60 caracteres (255 caracteres sería una buena elección).*/
-	$hash=password_hash($contraseña, PASSWORD_DEFAULT);
+	$hash=password_hash($password, PASSWORD_DEFAULT);
 	return $hash;
 }
 ////////////////////////////////////////////////////////////////////////////////7
-function registroUsuario($usuario, $contraseña, $nombre, $celular, $email, $fecha_registro){
+function registroUsuario($usuario, $contraseña, $nombre, $celular, $email, $activo, $token, $fecha_registro ){
 
+		// global $conexion;
+		// // $sql="INSERT INTO tb_usuarios (usuario, password, nombre, celular, correo, activacion, token, fecha_registro) VALUES ($usuario, $contraseña, $nombre, $celular, $email, $activo, $token, $fecha_registro)";
+		// // echo $sql;
+		// $stmt=$conexion->prepare("INSERT INTO tb_usuarios (usuario, password, nombre, celular, correo, activacion, token, fecha_registro) VALUES (?,?,?,?,?,?,?,?)");
+		// $stmt->bind_param('sssssiss', $usuario, $contraseña, $nombre, $celular, $email, $activo, $token, $fecha_registro);
+	 // 	$stmt->execute();
+		// //verificamos el numero de resultados
+		// $num= $stmt->affected_rows;
+		// //validamos el numero de resultados
+		// if ($num > 0) 
+		// {
+		// 	return true;
+		// }else{
+		// 	return false;
+
+		// }
 		global $conexion;
-		//$sql="INSERT INTO tb_usuarios (usuario, pass, nombre, celular, correo, fecha_registro) VALUES ($usuario, $contraseña, $nombre, $celular, $email, $fecha_registro)";
-		//echo $sql;
-		$stmt=$conexion->prepare("INSERT INTO tb_usuarios (usuario, pass, nombre, celular, correo, fecha_registro) VALUES (?,?,?,?,?,?)");
-		$stmt->bind_param('ssssss', $usuario, $contraseña, $nombre, $celular, $email, $fecha_registro);
-	 	$stmt->execute();
-		//verificamos el numero de resultados
-		$num= $stmt->affected_rows;
-		//validamos el numero de resultados
-		if ($num > 0) 
-		{
-			return true;
-		}else{
-			return false;
-		}
+		
+		$stmt=$conexion->prepare("INSERT INTO tb_usuarios (usuario, password, nombre, celular, correo, activacion, token, fecha_registro) VALUES (?,?,?,?,?,?,?,?)");
+		$stmt->bind_param('sssssiss', $usuario, $contraseña, $nombre, $celular, $email, $activo, $token, $fecha_registro);
+		
+		if ($stmt->execute()){
+
+			$stmt= $conexion->prepare("SELECT usuario FROM tb_usuarios WHERE usuario = ? LIMIT 1 ");
+			$stmt->bind_param('s', $usuario);
+			$stmt->execute();
+			$stmt->store_result();
+			$num = $stmt->num_rows;
+
+			if ($num>0) 
+			{
+				$stmt->bind_result($_usuario);
+				$stmt->fetch();
+			return $_usuario;
+			
+			} else 
+			{
+			return 0;	
+			}		
+		}	
 }
+///////////////////////////////////////////////////////////////////////////
+
 ////////////////////////////////////////////////////////////////////////////////7
 function registros($tabla, $camposbd, $valoresusu){
 
@@ -337,33 +365,75 @@ function registros($tabla, $camposbd, $valoresusu){
  		// }
 }
 ////////////////////////////////////////////////////////////////////////////////
-function enviaremail($email, $nombre, $asunto, $cuerpo){
-	require_once 'PHPMailer/PHPMailerAutoload.php';
-
-	$mail= new PHPMailer();
-	$mail->isSMTP();
-	$mail->SMTPAuth=true;
-	
-	$mail->Host='localhost';
-	
-	
-	$mail->Username='stmendozza@gmail.com';
-	$mail->Password='3133957636';
-
-	$mail->setFrom('stmendozza@gmail.com','sistema de usuarios');
-	$mail->addAddress($email,$nombre);
-
-	$mail->Subject=$asunto;
-	$mail->Body=$cuerpo;
-	$mail->IsHTML(true);
-
-	if ($mail->send()) {
-		return true;
-	}else{
+	function enviarEmail($email, $nombre, $asunto, $cuerpo){
+		
+		require_once 'PHPMailer/PHPMailerAutoload.php';
+		
+		$mail = new PHPMailer();
+		$mail->isSMTP();
+		$mail->SMTPAuth = true;
+		$mail->SMTPSecure = 'tls'; 	
+		$mail->Host = 'smtp.gmail.com';
+		$mail->Port = '587';
+		$mail->Username = 'stmendozza@gmail.com';
+		$mail->Password = '3133957636';
+		
+		//$mail->SMTPDebug  = 2;
+// 		$mail -> smtpConnect ( 
+// array ( " ssl " => array ( " verify_peer " => false , " verify_peer_name " => false , " allow_self_signed " => true         )     ) );    
+        
+		$mail->setFrom('stmendozza@gmail.com', 'GIBMAFE');
+		$mail->addAddress($email, $nombre);
+		
+		$mail->Subject = $asunto;
+		$mail->Body    = $cuerpo;
+		$mail->IsHTML(true);
+		
+		if($mail->Send()) {
+	 	return true;
+		}else{
 		return false;
 	}
-}
+	}
 ////////////////////////////////////////////////////////////////////////////////
+	function validaIdToken($id, $token){
+		global $conexion;
+		
+		$stmt = $conexion->prepare("SELECT activacion FROM tb_usuarios WHERE usuario = ? AND token = ? LIMIT 1");
+		$stmt->bind_param("ss", $id, $token);
+		$stmt->execute();
+		$stmt->store_result();
+		$rows = $stmt->num_rows;
+		
+		if($rows > 0) {
+			$stmt->bind_result($activacion);
+			$stmt->fetch();
+			
+			if($activacion == 1){
+				$msg = "La cuenta ya se activo anteriormente.";
+				} else {
+				if(activarUsuario($id)){
+					$msg = 'Cuenta activada.';
+					} else {
+					$msg = 'Error al Activar Cuenta';
+				}
+			}
+			} else {
+			$msg = 'No existe el registro para activar.';
+		}
+		return $msg;
+	}
+////////////////////////////////////////////////////////////////////////////7
+	function activarUsuario($id)
+	{
+		global $conexion;
+		
+		$stmt = $conexion->prepare("UPDATE tb_usuarios SET activacion=1 WHERE usuario = ?");
+		$stmt->bind_param('s', $id);
+		$result = $stmt->execute();
+		$stmt->close();
+		return $result;
+	}
 ////////////////////////////////////////////////////////////////////////////////
 function resultblock($errors){
 	if (count($errors)> 0) {
@@ -393,11 +463,11 @@ function isnulllogin($usuario, $contraseña){
 	
 }
 //////////////////////////////////////////////////////////////////////////
-function login($usuario, $contraseña){
+function login1($usuario, $contraseña){
 
 	global $conexion;
 
-	$stmt=$conexion->prepare("SELECT usuario,pass FROM tb_usuarios WHERE usuario = ?  LIMIT 1");
+	$stmt=$conexion->prepare("SELECT usuario,password FROM tb_usuarios WHERE usuario = ?  LIMIT 1");
 	$stmt->bind_param("s", $usuario);
 	$stmt->execute();
 	$stmt->store_result();
@@ -419,6 +489,59 @@ function login($usuario, $contraseña){
 		}
 	}
 }
+/////////////////////////////////////////////7
+function Login($usuario, $password)
+	{
+		global $conexion;
+		
+		$stmt = $conexion->prepare("SELECT usuario, password, nombre FROM tb_usuarios WHERE usuario = ? || correo = ? LIMIT 1");
+		$stmt->bind_param("ss", $usuario, $usuario);
+		$stmt->execute();
+		$stmt->store_result();
+		$rows = $stmt->num_rows;
+		
+		if($rows > 0) {
+			
+			if(isActivo($usuario)){
+				
+				$stmt->bind_result($id, $passwd,$nombre);
+				$stmt->fetch();
+				
+				$validaPassw = password_verify($password, $passwd);
+				
+				if($validaPassw){
+					
+					lastSession($id);
+
+
+					$_SESSION['usuario'] = $id;
+					$_SESSION['nombre'] = $nombre;
+
+					//$_SESSION['tipo_usuario'] = $id_tipo;
+					
+					header("location: stockdispo.php");
+					} else {
+					
+					$errors = "La contrase&ntilde;a es incorrecta";
+				}
+				} else {
+				$errors = 'El usuario no esta activo';
+			}
+			} else {
+			$errors = "El nombre de usuario o correo electr&oacute;nico no existe";
+		}
+		return $errors;
+	}
+	////////////////////////////////////////////////////////////////////
+			function lastSession($id)
+	{
+		global $conexion;
+		
+		$stmt = $conexion->prepare("UPDATE tb_usuarios SET ultima_sesion=NOW(), token_password='', password_request=1 WHERE usuario = ?");
+		$stmt->bind_param('s', $id);
+		$stmt->execute();
+		$stmt->close();
+	}
 //////////////////////////////////////////////////////////////////////////
 function registromovimiento($descripcion, $cantidad, $tipo_movimiento, $valor_movimiento, $fecha_registro, $factura, $codigo_externo, $usuario, $codigo_producto){
 
@@ -430,10 +553,12 @@ function registromovimiento($descripcion, $cantidad, $tipo_movimiento, $valor_mo
 			    $statement->execute();
 				    if ($conexion-> affected_rows > 0 )  {
 						echo "<script> alert ('guardado') </script>" ;
+						echo "<script>location.href='movimientos.php' </script>";
 						}
 						else
 						{
 						echo "<script> alert ('Verifique los datos ingresados') </script>";
+						echo "<script>location.href='movimientos.php' </script>";
 						}
 				}
 }
@@ -463,7 +588,7 @@ function getvalor($campo, $campowhere, $valor){
 	global $conexion;
 
 	$stmt= $conexion->prepare("SELECT $campo FROM tb_usuarios WHERE $campowhere = ? LIMIT 1 ");
-	$stmt->bind_param('s', $campo);
+	$stmt->bind_param('s', $valor);
 	$stmt->execute();
 	$stmt->store_result();
 	$num = $stmt->num_rows;
@@ -504,5 +629,123 @@ function traer_lista_informacion( $nombre_lista, $tabla, $campo_llave_primaria, 
 
 		return $salida;	
 	}
+///////////////////////////////////////////////////////////
+	/**
+	* Retorna un dato de una tabla, de acuerdo a unas condiciones.
+	* @param 		texto 		Es el nombre de la tabla de la cual se traerán los datos.
+	* @param 		texto 		Es el campo a retornar o un SQL válido que represente un campo, como un COUNT o un SUM.
+	* @param 		texto 		Es la condición opcional para traer la información.
+	* @return 		texto 		Se retornará el resultado como un único valor de texto, podrían ser números también.
+	*/
+	function retornar_dato_tabla( $tabla, $campo_a_retornar, $condicion = null )
+	{
+		
+		$salida = "";
+
+		//------------SQL Se traen datos----------------------------------------------------
+		$sql = "SELECT $campo_a_retornar AS dato_de_salida FROM $tabla ";
+		include( "config.php" ); //Aquí se traen los parámetros de la base de datos.
+		//Hay que recordar que solo debería existir un archivo que permita dicha configuración.
+		$resultado = $conexion->query( $sql );	
+		if( $condicion != null ) $sql .= " WHERE $condicion ";
+
+		//Si se encuentran datos se retornarán. De lo contrario la función no retornará o retornará vacío.
+		if( mysqli_num_rows( $resultado ) > 0 )
+		{
+			while( $fila = mysqli_fetch_assoc( $resultado ) )
+			{
+				$salida = $fila[ 'dato_de_salida' ];
+			}
+		}
+
+		return $salida;
+	}
+//////////////////////////////////////////////////
+		function isActivo($usuario)
+	{
+		global $conexion;
+		
+		$stmt = $conexion->prepare("SELECT activacion FROM tb_usuarios WHERE usuario = ? || correo = ? LIMIT 1");
+		$stmt->bind_param('ss', $usuario, $usuario);
+		$stmt->execute();
+		$stmt->bind_result($activacion);
+		$stmt->fetch();
+		
+		if ($activacion == 1)
+		{
+			return true;
+		}
+		else
+		{
+			return false;	
+		}
+	}	
+
+////////////////////////////////////
+		function cambiaPassword($password, $user_id, $token){
+		
+		global $conexion;
+		
+		$stmt = $conexion->prepare("UPDATE tb_usuarios SET password = ?, token_password='', password_request=0 WHERE usuario = ? AND token_password = ?");
+		$stmt->bind_param('sss', $password, $user_id, $token);
+		
+		if($stmt->execute()){
+			return true;
+			} else {
+			return false;		
+		}
+	}
+////////////////////////////////////////////////7
+
+	function verificaTokenPass($user_id, $token){
+		
+		global $conexion;
+		
+		$stmt = $conexion->prepare("SELECT activacion FROM tb_usuarios WHERE usuario = ? AND token_password = ? AND password_request = 1 LIMIT 1");
+		$stmt->bind_param('ss', $user_id, $token);
+		$stmt->execute();
+		$stmt->store_result();
+		$num = $stmt->num_rows;
+		
+		if ($num > 0)
+		{
+			$stmt->bind_result($activacion);
+			$stmt->fetch();
+			if($activacion == 1)
+			{
+				return true;
+			}
+			else 
+			{
+				return false;
+			}
+		}
+		else
+		{
+			return false;	
+		}
+	}
+	////////////////////////////////////////////////////
+	//////////////////////////////////////
+	function generaTokenPass($user_id)
+	{	
+		global $conexion;
+		
+		$token = generarToken();
+		
+		$stmt = $conexion->prepare("UPDATE tb_usuarios SET token_password=?, password_request=1 WHERE usuario = ?");
+		$stmt->bind_param('ss', $token, $user_id);
+		$stmt->execute();
+		$stmt->close();
+		
+		return $token;
+	}
+	////////////////////////////
+	function generarToken()
+	{
+		$gen = md5(uniqid(mt_rand(), false));	
+		return $gen;
+	}
+	//////////////////////////////////////////
 
 ?>

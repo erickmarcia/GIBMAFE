@@ -1,21 +1,50 @@
- <?php 	
-/*en caso de que el usuario se devuelva del chat al registro tendra que dirijirse  al inicio para ingresar al chat si no desea crear otro usuario*/	
+<?php
 	require 'config.php';
-	require 'funciones.php';
-	if (!empty($_POST)) 
-	{
-
-	$correo= $conexion->real_escape_string($_POST['correo']);
-		if (!isemail($correo)) 
-		{
-			$errors[]= "Debe ingresar un correo electronico valido";
-			if (emailexiste($correo)) 
-			{
-				
-			}
-		}
+	include 'funciones.php';
+	// si el usuario esta conectado muestra el sitio si no lo redirige al index para que se logee o se registre
+	session_start();
 	
-	}		
+	if(isset($_SESSION["usuario"])){
+		header("location: stockdispo.php");	
+	}else
+		{
+
+		
+	
+	$errors = array();
+	
+	if(!empty($_POST))
+	{ 
+		$email = $conexion->real_escape_string($_POST['email']);
+		
+		if(!isEmail($email))
+		{
+			$errors[] = "Debe ingresar un correo electronico valido";
+		}
+		
+		if(emailExiste($email))
+		{			
+			$user_id = getValor('usuario', 'correo', $email);
+			$nombre = getValor('nombre', 'correo', $email);
+			
+			$token = generaTokenPass($user_id);
+			
+			$url = 'http://'.$_SERVER["SERVER_NAME"].'/GIBMAFE/codigo/cambia_pass.php?user_id='.$user_id.'&token='.$token;
+			
+			$asunto = 'Recuperar Password - GIBMAFE';
+			$cuerpo = "Hola $nombre: <br /><br />Se ha solicitado un reinicio de contrase&ntilde;a. <br/><br/>Para restaurar la contrase&ntilde;a, visita la siguiente direcci&oacute;n: <a href='$url'>Restaurar Contrase&ntilde;a</a>";
+			
+			if(enviarEmail($email, $nombre, $asunto, $cuerpo)){
+				echo "Hemos enviado un correo electronico a las direcion $email para restablecer tu Contrase&ntilde;a.<br />";
+				echo "<a href='index.php' >Iniciar Sesion</a>";
+				exit;
+			}else {
+			$errors[] = "Error al enviar email";
+			}
+			} else {
+			$errors[] = "La direccion de correo electronico no existe";
+		}
+	}
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -24,16 +53,6 @@
 	<title>GIBMAFE | Externos</title>	
 </head>
 <body> 
-<?php
-	/*manejando sesiones siempre va de primero el session para no mostrar el sitio si no hay un usuario conectado*/ 
-	 session_start();
-	 include "config.php";
-	// si el usuario esta conectado muestra el sitio de chat si no lo redirige al index para que se logee o se registre
-		if (isset($_SESSION['usuario']))
-	 	{		
-		header("location: stockdispo.php");	
-		}else{	
-?>
 <section>
 	<div class="container">
 		<div class="row">
@@ -77,7 +96,8 @@
 							</div>
 						</div>    
 					</form>
-									</div>                     
+					<?php echo resultBlock($errors); ?>
+				</div>                     
 			</div>
 			</div>
 			<div class="col-xs-12 col-sm-4">
@@ -88,10 +108,10 @@
 	</div>
 	
 </section>
-<footer id="footer2">
+<footer style="margin-top: 250px;" id="footer2">
 	<div class="container">
 		<div class="row">
-				<div class="col-xs-12" >
+				<div class="col-xs-12 " >
 				<center>	
 				<p style="color: gray">Stmendozza &copy; <br>© 2017 - Boutique Maria Fernanda.</p>
 				</center>

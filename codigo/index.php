@@ -1,44 +1,59 @@
-<?php 	 
+<?php 	   
 /*en caso de que el usuario se devuelva del chat al registro tendra que dirijirse  al inicio para ingresar al chat si no desea crear otro usuario*/	
 	session_start();
 	 include "config.php";
+	 require 'funciones.php';
 	// si el usuario esta conectado muestra el sitio de chat si no lo redirige al index para que se logee o se registre
 	 	if (isset($_SESSION['usuario']))
 	 	{ 
 	 		header("location: stockdispo.php");	
 		}	else
 			{	
-			
-		 	
-	require 'funciones.php';
-
 	$errors = array();
+	
+	if(!empty($_POST))
+	{	
+		$usuario = $conexion->real_escape_string($_POST['usuario']);	
+		//echo $usuario;	
+		$password = $conexion->real_escape_string($_POST['contrasena']);	
+		//echo $password;	
+		if(isNullLogin($usuario, $password))
+		{
+			$errors[] = "Debe llenar todos los campos";
+		}
+			$errors[] = Login($usuario, $password);
+	}
+	 	
+	// require 'funciones.php';
 
-	if (!empty($_POST)) 
-	{ 
+	// $errors = array();
 
-		$usuario= $conexion->real_escape_string($_POST['usuario']);
-		$contraseña= $conexion->real_escape_string($_POST['contraseña']);
+	// if (!empty($_POST)) 
+	// { 
 
-			if (isnulllogin($usuario, $contraseña)) {
-				$errors[]= "Debe llenar todos los campos";
-			}
-				$sql="SELECT usuario FROM tb_usuarios WHERE usuario='".$usuario."' AND pass='".$contraseña."'" ;
-				/*despues de consultar recupera los datos que trajo la variable sql  */
-				$resultado = $conexion->query( $sql );
-		 		/*pregunta el numero de filas traido en la variable resultado y si exactamente igual a 0 muestra un mensaje de alerta si no inicia sesion con la variable $usuario y enlaza a stockdispo.php*/
-				if (mysqli_num_rows($resultado)==0) 
-				{
-						echo "<script text='text/javascript'>;
-								alert('el usuario o la contraseña no coinsiden');
-								window.location= 'index.php';
-							  </script>";
-				}else{
-							$_SESSION['usuario']=$usuario;
-							header("location: stockdispo.php");
-				}
-				/*$errors[]= login($usuario, $contraseña);*/
-	}	
+	// 	$usuario= $conexion->real_escape_string($_POST['usuario']);
+	// 	$contraseña= $conexion->real_escape_string($_POST['contraseña']);
+
+	// 		if (isnulllogin($usuario, $contraseña)) {
+	// 			$errors[]= "Debe llenar todos los campos";
+	// 		}
+	// 			$sql="SELECT usuario FROM tb_usuarios WHERE usuario='".$usuario."' AND pass='".$contraseña."'" ;
+	// 			/*despues de consultar recupera los datos que trajo la variable sql  */
+	// 			$resultado = $conexion->query( $sql );
+	// 	 		pregunta el numero de filas traido en la variable resultado y si exactamente igual a 0 muestra un mensaje de alerta si no inicia sesion con la variable $usuario y enlaza a stockdispo.php
+	// 			if (mysqli_num_rows($resultado)==0) 
+	// 			{
+	// 					echo "<<!-- script text='text/javascript'>;
+	// 							alert('el usuario o la contraseña no coinsiden');
+	// 							window.location= 'index.php';
+	// 						  </script>"; -->
+	// 			}else{
+	// 						$_SESSION['usuario']=$usuario;
+	// 						$_SESSION['nombre']=$nombre;
+	// 						header("location: stockdispo.php");
+	// 			}
+	// 			/*$errors[]= login($usuario, $contraseña);*/
+	// }	
 ?>	
 <!DOCTYPE html>
 <html lang="es">
@@ -85,7 +100,7 @@
 								
 								<div style="margin-bottom: 25px" class="input-group">
 									<span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-									<input id="password" type="password" class="form-control" name="contraseña" placeholder="contraseña" required>
+									<input id="password" type="password" class="form-control" name="contrasena" placeholder="contraseña" required>
 								</div>
 								
 								<div style="margin-top:10px" class="form-group">

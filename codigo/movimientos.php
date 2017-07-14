@@ -21,6 +21,7 @@
 		if ($tipo_movimiento=='Abastecimiento' or $tipo_movimiento=='Devolucion' or $tipo_movimiento=='Venta' or $tipo_movimiento=='Averia' ) {
 				
 					$sql= "SELECT * FROM tb_disponibles WHERE cod_producto='$codigo_producto'";
+					//echo $sql;
 					include("config.php");
 					$resultado=mysqli_query($conexion,$sql);
 					$row=mysqli_fetch_row($resultado);
@@ -31,27 +32,45 @@
 				{	if ($row[3]>=$cantidad) 
 					{
 
-						$actualizar=$row[3]-$cantidad;
-						$sql="update tb_disponibles set cantidad='$actualizar' where cod_producto='$codigo_producto' ";
-						include("config.php");
-						$resultado = $conexion->query( $sql );
-						registromovimiento($descripcion, $cantidad, $tipo_movimiento, $valor_movimiento, $fecha_registro, $factura, $codigo_externo, $usuario, $codigo_producto);
+					$actualizar=$row[3]-$cantidad;
+					$sql="update tb_disponibles set cantidad='$actualizar' where cod_producto='$codigo_producto' ";
+					include("config.php");
+					$resultado = $conexion->query( $sql );
+					registromovimiento($descripcion, $cantidad, $tipo_movimiento, $valor_movimiento, $fecha_registro, $factura, $codigo_externo, $usuario, $codigo_producto);
 					}else
 					{
-						echo "<script> alert ('No se puede registrar $tipo_movimiento, No hay esa cantidad del producto codigo $row[0] solo hay disponible: $row[4]') </script>";
+					echo "<script> alert ('No se puede registrar $tipo_movimiento, No hay esa cantidad del producto codigo $row[1] solo hay disponible: $row[4]') </script>";
+					echo "<script>location.href='movimientos.php' </script>";
 					}
 				}
-
-				if ($row[4]=='Disponible' AND $tipo_movimiento=='Abastecimiento' or $row[4]=='Disponible' AND $tipo_movimiento=='Devolucion')
+				// echo $row[4];
+				// echo $tipo_movimiento;
+				// echo $valor_movimiento;
+				if ($row[4]=='Disponible' AND $tipo_movimiento=='Abastecimiento' AND $valor_movimiento==$row[6] AND $codigo_producto==$row[1]  or $row[4]=='Disponible' AND $tipo_movimiento=='Devolucion' AND $valor_movimiento==$row[6] AND $codigo_producto==$row[1])
 				{
 					$actualizar=$row[3]+$cantidad;
 					$sql="update tb_disponibles set  cantidad='$actualizar', mostrar='1' where cod_producto='$codigo_producto' ";
-					echo $sql;
+					// echo $sql;
 					include("config.php");
 					$resultado = $conexion->query( $sql );
 
 					registromovimiento($descripcion, $cantidad, $tipo_movimiento, $valor_movimiento, $fecha_registro, $factura, $codigo_externo, $usuario, $codigo_producto);
 
+				}else
+				{
+					if ($valor_movimiento!==$row[6] AND $codigo_producto!==$row[1])  
+					{
+						$tipo_movimientopro="Disponible";
+						$sql= "INSERT INTO tb_disponibles (cod_producto, descripcion, cantidad, estado, mostrar, precio_compra, fecha_registro) VALUES ('".$codigo_producto."','".$descripcion."','".$cantidad."','".$tipo_movimientopro."','1','".$valor_movimiento."','".$fecha_registro."')";
+						// echo $sql;
+						include "config.php";
+						$conexion->query( $sql );
+						registromovimiento($descripcion, $cantidad, $tipo_movimiento, $valor_movimiento, $fecha_registro, $factura, $codigo_externo, $usuario, $codigo_producto);	
+						
+					}else{
+						echo "<script> alert ('No se puede registrar $tipo_movimiento, El codigo $row[1] esta asignado a otro producto') </script>";
+						echo "<script>location.href='movimientos.php' </script>";
+					}
 				}
 
 			}else
@@ -67,6 +86,11 @@
 					include "config.php";
 					$conexion->query( $sql );
 					registromovimiento($descripcion, $cantidad, $tipo_movimiento, $valor_movimiento, $fecha_registro, $factura, $codigo_externo, $usuario, $codigo_producto);	
+				}
+				if ($tipo_movimiento=='Venta' or $tipo_movimiento=='Averia') 
+				{ 	
+					echo "<script> alert ('No se puede registrar $tipo_movimiento, El codigo $codigo_producto no se encuentra en Inventario') </script>";
+					echo "<script>location.href='movimientos.php' </script>";		
 				}
 				
 			}
@@ -141,11 +165,13 @@
 						}else
 						{
 							echo "<script> alert ('No se puede registrar $tipo_movimiento, Verifique la cantidad solicitada del producto codigo $row[0] solo hay: $row[3]') </script>";
+							echo "<script>location.href='movimientos.php' </script>";
 						}
 						
 					}else
 						{
-							echo "<script> alert ('No hay Solicitudes de Garantia del producto codigo $codigo_producto ') </script>";
+							echo "<script> alert ('No hay $tipoadisminuir del producto codigo $codigo_producto ') </script>";
+							echo "<script>location.href='movimientos.php' </script>";
 						}
 						
 					}
@@ -209,7 +235,7 @@
 					
 					<div class="panel-heading">
 					    <div class="col-xs-12 col-sm-6 btn-group pull-right">
-					   		<button type="button" class="col-xs-6 btn btn-success" data-toggle="modal" data-target="#nuevovendedor"><span class="glyphicon glyphicon-plus"></span> Nuevo </button>
+					   		<button type="button" class="col-xs-6 btn btn-success" data-toggle="modal" data-target="#nuevomovimiento"><span class="glyphicon glyphicon-plus"></span> Nuevo </button>
 					    	<a href="pdf/reportemovimietos.php" target="_blank"><button type="button" class="col-xs-6 btn btn-danger" ><span class=" glyphicon glyphicon-print"></span> Imprimir </button></a>		
 						</div>
 						
@@ -274,7 +300,7 @@
 									// <td><a id='eliminarnegro' href='$enlaceeli?codigo=$row[0]&tabla=$tabla&enlacefinal=$enlacefinal&primarykey=$primarykey' ><button class='glyphicon glyphicon-trash'></button></a></td> -->
 				</div>
 																		<!-- Modal -->
-							<div class="modal fade" id="nuevovendedor" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+							<div class="modal fade" id="nuevomovimiento" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 							  <div class="modal-dialog" role="document">
 								<div class="modal-content">
 								  <div class="modal-header">

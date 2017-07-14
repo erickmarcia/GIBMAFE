@@ -118,7 +118,7 @@ include("config.php");
 										</div>
 									  </div>	
 
-									  <div class="form-group">
+									 <div class="form-group">
 										<label for="codigo_externo" class="col-sm-3 control-label">Externo</label>
 										<div class="col-sm-8">
 										  	 <?php echo traer_lista_informacion( "codigo_externo", "tb_externos", "identificacion_externo", "nombre" ); ?>
@@ -128,11 +128,12 @@ include("config.php");
 									
 
 
-									<div class="form-group">
+										<div class="form-group">
 										<label for="usuario" class="col-sm-3 control-label">Usuario</label>
 										<div class="col-sm-8">
 											<?php echo traer_lista_informacion( "usuario", "tb_usuarios", "usuario", "nombre" ); ?>
 										</div>
+									  </div>
 									  </div>
 								  <div class="modal-footer">
 									<a href="movimientos.php"><button type="button" class="btn btn-default" data-dismiss="modal">Volver</button></a>

@@ -21,6 +21,7 @@ session_start();
 				{	session_destroy();
 					session_start();
 					$_SESSION['usuario']=$usuario;
+					$_SESSION['nombre']=$nombre;
 					echo "<script>location.href='usuario.php'</script>";//me retorna a la pantalla inicial
 
 				}else{

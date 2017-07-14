@@ -10,6 +10,8 @@
 	//echo $documento;	
 	$enlacefinal=$_GET['enlacefinal'];
 	//echo $enlacefinal;
- 
+ 	$sql1="";
+	
 	eliminar_dato_tabla($tabla,$primarykey,$documento,$enlacefinal);
+
 ?>
