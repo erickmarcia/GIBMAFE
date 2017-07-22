@@ -31,7 +31,7 @@
 					<div class="panel-heading">
 					    <div class=" btn-group pull-right">
 					    	
-					    	<h4 class="modal-title"><i class="glyphicon glyphicon-edit"></i> Reportes</h4>	
+					    	<h4 class="modal-title"><i class="glyphicon glyphicon-edit"></i> Productos</h4>	
 						</div>				
 					</div>
 					<br>
@@ -39,41 +39,20 @@
 						<div class="container ">
 				    		<div class="row ">
 				    		<div class="  col-xs-12 col-sm-12">
-				    			
-				    			<br><br><br><br>		<!-- <div class="col-xs-12 col-sm-1 well"></div> -->
-				    		</div>	
-				    		</div>
-				    		
-					    	</div>
-				    		<div class="  col-xs-12 col-sm-12">
-				    			<div class="container">
-				    				<div class="row">
-				    					<!-- <div class="col-xs-12 col-sm-2 well"></div> -->
-				    					<div class="col-xs-12 col-sm-4 ">
-				    						<center><a href="reportesmov.php"><button type="button" class="btn btn-default btn-lg">
-											  <span class="glyphicon glyphicon-transfer" aria-hidden="true"></span> MOVIMIENTOS	
-											</button></a></center><br><br>
-				    					</div>
-				    					<div class="col-xs-12 col-sm-4 ">
-				    						<center><a href="reportespro.php"><button type="button" class="btn btn-default btn-lg">
-											  <span class="glyphicon glyphicon-tags" aria-hidden="true"></span> PRODUCTOS
-											</button></a></center><br><br>
-				    					</div>
-				    					<div class="col-xs-12 col-sm-4 ">
-				    						<center><a href="reportesext.php"><button type="button" class="btn btn-default btn-lg">
-											  <span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span> EXTERNOS
-											</button></a></center><br><br>
-				    						
-				    					</div>
-				    					<!-- <div class="col-xs-12 col-sm-1 well"></div> -->
-				    				</div>
-				    				
-				    			</div>
 				    		<br>
-						    
-					    	
+						    <table border="0" align="center">
+						    	<tr>
+						        	<!-- <td width="335"><input type="text" placeholder="Busca un producto por: Nombre o Tipo" id="bs-prod"/></td> -->
+						            <td><input type="date" id="bd-desde"/></td>
+						            <td>Hasta&nbsp;&nbsp;&nbsp;&nbsp;</td>
+						            <td><input type="date" id="bd-hasta"/></td>
+						            
+						            <td width="200"><a target="_blank" href="javascript:reportePDF();" class="btn btn-danger">Exportar Busqueda a PDF</a></td>
+						        </tr>
+				   			</table>
+					    	<div class="registros" id="agrega-registros"></div>
 						    <center>
-						    
+						        <ul class="pagination" id="pagination"></ul>
 						    </center>
 					    	</div>
 					    	</div>

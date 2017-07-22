@@ -2,7 +2,7 @@
 	include('conexion.php');
 	$paginaActual = $_POST['partida'];
 
-    $nroProductos = mysql_num_rows(mysql_query("SELECT * FROM productos"));
+    $nroProductos = mysqli_num_rows(mysql_query("SELECT * FROM tb_productos"));
     $nroLotes = 4;
     $nroPaginas = ceil($nroProductos/$nroLotes);
     $lista = '';
@@ -28,7 +28,7 @@
   		$limit = $nroLotes*($paginaActual-1);
   	}
 
-  	$registro = mysql_query("SELECT * FROM productos LIMIT $limit, $nroLotes ");
+  	$registro = mysqli_query("SELECT * FROM tb_productos LIMIT $limit, $nroLotes ");
 
 
   	$tabla = $tabla.'<table class="table table-striped table-condensed table-hover">
