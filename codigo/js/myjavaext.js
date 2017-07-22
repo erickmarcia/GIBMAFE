@@ -1,9 +1,9 @@
 $(document).ready(pagination(1));
-$(function(){
+$(function(){ 
 	$('#bd-desde').on('change', function(){
 		var desde = $('#bd-desde').val();
 		var hasta = $('#bd-hasta').val();
-		var url = 'busca_producto_fecha.php';
+		var url = 'busca_externo_fecha.php';
 		$.ajax({
 		type:'POST',
 		url:url,
@@ -13,12 +13,12 @@ $(function(){
 		}
 	});
 	return false;
-	}); 
+	});
 	
 	$('#bd-hasta').on('change', function(){
 		var desde = $('#bd-desde').val();
 		var hasta = $('#bd-hasta').val();
-		var url = 'busca_producto_fecha.php';
+		var url = 'busca_externo_fecha.php';
 		$.ajax({
 		type:'POST',
 		url:url,
@@ -106,7 +106,7 @@ function editarProducto(id){
 function reportePDF(){
 	var desde = $('#bd-desde').val();
 	var hasta = $('#bd-hasta').val();
-	window.open('reportesproductosq.php?desde='+desde+'&hasta='+hasta);
+	window.open('reportesexternosq.php?desde='+desde+'&hasta='+hasta);
 }
 
 function pagination(partida){
