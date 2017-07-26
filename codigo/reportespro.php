@@ -29,17 +29,20 @@
 			<div class="contenedor-section0	 col-xs-12 col-sm-10 col-sd-10  ">
 				<div class="panel panel-success">	
 					<div class="panel-heading">
-					    <div class=" btn-group pull-right">
+					   
+					    	 <div class=" btn-group col-xs-12 pull-right">
+					    	<a href="pdf/ayudareportes.pdf" target="_black"> <button type="button" style="float: right;"  class="col-xs-6 col-sm-1 btn btn-default" ><span class="glyphicon glyphicon-question-sign"></span> Ayuda </button></a>
+							<a href="reportes.php" > <button type="button"  style="float: right;" class="col-xs-6 col-sm-1 btn btn-success" ><span class="glyphicon glyphicon-hand-left"></span> Volver </button></a>
 					    	
-					    	<h4 class="modal-title"><i class="glyphicon glyphicon-edit"></i> Productos</h4>	
 						</div>				
 					</div>
-					<br>
 					<div class="contenedor-section col-xs-12 panel-body">
 						<div class="container ">
 				    		<div class="row ">
 				    		<div class="  col-xs-12 col-sm-12">
 				    		<br>
+				    		<h4 class="modal-title"><i class="glyphicon glyphicon-edit"></i> Productos</h4>
+				    		<br>	
 						    <table border="0" align="center">
 						    	<tr>
 						        	<!-- <td width="335"><input type="text" placeholder="Busca un producto por: Nombre o Tipo" id="bs-prod"/></td> -->

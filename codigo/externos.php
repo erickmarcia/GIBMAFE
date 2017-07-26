@@ -82,8 +82,9 @@
 					<div class="panel panel-success">
 						<div class="panel-heading">
 						    <div class="col-xs-12 col-sm-6 btn-group pull-right">
-						   		<button type="button" class="col-xs-6 btn btn-success" data-toggle="modal" data-target="#nuevocliente"><span class="glyphicon glyphicon-plus"></span> Nuevo </button>
-						    	<a href="pdf/reporteexternos.php" target="_blank"><button type="button" class="col-xs-6 btn btn-danger" ><span class="glyphicon glyphicon-print"></span> Imprimir </button></a>		
+						   		<button type="button" class="col-xs-4 btn btn-success" data-toggle="modal" data-target="#nuevocliente"><span class="glyphicon glyphicon-plus"></span> Nuevo </button>
+						    	<a href="pdf/reporteexternos.php" target="_blank"><button type="button" class="col-xs-4 btn btn-danger" ><span class="glyphicon glyphicon-print"></span> Imprimir </button></a>		
+						    	<a href="pdf/ayudaexternos.pdf" target="_black"> <button type="button" style="float: right;"  class="col-xs-4  btn btn-default" ><span class="glyphicon glyphicon-question-sign"></span> Ayuda </button></a>
 							</div>
 						</div>
 					<div class="panel-body">

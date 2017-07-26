@@ -29,8 +29,11 @@
 			<div class="contenedor-section1 col-xs-12 col-sm-10 col-sd-10 ">
 				<div class="panel panel-success">	
 					<div class="panel-heading">
-						<div class="col-xs-12 col-sm-6 btn-group pull-right">
-					    	<button type="button" class="col-xs-12 btn btn-danger" data-toggle="modal" data-target="#myModal2"><span class="glyphicon glyphicon-lock"></span> Cambiar contraseña </button>		
+						<div style="padding: 0;" class="col-xs-12 col-sm-12 btn-group pull-right ">
+
+					    	
+					    	<a href="pdf/ayudausuario.pdf" target="_black"> <button type="button" style="float: right;"  class="col-xs-3 col-sm-1 btn btn-default" ><span class="glyphicon glyphicon-question-sign"></span> Ayuda </button></a>
+					    	<button type="button" style="float: right;"  class="col-xs-9 col-sm-5 btn btn-danger" data-toggle="modal" data-target="#myModal2"><span class="glyphicon glyphicon-lock"></span> Cambiar contraseña </button>			
 						</div>			
 					</div>
 					<br>
@@ -101,19 +104,19 @@
 						<form class="form-horizontal" method="post" action="actualizarpass.php" >
 						 	<div class="form-group">
 							<div class="col-sm-12">
-							  <input type="text" class="form-control" id="documento" placeholder="Contraseña Actual" name="actualpass">
+							  <input type="password" class="form-control" id="documento" placeholder="Contraseña Actual" name="actualpass">
 							</div>
 						  	</div>
 						  
 							<div class="form-group">
 							<div class="col-sm-12">
-							  <input type="text" class="form-control" id="nombre" placeholder="Nueva Contraseña " name="nuevapass" required="">
+							  <input type="password" class="form-control" id="nombre" placeholder="Nueva Contraseña " name="nuevapass" required="">
 							</div>
 						 	</div>
 						  
 						  	<div class="form-group">
 							<div class="col-sm-12">
-							<input type="text" class="form-control" id="celular" placeholder="Confirma Nueva Contraseña" name="confirmapass">
+							<input type="password" class="form-control" id="celular" placeholder="Confirma Nueva Contraseña" name="confirmapass">
 							</div>
 							</div>	
 					  </div>

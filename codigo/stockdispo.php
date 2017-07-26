@@ -27,12 +27,12 @@
 					<?php include("inc/menu.php"); ?> 
 				</div>
 			</div>
-			<div class="contenedor-section0	 col-xs-12 col-sm-10 col-sd-10 ">
+			<div  class="contenedor-section0	 col-xs-12 col-sm-10 col-sd-10 pull-right">
 				<div class="panel panel-success">
 					<div class="panel-heading">
-					    <div class="col-xs-12 col-sm-12 btn-group pull-right">
-					    	<label style="float:left;padding: 10px;" class=" col-xs-6 wel"><?php	echo "Productos Registrados: ".retornar_dato_tabla( "tb_disponibles", "COUNT( * )" )."<br>";?></label>
-					    	<a href="pdf/reportedispo.php " target="_black"> <button type="button" class="col-xs-6 btn btn-danger" ><span class="glyphicon glyphicon-print"></span> Imprimir </button></a>		
+					    <div style="padding: 0;" class="col-xs-12 col-sm-12 btn-group ">
+					    	<a href="pdf/ayudadispo.pdf " target="_black"> <button type="button" style="float: right;" class="col-xs-3 col-sm-1 btn btn-default" ><span class="glyphicon glyphicon-question-sign"></span> Ayuda </button></a>
+					    	<a href="pdf/reportedispo.php " target="_black"> <button type="button" style="float: right;" class="col-xs-9 col-sm-5 btn btn-danger" ><span class="glyphicon glyphicon-print"></span> Imprimir </button></a>		
 						</div>
 					</div>
 					<div class="panel-body">
@@ -72,6 +72,7 @@
 								}
 									echo "</table>";	
 							?>	
+							<label style="float:left;padding: 10px;" class=" col-xs-12 wel"><?php	echo "Productos Registrados: ".retornar_dato_tabla( "tb_disponibles", "COUNT( * )" )."<br>";?></label>
 						</div>
 					</div>
 				</div>		

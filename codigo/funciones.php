@@ -119,8 +119,22 @@ while ($row=mysqli_fetch_row($resultado))
 				<td>".$row[4]."</td>
 				<td>".$row[5]."</td>
 				<td align='center'><a id='eliminarnegro' href='actualizaexterno.php?identificacion_externo=$row[0]' ><button class='glyphicon glyphicon-pencil'></button></a>
-					<a id='eliminarnegro' href='$enlaceeli?codigo=$row[0]&tabla=$tabla&enlacefinal=$enlacefinal&primarykey=$primarykey' ><button class='glyphicon glyphicon-trash'></button></a></td>
-		</tr>"	;
+					<a id='eliminarnegro' href='javascript:mi_alerta()' ><button class='glyphicon glyphicon-trash'></button></a></td>
+		</tr>
+		<script language='Javascript'>
+								function mi_alerta()
+								{
+								confirmar=confirm('Esta Usted seguro que desea eliminar este producto');
+
+								if (confirmar)
+								{	
+								location.href='$enlaceeli?codigo=$row[0]&tabla=$tabla&enlacefinal=$enlacefinal&primarykey=$primarykey';
+
+								}
+
+
+								}
+								</script>";
 
 }
 echo "	</table>";	

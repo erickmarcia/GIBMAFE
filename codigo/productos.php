@@ -50,6 +50,7 @@
 		});	
 		});	
 	</script>
+
 </head>
 <body> 
 	<?php
@@ -76,8 +77,9 @@
 								
 							<div class="panel-heading">
 							    <div class="col-xs-12 col-sm-6 btn-group pull-right">
-							   		<button type="button" class="col-xs-6 btn btn-success" data-toggle="modal" data-target="#nuevovendedor"><span class="glyphicon glyphicon-plus"></span> Nuevo </button>
-							    	<a href="pdf/reporteproductos.php" target="_blank"><button type="button" class="col-xs-6 btn btn-danger" ><span class="glyphicon glyphicon-print"></span> Imprimir </button></a>	
+							   		<button type="button" class="col-xs-4 btn btn-success" data-toggle="modal" data-target="#nuevovendedor"><span class="glyphicon glyphicon-plus"></span> Nuevo </button>
+							    	<a href="pdf/reporteproductos.php" target="_blank"><button type="button" class="col-xs-4 btn btn-danger" ><span class="glyphicon glyphicon-print"></span> Imprimir </button></a>
+							    	<a href="pdf/ayudaproductos.pdf" target="_black"> <button type="button" style="float: right;"  class="col-xs-4 btn btn-default" ><span class="glyphicon glyphicon-question-sign"></span> Ayuda </button></a>	
 								</div>
 							</div>
 							<div class="panel-body">
@@ -122,12 +124,23 @@
 											<td>".$row[3]."</td>
 											<td align='center'><a id='eliminarnegro' href='actualizaproducto.php?cod_producto=$row[0]' ><button class='glyphicon glyphicon-pencil'></button></a>
 
-											<a id='eliminarnegro' href='eliminardato.php?codigo=$row[0]&tabla=tb_productos&enlacefinal=productos.php&primarykey=cod_producto' ><button class='glyphicon glyphicon-trash'></button></a></td>
+											<a id='eliminarnegro' href='javascript:mi_alerta()' ><button class='glyphicon glyphicon-trash'></button></a></td>
 									</tr>
-									";
+								<script language='Javascript'>
+								function mi_alerta()
+								{
+								confirmar=confirm('Esta Usted seguro que desea eliminar este producto');
+
+								if (confirmar)
+								{	
+								location.href='eliminardato.php?codigo=$row[0]&tabla=tb_productos&enlacefinal=productos.php&primarykey=cod_producto';
+								}
+								}
+								</script>";
 
 							}
-							echo "	</table>";	
+							echo "	</table>
+									";	
 						?>	
 						</div>
 					</div>		
@@ -180,7 +193,7 @@
 			 }
 				include "inc/footer.php";
 	?>
-	
+		
 </body>
 </html>
 

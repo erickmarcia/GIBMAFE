@@ -131,7 +131,7 @@ include("config.php");
 										<div class="form-group">
 										<label for="usuario" class="col-sm-3 control-label">Usuario</label>
 										<div class="col-sm-8">
-											<?php echo traer_lista_informacion( "usuario", "tb_usuarios", "usuario", "nombre" ); ?>
+											<input type="text" pattern="[a-zA-Z0-9]{1,15}" maxlength="15" class="form-control" value="<?php echo $_SESSION['nombre']; ?>" id="usuario" name="usuario" required="" readonly>
 										</div>
 									  </div>
 									  </div>

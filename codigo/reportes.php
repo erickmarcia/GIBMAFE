@@ -29,11 +29,12 @@
 			<div class="contenedor-section0	 col-xs-12 col-sm-10 col-sd-10  ">
 				<div class="panel panel-success">	
 					<div class="panel-heading">
-					    <div class=" btn-group pull-right">
-					    	
-					    	<h4 class="modal-title"><i class="glyphicon glyphicon-edit"></i> Reportes</h4>	
+					    <div class=" btn-group col-xs-12 pull-right">
+					    	<a href="pdf/ayudareportes.pdf" target="_black"> <button type="button" style="float: right;"  class="col-xs-12 col-sm-1 btn btn-default" ><span class="glyphicon glyphicon-question-sign"></span> Ayuda </button></a>
 						</div>				
 					</div>
+					<br>
+					<h4 class="modal-title"><i class="glyphicon glyphicon-edit"></i> Reportes por Fecha</h4>
 					<br>
 					<div class="contenedor-section col-xs-12 panel-body">
 						<div class="container ">

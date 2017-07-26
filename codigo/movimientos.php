@@ -82,7 +82,7 @@
 					$conexion->query( $sql );
 					$tipo_movimientopro="Disponible";
 					$sql= "INSERT INTO tb_disponibles (cod_producto, descripcion, cantidad, estado, mostrar, precio_compra, fecha_registro) VALUES ('".$codigo_producto."','".$descripcion."','".$cantidad."','".$tipo_movimientopro."','1','".$valor_movimiento."','".$fecha_registro."')";
-					echo $sql;
+					//echo $sql;
 					include "config.php";
 					$conexion->query( $sql );
 					registromovimiento($descripcion, $cantidad, $tipo_movimiento, $valor_movimiento, $fecha_registro, $factura, $codigo_externo, $usuario, $codigo_producto);	
@@ -235,8 +235,9 @@
 					
 					<div class="panel-heading">
 					    <div class="col-xs-12 col-sm-6 btn-group pull-right">
-					   		<button type="button" class="col-xs-6 btn btn-success" data-toggle="modal" data-target="#nuevomovimiento"><span class="glyphicon glyphicon-plus"></span> Nuevo </button>
-					    	<a href="pdf/reportemovimietos.php" target="_blank"><button type="button" class="col-xs-6 btn btn-danger" ><span class=" glyphicon glyphicon-print"></span> Imprimir </button></a>		
+					   		<button type="button" class="col-xs-4 btn btn-success" data-toggle="modal" data-target="#nuevomovimiento"><span class="glyphicon glyphicon-plus"></span> Nuevo </button>
+					    	<a href="pdf/reportemovimietos.php" target="_blank"><button type="button" class="col-xs-4 btn btn-danger" ><span class=" glyphicon glyphicon-print"></span> Imprimir </button></a>	
+					    	<a href="pdf/ayudamov.pdf" target="_black"> <button type="button" style="float: right;"  class="col-xs-4 btn btn-default" ><span class="glyphicon glyphicon-question-sign"></span> Ayuda </button></a>	
 						</div>
 						
 					</div>
@@ -248,7 +249,7 @@
 					$tabla='tb_movimientos';
 					$primarykey='cod_movimiento';
 					$enlacefinal='movimientos.php';
-					$sql="SELECT * FROM  tb_movimientos ORDER BY  cod_movimiento DESC ";
+					$sql="SELECT * FROM  tb_movimientos ORDER BY cod_movimiento DESC ";
 					include("config.php");
 					$resultado = $conexion->query( $sql );
 					echo "	<table class='table table-condensed display' id='mitabla' > 
@@ -287,9 +288,23 @@
 									<td>".$row[8]."</td>
 									<td>".$row[5]."</td>
 									<td align='center'><a id='eliminarnegro' href='actualizarmovimiento.php?cod_movimiento=$row[0]' ><button class='glyphicon glyphicon-pencil'></button></a>
-										<a id='eliminarnegro' href='$enlaceeli?codigo=$row[0]&tabla=$tabla&enlacefinal=$enlacefinal&primarykey=$primarykey' ><button class='glyphicon glyphicon-trash'></button></a></td> 
+										<a id='eliminarnegro' href='javascript:mi_alerta()' ><button class='glyphicon glyphicon-trash'></button></a></td> 
 								
 							</tr>
+							<script language='Javascript'>
+								function mi_alerta()
+								{
+								confirmar=confirm('Esta Usted seguro que desea eliminar este producto');
+
+								if (confirmar)
+								{	
+								location.href='$enlaceeli?codigo=$row[0]&tabla=$tabla&enlacefinal=$enlacefinal&primarykey=$primarykey';
+
+								}
+
+
+								}
+								</script>
 							";
 					}
 					echo "	</table>";	
@@ -379,7 +394,7 @@
 										<div class="form-group">
 										<label for="usuario" class="col-sm-3 control-label">Usuario</label>
 										<div class="col-sm-8">
-											<?php echo traer_lista_informacion( "usuario", "tb_usuarios", "usuario", "nombre" ); ?>
+											<input type="text" pattern="[a-zA-Z0-9]{1,15}" maxlength="15" class="form-control" value="<?php echo $_SESSION['usuario']; ?>" id="usuario" name="usuario" required="" readonly>
 										</div>
 									  </div>	
 								  </div>
