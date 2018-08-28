@@ -389,14 +389,14 @@ function registros($tabla, $camposbd, $valoresusu){
 		$mail->SMTPSecure = 'tls'; 	
 		$mail->Host = 'smtp.gmail.com';
 		$mail->Port = '587';
-		$mail->Username = 'stmendozza@gmail.com';
-		$mail->Password = '3133957636';
+		$mail->Username = 'eltuyo@gmail.com';
+		$mail->Password = '*******';
 		
 		//$mail->SMTPDebug  = 2;
 // 		$mail -> smtpConnect ( 
 // array ( " ssl " => array ( " verify_peer " => false , " verify_peer_name " => false , " allow_self_signed " => true         )     ) );    
         
-		$mail->setFrom('stmendozza@gmail.com', 'GIBMAFE');
+		$mail->setFrom('eltuyo@gmail.com', 'GIBMAFE');
 		$mail->addAddress($email, $nombre);
 		
 		$mail->Subject = $asunto;
